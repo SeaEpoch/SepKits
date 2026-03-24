@@ -1,0 +1,2 @@
+third_party/ffmpeg-*-git-*/bin/ffprobe.exe filter=lfs diff=lfs merge=lfs -text
+third_party/ffmpeg-2026-06-08-git-6028720d70-full_build/bin/ffprobe.exe filter=lfs diff=lfs merge=lfs -text
