@@ -1,1 +1,8 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/xmark.svg</file>
+        <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/window-maximize.svg</file>
+        <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/window-minimize.svg</file>
+        <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/window-restore.svg</file>
+    </qresource>
+</RCC>

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>assets/images/splash_screen.jpg</file>
+        <file>assets/images/logo_str.png</file>
     </qresource>
 </RCC>
