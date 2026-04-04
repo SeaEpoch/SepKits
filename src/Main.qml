@@ -7,8 +7,8 @@ import SepKits as SepKits
 
 Window {
     id: _window
-    width: 1440
-    height: 900
+    width: 1024
+    height: 768
     visible: false
     title: qsTr("SeaEpoch Kits Demo")
 
@@ -19,11 +19,10 @@ Window {
         anchors.fill: parent
         spacing: 0
 
-        Rectangle {
+        SepKits.MainMenuBar {
             id: _menuBar
             Layout.fillHeight: true
             width: 64
-            color: SepKits.Color.surface
         }
 
         ColumnLayout {

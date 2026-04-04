@@ -51,22 +51,26 @@ Item {
             spacing: 12
 
             // 最小化按钮
-            SepKits.SystemButton {
+            SepKits.IconButton {
                 id: _minButton
                 width: height
                 height: parent.height
-                systemButtonType: WindowAgent.Minimize
-                sysBtnIcon: SepKits.FontAwesome.windowMinimize
+                icon: SepKits.FontAwesome.windowMinimize
+                normalIconColor: SepKits.Color.textSecondary
+                hoverIconColor: SepKits.Color.textSecondary
+                pressedIconColor: SepKits.Color.textSecondary
                 onClicked: Window.window.showMinimized()
             }
 
             // 最大化按钮/还原按钮
-            SepKits.SystemButton {
+            SepKits.IconButton {
                 id: _maxButton
                 width: height
                 height: parent.height
-                systemButtonType: WindowAgent.Maximize
-                sysBtnIcon: Window.window.visibility === Window.Maximized ? SepKits.FontAwesome.windowRestore : SepKits.FontAwesome.windowMaximize
+                icon: Window.window.visibility === Window.Maximized ? SepKits.FontAwesome.windowRestore : SepKits.FontAwesome.windowMaximize
+                normalIconColor: SepKits.Color.textSecondary
+                hoverIconColor: SepKits.Color.textSecondary
+                pressedIconColor: SepKits.Color.textSecondary
                 onClicked: {
                     if (Window.window.visibility === Window.Maximized) {
                         Window.window.showNormal()
@@ -77,12 +81,17 @@ Item {
             }
 
             // 关闭按钮
-            SepKits.SystemButton {
+            SepKits.IconButton {
                 id: _closeButton
                 width: height
                 height: parent.height
-                systemButtonType: WindowAgent.Close
-                sysBtnIcon: SepKits.FontAwesome.xmark
+                icon: SepKits.FontAwesome.xmark
+                normalIconColor: SepKits.Color.textSecondary
+                hoverIconColor: SepKits.Color.textInverse
+                pressedIconColor: SepKits.Color.textInverse
+                normalBackgroundColor: SepKits.Color.alpha(SepKits.Color.danger, 0)
+                hoverBackgroundColor: SepKits.Color.danger
+                pressedBackgroundColor: SepKits.Color.danger
                 onClicked: Window.window.close()
             }
         }

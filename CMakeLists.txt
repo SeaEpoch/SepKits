@@ -21,11 +21,12 @@ qt_standard_project_setup(REQUIRES 6.5)
 # 原始 qml 文件
 set(qml_plain_files
     src/Main.qml
-    src/components/SystemButton.qml
+    src/style/themes/DefaultTheme.qml
     src/components/MainTitleBar.qml
     src/components/HdSvgIcon.qml
     src/components/Line.qml
-    src/style/themes/DefaultTheme.qml
+    src/components/MainMenuBar.qml
+    src/components/IconButton.qml
 )
 
 # 单例 qml 文件
@@ -83,3 +84,4 @@ install(TARGETS SepKits
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+

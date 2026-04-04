@@ -32,34 +32,56 @@ QtObject {
     // 参数2: alpha (0.0 ~ 1.0 为归一化透明度；0~255 为整数透明度)
     // 返回: "#AARRGGBB" 格式字符串（前两位为透明度，后六位为原颜色Hex）
     function alpha(baseColor, alphaValue) {
-        // 统一转为字符串并移除可能存在的 "#"
-        let hex = String(baseColor).replace("#", "").toUpperCase()
+            // 强制转为 Qt color 对象（支持所有合法 QML 颜色：#hex、named color、rgb()、transparent 等）
+            var qtColor = Qt.rgba(0, 0, 0, 0)
+            qtColor = baseColor
 
-        // 如果输入是 8 位颜色（如 #AARRGGBB），取后 6 位颜色部分
-        if (hex.length === 8) {
-            hex = hex.substring(2)
-        } else if (hex.length === 6) {
-            // 正常 6 位颜色，保持不变
-        } else {
-            console.warn("Colors.alpha: 不支持的颜色格式", baseColor)
-            return baseColor
+            // 获取标准化后的 #AARRGGBB 或 #RRGGBB 字符串
+            let fullHex = qtColor.toString().replace("#", "").toUpperCase()
+
+            // 要求1：检测命名颜色并发出警告（仍保留）
+            let inputStr = String(baseColor).trim().toLowerCase()
+            if (!inputStr.startsWith("#") && inputStr !== "") {
+                console.warn("Colors.alpha: 检测到命名颜色或特殊值 '" + baseColor + "'，已自动转换，但推荐统一使用 #RRGGBB 格式以获得最佳兼容性与性能。")
+            }
+
+            // 全面处理 6 位（无透明度）和 8 位（带透明度）两种情况
+            let existingAlpha = 255          // 默认不透明
+            let rgbHex = ""
+            if (fullHex.length === 8) {
+                // 已带透明度的颜色（#AARRGGBB）
+                existingAlpha = parseInt(fullHex.substring(0, 2), 16)
+                rgbHex = fullHex.substring(2)
+            } else if (fullHex.length === 6) {
+                // 普通不透明颜色（#RRGGBB）
+                rgbHex = fullHex
+            } else {
+                console.warn("Colors.alpha: 不支持的颜色格式", baseColor)
+                return baseColor
+            }
+
+            // 处理新透明度（支持 0~1 或 0~255）
+            let newAlphaNorm = 1.0
+            if (alphaValue >= 0 && alphaValue <= 1) {
+                newAlphaNorm = alphaValue
+            } else if (alphaValue >= 0 && alphaValue <= 255) {
+                newAlphaNorm = alphaValue / 255
+            } else {
+                console.warn("Colors.alpha: 透明度值超出范围", alphaValue)
+                newAlphaNorm = 1.0
+            }
+
+            // 要求2：透明度叠加（乘法合成）
+            let finalAlpha = (existingAlpha / 255) * newAlphaNorm
+            let finalAlphaInt = Math.round(finalAlpha * 255)
+            let finalAlphaHex = finalAlphaInt.toString(16).toUpperCase().padStart(2, "0")
+
+            return "#" + finalAlphaHex + rgbHex
         }
 
-        // 处理透明度：支持 0~1 或 0~255
-        let a = 0
-        if (alphaValue >= 0 && alphaValue <= 1) {
-            a = Math.round(alphaValue * 255)
-        } else if (alphaValue >= 0 && alphaValue <= 255) {
-            a = Math.round(alphaValue)
-        } else {
-            console.warn("Colors.alpha: 透明度值超出范围", alphaValue)
-            a = 255
-        }
-
-        // 转为两位十六进制（补零）
-        let alphaHex = a.toString(16).toUpperCase().padStart(2, "0")
-
-        return "#" + alphaHex + hex
+    // 返回对应的禁用状态下的颜色
+    function disabled(color) {
+        return _color.alpha(color, 0.64)
     }
 
     // ==================== 功能颜色 ==================== \\
@@ -72,32 +94,40 @@ QtObject {
     // 文字颜色（Text）
     readonly property color textPrimary: themeLists[currTheme].textPrimary // 主要正文文字
     readonly property color textSecondary: themeLists[currTheme].textSecondary // 次要/说明文字
-    readonly property color textDisabled: themeLists[currTheme].textDisabled // 禁用状态文字
     readonly property color textPlaceholder: themeLists[currTheme].textPlaceholder // 输入框占位文字
-    readonly property color textInverse: themeLists[currTheme].textInverse // 深色背景上的反色文字
+    readonly property color textInverse: themeLists[currTheme].textInverse // 深色/浅色背景上的反色文字
 
     // 交互状态色（States）
-    readonly property color hover: themeLists[currTheme].hover // 悬停背景
-    readonly property color pressed: themeLists[currTheme].pressed // 按下背景
+    readonly property color hoverBg: themeLists[currTheme].hoverBg // 悬停背景
+    readonly property color pressedBg: themeLists[currTheme].pressedBg // 按下背景
     readonly property color focus: themeLists[currTheme].focus // 焦点/键盘导航
-    readonly property color disabledBg: themeLists[currTheme].disabledBg // 禁用组件背景
 
     // 语义反馈色（Semantic）
-    readonly property color primary: themeLists[currTheme].primary // 品牌主色（按钮、链接等）
-    readonly property color secondary: themeLists[currTheme].secondary // 辅助强调色
+    readonly property color primaryDark: themeLists[currTheme].primaryDark // 品牌主颜色（深色）
+    readonly property color primary: themeLists[currTheme].primary // 品牌主颜色
+    readonly property color primaryLight: themeLists[currTheme].primaryLight // 品牌主颜色（浅色）
+    readonly property color primaryLighter: themeLists[currTheme].primaryLighter // 品牌主颜色（更浅）
+    readonly property color primaryExtraLight: themeLists[currTheme].primaryExtraLight // 品牌主颜色（超浅）
+    readonly property color primaryUltraLight: themeLists[currTheme].primaryUltraLight // 品牌主颜色（极浅）
     readonly property color success: themeLists[currTheme].success // 成功/通过
+    readonly property color successLight: themeLists[currTheme].successLight // 成功/通过（浅色）
+    readonly property color successLighter: themeLists[currTheme].successLighter // 成功/通过（更浅）
     readonly property color warning: themeLists[currTheme].warning // 警告/提示
-    readonly property color error: themeLists[currTheme].error // 错误/危险
+    readonly property color warningLight: themeLists[currTheme].warningLight // 警告/提示（浅色）
+    readonly property color warningLighter: themeLists[currTheme].warningLighter // 警告/提示（更浅）
+    readonly property color danger: themeLists[currTheme].danger // 错误/危险
+    readonly property color dangerLight: themeLists[currTheme].dangerLight // 错误/危险（浅色）
+    readonly property color dangerLighter: themeLists[currTheme].dangerLighter // 错误/危险（更浅）
     readonly property color info: themeLists[currTheme].info // 信息/提示
+    readonly property color infoLight: themeLists[currTheme].infoLight // 信息/提示（浅色）
+    readonly property color infoLighter: themeLists[currTheme].infoLighter // 信息/提示（更浅）
 
     // 特殊功能色（Special）
-    readonly property color link: themeLists[currTheme].link // 超链接
-    readonly property color shadow: themeLists[currTheme].shadow // 阴影（带透明度）
-    readonly property color overlay: themeLists[currTheme].overlay // 模态遮罩/浮层
-    readonly property color accent: themeLists[currTheme].accent // 强调点缀色（可选）
+    readonly property color shadow: "#e2e5e7" // 阴影（带透明度）
+    readonly property color overlay: "#80000000" // 模态遮罩/浮层
 
     // ==================== 基本颜色 ==================== \\
-    readonly property color transparent: "transparent"
+    readonly property color transparent: "#00000000"
 
     readonly property color aliceBlue: "#f0f8ff"
     readonly property color antiqueWhite: "#faebd7"
