@@ -23,16 +23,20 @@ set(qml_plain_files
     src/Main.qml
     src/style/themes/DefaultTheme.qml
     src/components/MainTitleBar.qml
+    src/components/MainMenuBar.qml
     src/components/HdSvgIcon.qml
     src/components/Line.qml
-    src/components/MainMenuBar.qml
     src/components/IconButton.qml
+    src/components/MainMenu.qml
 )
 
 # 单例 qml 文件
 set(qml_singleton_files
     src/style/FontAwesome.qml
+    src/style/MaterialSymbols.qml
     src/style/Color.qml
+    src/shared/MainMenuLists.qml
+    src/style/Font.qml
 )
 # 注册 qml 单例
 set_source_files_properties(${qml_singleton_files}

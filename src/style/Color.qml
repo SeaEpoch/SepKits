@@ -4,7 +4,7 @@ import QtQuick
 import SepKits as SepKits
 
 QtObject {
-    id: _color
+    id: _root
 
     // 主题枚举名
     enum ThemeName {
@@ -81,7 +81,7 @@ QtObject {
 
     // 返回对应的禁用状态下的颜色
     function disabled(color) {
-        return _color.alpha(color, 0.64)
+        return _root.alpha(color, 0.64)
     }
 
     // ==================== 功能颜色 ==================== \\
@@ -123,8 +123,8 @@ QtObject {
     readonly property color infoLighter: themeLists[currTheme].infoLighter // 信息/提示（更浅）
 
     // 特殊功能色（Special）
-    readonly property color shadow: "#e2e5e7" // 阴影（带透明度）
-    readonly property color overlay: "#80000000" // 模态遮罩/浮层
+    readonly property color shadow: themeLists[currTheme].shadow // 阴影（带透明度）
+    readonly property color overlay: themeLists[currTheme].overlay // 模态遮罩/浮层
 
     // ==================== 基本颜色 ==================== \\
     readonly property color transparent: "#00000000"

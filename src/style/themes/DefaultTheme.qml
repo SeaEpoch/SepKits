@@ -1,7 +1,7 @@
 import QtQuick
 
 QtObject {
-    id: _themeDefault
+    id: _root
 
     // 基础中性色（Neutral）
     readonly property color background: "#ffffff" // 主窗口/页面背景
@@ -41,6 +41,6 @@ QtObject {
     readonly property color infoLighter: "#d9ecff" // 信息/提示（更浅）
 
     // 特殊功能色（Special）
-    readonly property color shadow: "#e2e5e7" // 阴影（带透明度）
+    readonly property color shadow: "#22000000" // 阴影（带透明度）
     readonly property color overlay: "#80000000" // 模态遮罩/浮层
 }

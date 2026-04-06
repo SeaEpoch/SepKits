@@ -99,7 +99,7 @@ Item {
         // 分割线
         SepKits.Line {
             anchors.fill: _sysBtnsContainer
-            lineWidth: 1
+            lineWidth: 2
             position: SepKits.Line.Position.Left
             color: SepKits.Color.divider
         }

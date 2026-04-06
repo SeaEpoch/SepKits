@@ -9,6 +9,7 @@ Item {
 
     // ==================== 信号 ==================== \\
     signal clicked
+    signal doubleClicked
 
     // ==================== 属性 ==================== \\
     property alias icon: _icon.iconSource
@@ -32,6 +33,9 @@ Item {
     property real leftInset: 0
 
     // 正常/悬浮/按下颜色属性
+    // 注意：当颜色的变化携带动画时，透明度和颜色原值是无法同时发生变化的
+    // 比如从 normalBackgroundColor -> hoverBackgroundColor
+    // 必须保证透明度一致（#22f0f0f0 -> #22fafafa）或者颜色原值一致（#22f0f0f0 -> #33f0f0f0）！
     property color normalIconColor: SepKits.Color.textPrimary
     property color normalBackgroundColor: SepKits.Color.alpha(SepKits.Color.hoverBg, 0)
     property color normalBorderColor: SepKits.Color.alpha(SepKits.Color.border, 0)
@@ -113,7 +117,7 @@ Item {
     property Component shadow: DropShadow {
         color: _root.currentShadowColor
         radius: 6
-        samples: 12
+        samples: 9
         horizontalOffset: 1
         verticalOffset: 2
         transparentBorder: true
@@ -126,6 +130,9 @@ Item {
         ScaleZoomOut
     }
     property int scaleType: IconButton.ScaleFull
+
+    // 代理按钮的 hovered 属性
+    property alias hovered: _button.hovered
 
     scale: {
         // 先判断动画总开关：关闭直接返回1.0
@@ -206,6 +213,8 @@ Item {
                 _shakeAnimation.start()
             }
         }
+        onDoubleClicked: _root.doubleClicked()
+
     }
 
     // ==================== 动画 ==================== \\
