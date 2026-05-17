@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>assets/images/splash_screen.jpg</file>
-        <file>assets/images/logo_str.png</file>
+        <file>assets/images/sea-epoch-logo-modern.png</file>
+        <file>assets/images/sepwinkits-logo-modern.png</file>
     </qresource>
 </RCC>

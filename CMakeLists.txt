@@ -9,47 +9,90 @@ set(CMAKE_AUTOMOC ON) # 自动 MOC
 set(CMAKE_AUTORCC ON) # 自动 RCC
 set(CMAKE_AUTOUIC ON) # 自动 UIC
 
+find_package(Qt6 REQUIRED COMPONENTS Quick Widgets LinguistTools)
+
+# QWindowKit
 set(QWindowKit_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/qwindowkit")
 set(QWindowKit_DIR "${QWindowKit_ROOT_DIR}/lib/cmake/QWindowKit")
-
-find_package(Qt6 REQUIRED COMPONENTS Quick)
 find_package(QWindowKit REQUIRED COMPONENTS Core Widgets Quick)
 
-qt_standard_project_setup(REQUIRES 6.5)
-
+qt_standard_project_setup(
+    REQUIRES 6.5
+    I18N_TRANSLATED_LANGUAGES
+        en
+        zh_CN
+        zh_TW
+)
 
 # 原始 qml 文件
-set(qml_plain_files
+set(QML_PLAIN_FILES
     src/Main.qml
-    src/style/themes/DefaultTheme.qml
-    src/components/MainTitleBar.qml
-    src/components/MainMenuBar.qml
-    src/components/HdSvgIcon.qml
-    src/components/Line.qml
-    src/components/IconButton.qml
-    src/components/MainMenu.qml
+    src/style/themes/LightTheme.qml
+    src/style/themes/DarkTheme.qml
+
+    src/components/SvgIcon.qml
+    src/components/WindowTitleBar.qml
+    src/components/WindowSidebar.qml
+    src/components/ToolCard.qml
+    src/components/CategoryPageHeader.qml
+    src/components/LoadingPage.qml
+    src/components/ToolsPage.qml
+    src/components/Card.qml
+    src/components/ComboBox.qml
+    src/components/ShortcutInput.qml
+
+    src/views/HomePage.qml
+    src/views/SystemToolsPage.qml
+    src/views/SettingsPage.qml
+    src/views/SystemCacheCleaner.qml
+    src/views/WindowsAutoUpdateDisabler.qml
+    src/views/CodeFormatterCompressor.qml
+    src/views/MediaFormatConverter.qml
+    src/views/WatermarkAdder.qml
+    src/views/FileSizeCompressor.qml
+    src/views/LoremIpsumGenerator.qml
+    src/views/VideoWatermarkAdder.qml
+    src/views/ColorThemePicker.qml
+    src/views/NetworkSpeedTest.qml
+    src/views/ThemeGenerator.qml
+    src/views/DevToolsPage.qml
+    src/views/MediaToolsPage.qml
+    src/views/OtherToolsPage.qml
+    src/views/AboutPage.qml
 )
 
 # 单例 qml 文件
-set(qml_singleton_files
+set(QML_SINGLETON_FILES
     src/style/FontAwesome.qml
     src/style/MaterialSymbols.qml
     src/style/Color.qml
-    src/shared/MainMenuLists.qml
     src/style/Font.qml
+    src/style/Theme.qml
+    src/style/PinnedTools.qml
+    src/style/AppSettings.qml
 )
 # 注册 qml 单例
-set_source_files_properties(${qml_singleton_files}
+set_source_files_properties(${QML_SINGLETON_FILES}
     PROPERTIES QT_QML_SINGLETON_TYPE TRUE
 )
 
+# QML 模块 C++ 源文件
+set(CPP_FILES
+    src/LanguageManager.cpp
+    src/LanguageManager.h
+    src/SettingsStore.cpp
+    src/SettingsStore.h
+    src/SystemTrayHelper.cpp
+    src/SystemTrayHelper.h
+)
+
 qt_add_executable(SepKits
-    main.cpp
+    src/main.cpp
 )
 qt_add_qml_module(SepKits
     URI SepKits
     VERSION 1.0
-    DEPENDENCIES
+    IMPORTS
         QWindowKit
     RESOURCES
         resources/fonts.qrc
@@ -59,9 +102,17 @@ qt_add_qml_module(SepKits
         resources/styles.qrc
         # src/SepKits.qrc
     QML_FILES
-        ${qml_plain_files}
-        ${qml_singleton_files}
+        ${QML_PLAIN_FILES}
+        ${QML_SINGLETON_FILES}
+    SOURCES
+        ${CPP_FILES}
 )
+
+qt_add_translations(SepKits
+    TS_FILE_DIR i18n
+)
+
+target_include_directories (SepKits PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/components")
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -77,6 +128,7 @@ set_target_properties(SepKits PROPERTIES
 target_link_libraries(SepKits
     PRIVATE
         Qt6::Quick
+        Qt6::Widgets
         QWindowKit::Core
         QWindowKit::Quick
         QWindowKit::Widgets

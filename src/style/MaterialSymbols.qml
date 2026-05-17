@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-    id: _fontAwesomeIcon
+    id: _materialSymbols
 
     // rounded
     readonly property url brandingWatermark: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/branding_watermark.svg"

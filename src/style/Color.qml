@@ -8,15 +8,17 @@ QtObject {
 
     // 主题枚举名
     enum ThemeName {
-        Default = 0
+        Light = 0,
+        Dark = 1
     }
 
     // 主题列表（可用主题）
-    property QtObject _defaultTheme: SepKits.DefaultTheme {}
-    readonly property var themeLists: [_defaultTheme]
+    property QtObject _lightTheme: SepKits.LightTheme {}
+    property QtObject _darkTheme: SepKits.DarkTheme {}
+    readonly property var themeLists: [_lightTheme, _darkTheme]
 
     // 主题类型
-    property int currTheme: Color.ThemeName.Default
+    property int currTheme: SepKits.SettingsStore.value("currTheme", Color.ThemeName.Light)
 
     // 主题切换函数
     function switchTheme(themeType) {
@@ -25,6 +27,10 @@ QtObject {
         } else {
             console.warn("[Color.qml]Unknown theme enum value: ", themeType)
         }
+    }
+
+    onCurrThemeChanged: {
+        SepKits.SettingsStore.setValue("currTheme", _root.currTheme)
     }
 
     /////
@@ -84,47 +90,55 @@ QtObject {
         return _root.alpha(color, 0.64)
     }
 
-    // ==================== 功能颜色 ==================== \\
-    // 基础中性色（Neutral）
-    readonly property color background: themeLists[currTheme].background // 主窗口/页面背景
-    readonly property color surface: themeLists[currTheme].surface // 卡片、面板等表面背景
-    readonly property color border: themeLists[currTheme].border // 边框颜色
-    readonly property color divider: themeLists[currTheme].divider // 分割线
+    // ==================== 主题颜色 ==================== \\
 
-    // 文字颜色（Text）
-    readonly property color textPrimary: themeLists[currTheme].textPrimary // 主要正文文字
-    readonly property color textSecondary: themeLists[currTheme].textSecondary // 次要/说明文字
-    readonly property color textPlaceholder: themeLists[currTheme].textPlaceholder // 输入框占位文字
-    readonly property color textInverse: themeLists[currTheme].textInverse // 深色/浅色背景上的反色文字
+    readonly property color primary: themeLists[currTheme].primary
+    readonly property color primaryForeground: themeLists[currTheme].primaryForeground
+    readonly property color accentSecondary: themeLists[currTheme].accentSecondary
+    readonly property color background: themeLists[currTheme].background
+    readonly property color foreground: themeLists[currTheme].foreground
+    readonly property color card: themeLists[currTheme].card
+    readonly property color cardForeground: themeLists[currTheme].cardForeground
+    readonly property color popover: themeLists[currTheme].popover
+    readonly property color popoverForeground: themeLists[currTheme].popoverForeground
+    readonly property color secondary: themeLists[currTheme].secondary
+    readonly property color secondaryForeground: themeLists[currTheme].secondaryForeground
+    readonly property color muted: themeLists[currTheme].muted
+    readonly property color mutedForeground: themeLists[currTheme].mutedForeground
+    readonly property color accent: themeLists[currTheme].accent
+    readonly property color accentForeground: themeLists[currTheme].accentForeground
+    readonly property color distructive: themeLists[currTheme].distructive
+    readonly property color distructiveForeground: themeLists[currTheme].distructiveForeground
+    readonly property color border: themeLists[currTheme].border
+    readonly property color input: themeLists[currTheme].input
+    readonly property color ring: themeLists[currTheme].ring
+    readonly property color chart1: themeLists[currTheme].chart1
+    readonly property color chart2: themeLists[currTheme].chart2
+    readonly property color chart3: themeLists[currTheme].chart3
+    readonly property color chart4: themeLists[currTheme].chart4
+    readonly property color chart5: themeLists[currTheme].chart5
 
-    // 交互状态色（States）
-    readonly property color hoverBg: themeLists[currTheme].hoverBg // 悬停背景
-    readonly property color pressedBg: themeLists[currTheme].pressedBg // 按下背景
-    readonly property color focus: themeLists[currTheme].focus // 焦点/键盘导航
-
-    // 语义反馈色（Semantic）
-    readonly property color primaryDark: themeLists[currTheme].primaryDark // 品牌主颜色（深色）
-    readonly property color primary: themeLists[currTheme].primary // 品牌主颜色
-    readonly property color primaryLight: themeLists[currTheme].primaryLight // 品牌主颜色（浅色）
-    readonly property color primaryLighter: themeLists[currTheme].primaryLighter // 品牌主颜色（更浅）
-    readonly property color primaryExtraLight: themeLists[currTheme].primaryExtraLight // 品牌主颜色（超浅）
-    readonly property color primaryUltraLight: themeLists[currTheme].primaryUltraLight // 品牌主颜色（极浅）
-    readonly property color success: themeLists[currTheme].success // 成功/通过
-    readonly property color successLight: themeLists[currTheme].successLight // 成功/通过（浅色）
-    readonly property color successLighter: themeLists[currTheme].successLighter // 成功/通过（更浅）
-    readonly property color warning: themeLists[currTheme].warning // 警告/提示
-    readonly property color warningLight: themeLists[currTheme].warningLight // 警告/提示（浅色）
-    readonly property color warningLighter: themeLists[currTheme].warningLighter // 警告/提示（更浅）
-    readonly property color danger: themeLists[currTheme].danger // 错误/危险
-    readonly property color dangerLight: themeLists[currTheme].dangerLight // 错误/危险（浅色）
-    readonly property color dangerLighter: themeLists[currTheme].dangerLighter // 错误/危险（更浅）
-    readonly property color info: themeLists[currTheme].info // 信息/提示
-    readonly property color infoLight: themeLists[currTheme].infoLight // 信息/提示（浅色）
-    readonly property color infoLighter: themeLists[currTheme].infoLighter // 信息/提示（更浅）
-
-    // 特殊功能色（Special）
-    readonly property color shadow: themeLists[currTheme].shadow // 阴影（带透明度）
-    readonly property color overlay: themeLists[currTheme].overlay // 模态遮罩/浮层
+    readonly property color red100: themeLists[currTheme].red100
+    readonly property color red500: themeLists[currTheme].red500
+    readonly property color orange50: themeLists[currTheme].orange50
+    readonly property color orange500: themeLists[currTheme].orange500
+    readonly property color orange600: themeLists[currTheme].orange600
+    readonly property color green50: themeLists[currTheme].green50
+    readonly property color green500: themeLists[currTheme].green500
+    readonly property color green600: themeLists[currTheme].green600
+    readonly property color cyan400: themeLists[currTheme].cyan400
+    readonly property color blue50: themeLists[currTheme].blue50
+    readonly property color blue500: themeLists[currTheme].blue500
+    readonly property color blue600: themeLists[currTheme].blue600
+    readonly property color blue700: themeLists[currTheme].blue700
+    readonly property color purple50: themeLists[currTheme].purple50
+    readonly property color purple500: themeLists[currTheme].purple500
+    readonly property color purple600: themeLists[currTheme].purple600
+    readonly property color slate50: themeLists[currTheme].slate50
+    readonly property color slate100: themeLists[currTheme].slate100
+    readonly property color slate600: themeLists[currTheme].slate600
+    readonly property color slate700: themeLists[currTheme].slate700
+    readonly property color slate900: themeLists[currTheme].slate900
 
     // ==================== 基本颜色 ==================== \\
     readonly property color transparent: "#00000000"

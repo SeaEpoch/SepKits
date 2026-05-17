@@ -6,11 +6,10 @@ import SepKits as SepKits
 Item {
     id: _root
 
-    // ==================== 属性 ==================== \\
     property alias iconSource: _icon.source
     property color color: SepKits.Color.black
+    property real renderScale: 2.0
 
-    // ==================== 实现 ==================== \\
     // 加载 SVG
     Image {
         id: _icon
@@ -21,8 +20,8 @@ Item {
         smooth: true
 
         // 高清处理
-        sourceSize.width: width * Screen.devicePixelRatio * 2
-        sourceSize.height: height * Screen.devicePixelRatio * 2
+        sourceSize.width: width * Screen.devicePixelRatio * _root.renderScale
+        sourceSize.height: height * Screen.devicePixelRatio * _root.renderScale
 
         // 必须隐藏原渲染组件，以应用特效效果
         opacity: 0
