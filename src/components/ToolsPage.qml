@@ -11,6 +11,7 @@ SepKits.LoadingPage {
     property string title
     property string subtitle
     property string sectionTitle
+    property bool resolveFromMeta: false
     property color toolCardIconGradientFrom: SepKits.Color.blue500
     property color toolCardIconGradientTo: SepKits.Color.blue600
     property color toolCardLabelBgColor: SepKits.Color.blue50
@@ -65,11 +66,16 @@ SepKits.LoadingPage {
                     anchors.topMargin: 8
                     anchors.bottomMargin: 8
 
-                    iconSource: model.iconKey !== undefined
-                        ? SepKits.MaterialSymbols[model.iconKey] : model.iconSource
-                    title: model.title
-                    tagText: model.tagText
-                    description: model.description
+                    iconSource: _root.resolveFromMeta
+                        ? SepKits.MaterialSymbols[SepKits.ToolMeta.iconKey(model.pageUrl)]
+                        : (model.iconKey !== undefined
+                            ? SepKits.MaterialSymbols[model.iconKey] : model.iconSource)
+                    title: _root.resolveFromMeta
+                        ? SepKits.ToolMeta.title(model.pageUrl) : model.title
+                    tagText: _root.resolveFromMeta
+                        ? SepKits.ToolMeta.tagText(model.pageUrl) : model.tagText
+                    description: _root.resolveFromMeta
+                        ? SepKits.ToolMeta.description(model.pageUrl) : model.description
                     pageUrl: model.pageUrl
                     iconGradientFrom: model.iconGradientFrom !== undefined
                         ? model.iconGradientFrom : _root.toolCardIconGradientFrom

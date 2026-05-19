@@ -1,0 +1,30 @@
+#include <windows.h>
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEFLAGS 0
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "SeaEpoch"
+            VALUE "FileDescription", "SepKits - System Utility Toolkit"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "SepKits"
+            VALUE "LegalCopyright", "Copyright \251 2026 SeaEpoch. All rights reserved."
+            VALUE "OriginalFilename", "SepKits.exe"
+            VALUE "ProductName", "SepKits"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0409, 0x04B0
+    END
+END

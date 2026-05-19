@@ -13,14 +13,14 @@ SepKits.ToolsPage {
 
     model: ListModel {
         ListElement {
-            iconKey: "updateDisabled"
+            iconKey: "formatIndentDecrease"
             title: qsTr("Code Formatter")
             tagText: qsTr("DEV")
             description: qsTr("Format JSON, XML, CSS, HTML code.")
             pageUrl: "views/CodeFormatterCompressor.qml"
         }
         ListElement {
-            iconKey: "restoreFromTrash"
+            iconKey: "edit"
             title: qsTr("Lorem Ipsum Generator")
             tagText: qsTr("DEV")
             description: qsTr("Generate placeholder text quickly.")

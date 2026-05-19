@@ -24,4 +24,5 @@ QtObject {
     onCloseBehaviorChanged: {
         SepKits.SettingsStore.setValue("closeBehavior", _root.closeBehavior)
     }
+
 }

@@ -20,11 +20,13 @@
         <file>assets/icons/material-symbols-0.44.0/700/rounded/format_indent_increase.svg</file>
         <file>assets/icons/material-symbols-0.44.0/700/rounded/restore_from_trash.svg</file>
         <file>assets/icons/material-symbols-0.44.0/700/rounded/update_disabled.svg</file>
-        <file>assets/icons/system-regular-716-spinner-three-dots-hover-trapdoor.webp</file>
         <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/brands/github-alt.svg</file>
         <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/heart.svg</file>
         <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/arrow-up-right-from-square.svg</file>
         <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/chevron-down.svg</file>
         <file>assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/chevron-up.svg</file>
+        <file>assets/icons/material-symbols-0.44.0/700/rounded/edit.svg</file>
+        <file>assets/icons/material-symbols-0.44.0/700/rounded/drive_file_move.svg</file>
+        <file>assets/icons/material-symbols-0.44.0/700/rounded/network_check.svg</file>
     </qresource>
 </RCC>

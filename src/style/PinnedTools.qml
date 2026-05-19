@@ -32,24 +32,24 @@ QtObject {
         SepKits.SettingsStore.setValue("pinnedData", JSON.stringify(data))
     }
 
-    function isPinned(title) {
+    function isPinned(pageUrl) {
         for (var i = 0; i < pinnedModel.count; i++) {
-            if (pinnedModel.get(i).title === title) return true
+            if (pinnedModel.get(i).pageUrl === pageUrl) return true
         }
         return false
     }
 
     function pin(data) {
-        if (!isPinned(data.title)) {
+        if (!isPinned(data.pageUrl)) {
             pinnedModel.append(data)
             pinnedChanged()
             _save()
         }
     }
 
-    function unpin(title) {
+    function unpin(pageUrl) {
         for (var i = 0; i < pinnedModel.count; i++) {
-            if (pinnedModel.get(i).title === title) {
+            if (pinnedModel.get(i).pageUrl === pageUrl) {
                 pinnedModel.remove(i)
                 pinnedChanged()
                 _save()

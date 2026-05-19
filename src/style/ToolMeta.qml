@@ -1,0 +1,74 @@
+pragma Singleton
+
+import QtQuick
+
+QtObject {
+
+    function title(pageUrl) {
+        switch (pageUrl) {
+            case "views/WindowsAutoUpdateDisabler.qml": return qsTr("Disable Auto Update")
+            case "views/SystemCacheCleaner.qml": return qsTr("Cache Cleaner")
+            case "views/CodeFormatterCompressor.qml": return qsTr("Code Formatter")
+            case "views/LoremIpsumGenerator.qml": return qsTr("Lorem Ipsum Generator")
+            case "views/WatermarkAdder.qml": return qsTr("Image Watermark")
+            case "views/VideoWatermarkAdder.qml": return qsTr("Video Watermark")
+            case "views/FileSizeCompressor.qml": return qsTr("Image Compression")
+            case "views/MediaFormatConverter.qml": return qsTr("Video Format Converter")
+            case "views/ColorThemePicker.qml": return qsTr("Color Theme Picker")
+            case "views/NetworkSpeedTest.qml": return qsTr("Network Speed Test")
+            case "views/ThemeGenerator.qml": return qsTr("Theme Generator")
+            default: return ""
+        }
+    }
+
+    function description(pageUrl) {
+        switch (pageUrl) {
+            case "views/WindowsAutoUpdateDisabler.qml": return qsTr("Prevents Windows updates automatically.")
+            case "views/SystemCacheCleaner.qml": return qsTr("Cleans system cache & temp files.")
+            case "views/CodeFormatterCompressor.qml": return qsTr("Format JSON, XML, CSS, HTML code.")
+            case "views/LoremIpsumGenerator.qml": return qsTr("Generate placeholder text quickly.")
+            case "views/WatermarkAdder.qml": return qsTr("Add watermarks to images easily.")
+            case "views/VideoWatermarkAdder.qml": return qsTr("Add watermarks to video files.")
+            case "views/FileSizeCompressor.qml": return qsTr("Compress images without quality loss.")
+            case "views/MediaFormatConverter.qml": return qsTr("Convert video formats easily.")
+            case "views/ColorThemePicker.qml": return qsTr("Generate & save color schemes.")
+            case "views/NetworkSpeedTest.qml": return qsTr("Measure download/upload speeds.")
+            case "views/ThemeGenerator.qml": return qsTr("Create custom color themes.")
+            default: return ""
+        }
+    }
+
+    function tagText(pageUrl) {
+        switch (pageUrl) {
+            case "views/WindowsAutoUpdateDisabler.qml": return qsTr("SYSTEM")
+            case "views/SystemCacheCleaner.qml": return qsTr("SYSTEM")
+            case "views/CodeFormatterCompressor.qml": return qsTr("DEV")
+            case "views/LoremIpsumGenerator.qml": return qsTr("DEV")
+            case "views/WatermarkAdder.qml": return qsTr("MEDIA")
+            case "views/VideoWatermarkAdder.qml": return qsTr("MEDIA")
+            case "views/FileSizeCompressor.qml": return qsTr("MEDIA")
+            case "views/MediaFormatConverter.qml": return qsTr("MEDIA")
+            case "views/ColorThemePicker.qml": return qsTr("OTHER")
+            case "views/NetworkSpeedTest.qml": return qsTr("OTHER")
+            case "views/ThemeGenerator.qml": return qsTr("OTHER")
+            default: return ""
+        }
+    }
+
+    function iconKey(pageUrl) {
+        switch (pageUrl) {
+            case "views/WindowsAutoUpdateDisabler.qml": return "updateDisabled"
+            case "views/SystemCacheCleaner.qml": return "restoreFromTrash"
+            case "views/CodeFormatterCompressor.qml": return "updateDisabled"
+            case "views/LoremIpsumGenerator.qml": return "restoreFromTrash"
+            case "views/WatermarkAdder.qml": return "updateDisabled"
+            case "views/VideoWatermarkAdder.qml": return "restoreFromTrash"
+            case "views/FileSizeCompressor.qml": return "restoreFromTrash"
+            case "views/MediaFormatConverter.qml": return "restoreFromTrash"
+            case "views/ColorThemePicker.qml": return "updateDisabled"
+            case "views/NetworkSpeedTest.qml": return "restoreFromTrash"
+            case "views/ThemeGenerator.qml": return "restoreFromTrash"
+            default: return ""
+        }
+    }
+}

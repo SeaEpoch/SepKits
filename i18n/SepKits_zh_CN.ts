@@ -158,17 +158,80 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     <message>
         <location filename="../src/style/AppSettings.qml" line="19"/>
         <source>Minimize to tray</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化到系统托盘</translation>
     </message>
     <message>
         <location filename="../src/style/AppSettings.qml" line="20"/>
         <source>Exit directly</source>
-        <translation type="unfinished"></translation>
+        <translation>直接退出</translation>
     </message>
     <message>
         <location filename="../src/style/AppSettings.qml" line="21"/>
         <source>Ask every time</source>
-        <translation type="unfinished"></translation>
+        <translation>每次询问</translation>
+    </message>
+</context>
+<context>
+    <name>CacheCleanerModel</name>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="8"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="157"/>
+        <source>User Temp</source>
+        <translation>用户临时文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="9"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="158"/>
+        <source>Legacy Temp</source>
+        <translation>旧版临时文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="10"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="159"/>
+        <source>Windows Temp</source>
+        <translation>Windows 临时文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="11"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="160"/>
+        <source>Prefetch</source>
+        <translation>预读取文件夹</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="12"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="161"/>
+        <source>System Drive Junk</source>
+        <translation>系统盘垃圾文件</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="13"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="162"/>
+        <source>Windows *.bak</source>
+        <translation>Windows 备份文件</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="14"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="163"/>
+        <source>Recycle Bin</source>
+        <translation>回收站</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="15"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="164"/>
+        <source>Cookies</source>
+        <translation>Cookie</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="16"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="165"/>
+        <source>Recent Files</source>
+        <translation>最近使用的文件</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="17"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="166"/>
+        <source>Temporary Internet Files</source>
+        <translation>Internet 临时文件</translation>
     </message>
 </context>
 <context>
@@ -199,10 +262,6 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 </context>
 <context>
     <name>DevToolsPage</name>
-    <message>
-        <source>💻 CATEGORY</source>
-        <translation type="vanished">💻 分类</translation>
-    </message>
     <message>
         <location filename="../src/views/DevToolsPage.qml" line="6"/>
         <source>Dev Tools</source>
@@ -261,10 +320,6 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>HomePage</name>
     <message>
-        <source>Welcome</source>
-        <translation type="vanished">欢迎</translation>
-    </message>
-    <message>
         <location filename="../src/views/HomePage.qml" line="6"/>
         <source>Your Toolkit</source>
         <translation>您的工具集</translation>
@@ -283,14 +338,61 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>LoremIpsumGenerator</name>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="15"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="38"/>
         <source>← Back</source>
         <translation>← 返回</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="34"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="58"/>
         <source>Lorem Ipsum Generator</source>
         <translation>Lorem Ipsum 生成器</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="82"/>
+        <source>Count</source>
+        <translation>数量</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
+        <source>Words</source>
+        <translation>单词</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
+        <source>Sentences</source>
+        <translation>句子</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
+        <source>Paragraphs</source>
+        <translation>段落</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="109"/>
+        <source>English</source>
+        <translation>英语</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="109"/>
+        <source>中文</source>
+        <translation>中文</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="117"/>
+        <source>Generate</source>
+        <translation>生成</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="143"/>
+        <source>Copy</source>
+        <translation>复制</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="193"/>
+        <source>Generated text will appear here.
+Set the count, select unit and language, then click &quot;Generate&quot;.</source>
+        <translation>生成的文本将显示在此处。
+设置数量，选择单位和语言，然后点击“生成”。</translation>
     </message>
 </context>
 <context>
@@ -301,14 +403,24 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <translation>SeaEpoch Kits 演示版</translation>
     </message>
     <message>
-        <location filename="../src/Main.qml" line="127"/>
+        <location filename="../src/Main.qml" line="128"/>
         <source>Close SepKits</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭 SepKits</translation>
     </message>
     <message>
-        <location filename="../src/Main.qml" line="132"/>
+        <location filename="../src/Main.qml" line="129"/>
         <source>Minimize to system tray and continue running in the background?</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化到系统托盘并在后台继续运行？</translation>
+    </message>
+    <message>
+        <location filename="../src/Main.qml" line="131"/>
+        <source>Exit SepKits</source>
+        <translation>退出 SepKits</translation>
+    </message>
+    <message>
+        <location filename="../src/Main.qml" line="130"/>
+        <source>Minimize to Tray</source>
+        <translation>最小化到托盘</translation>
     </message>
 </context>
 <context>
@@ -327,10 +439,6 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>MediaToolsPage</name>
     <message>
-        <source>🎞 CATEGORY</source>
-        <translation type="vanished">🎞 分类</translation>
-    </message>
-    <message>
         <location filename="../src/views/MediaToolsPage.qml" line="6"/>
         <source>Media Tools</source>
         <translation>媒体工具</translation>
@@ -347,72 +455,151 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     </message>
     <message>
         <location filename="../src/views/MediaToolsPage.qml" line="17"/>
+        <source>Watermark Adder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaToolsPage.qml" line="19"/>
+        <source>Add watermarks to media files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaToolsPage.qml" line="31"/>
+        <source>Media Format Converter</source>
+        <translation type="unfinished">媒体格式转换器</translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaToolsPage.qml" line="33"/>
+        <source>Convert media formats easily.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Image Watermark</source>
-        <translation>图像水印</translation>
+        <translation type="vanished">图像水印</translation>
     </message>
     <message>
         <location filename="../src/views/MediaToolsPage.qml" line="18"/>
         <location filename="../src/views/MediaToolsPage.qml" line="25"/>
         <location filename="../src/views/MediaToolsPage.qml" line="32"/>
-        <location filename="../src/views/MediaToolsPage.qml" line="39"/>
         <source>MEDIA</source>
         <translation>媒体</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="19"/>
         <source>Add watermarks to images easily.</source>
-        <translation>轻松为图像添加水印。</translation>
+        <translation type="vanished">轻松为图像添加水印。</translation>
+    </message>
+    <message>
+        <source>Video Watermark</source>
+        <translation type="vanished">视频水印</translation>
+    </message>
+    <message>
+        <source>Add watermarks to video files.</source>
+        <translation type="vanished">为视频文件添加水印。</translation>
     </message>
     <message>
         <location filename="../src/views/MediaToolsPage.qml" line="24"/>
-        <source>Video Watermark</source>
-        <translation>视频水印</translation>
-    </message>
-    <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="26"/>
-        <source>Add watermarks to video files.</source>
-        <translation>为视频文件添加水印。</translation>
-    </message>
-    <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="31"/>
         <source>Image Compression</source>
         <translation>图像压缩</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="33"/>
+        <location filename="../src/views/MediaToolsPage.qml" line="26"/>
         <source>Compress images without quality loss.</source>
         <translation>无损压缩图像。</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="38"/>
         <source>Video Format Converter</source>
-        <translation>视频格式转换器</translation>
+        <translation type="vanished">视频格式转换器</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="40"/>
         <source>Convert video formats easily.</source>
-        <translation>轻松转换视频格式。</translation>
+        <translation type="vanished">轻松转换视频格式。</translation>
     </message>
 </context>
 <context>
     <name>NetworkSpeedTest</name>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="15"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="44"/>
         <source>← Back</source>
         <translation>← 返回</translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="34"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="64"/>
         <source>Network Speed Test</source>
         <translation>网络速度测试</translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="475"/>
+        <source>Change Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="487"/>
+        <source>Auto (Best Server)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="75"/>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="75"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="145"/>
+        <source>ISP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="171"/>
+        <source>Internal IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="195"/>
+        <source>External IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="246"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="292"/>
+        <source>Upload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="343"/>
+        <source>Ping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="388"/>
+        <source>Jitter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="433"/>
+        <source>Packet Loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="512"/>
+        <source>Speed Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="555"/>
+        <source>Speedtest output will appear here...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OtherToolsPage</name>
-    <message>
-        <source>📦 CATEGORY</source>
-        <translation type="vanished">📦 分类</translation>
-    </message>
     <message>
         <location filename="../src/views/OtherToolsPage.qml" line="6"/>
         <source>Other Tools</source>
@@ -429,49 +616,39 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <translation>全部其他工具</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="17"/>
         <source>Color Theme Picker</source>
-        <translation>颜色主题选择器</translation>
+        <translation type="vanished">颜色主题选择器</translation>
     </message>
     <message>
         <location filename="../src/views/OtherToolsPage.qml" line="18"/>
-        <location filename="../src/views/OtherToolsPage.qml" line="25"/>
-        <location filename="../src/views/OtherToolsPage.qml" line="32"/>
         <source>OTHER</source>
         <translation>其他</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="19"/>
         <source>Generate &amp; save color schemes.</source>
-        <translation>生成并保存颜色方案。</translation>
+        <translation type="vanished">生成并保存颜色方案。</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="24"/>
+        <location filename="../src/views/OtherToolsPage.qml" line="17"/>
         <source>Network Speed Test</source>
         <translation>网络速度测试</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="26"/>
+        <location filename="../src/views/OtherToolsPage.qml" line="19"/>
         <source>Measure download/upload speeds.</source>
         <translation>测量下载/上传速度。</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="31"/>
         <source>Theme Generator</source>
-        <translation>主题生成器</translation>
+        <translation type="vanished">主题生成器</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="33"/>
         <source>Create custom color themes.</source>
-        <translation>创建自定义颜色主题。</translation>
+        <translation type="vanished">创建自定义颜色主题。</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>CONFIGURATION</source>
-        <translation type="vanished">配置</translation>
-    </message>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="38"/>
         <source>Settings</source>
@@ -490,12 +667,12 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     <message>
         <location filename="../src/views/SettingsPage.qml" line="61"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>语言</translation>
     </message>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="77"/>
         <source>When closing the program</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭程序时</translation>
     </message>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="97"/>
@@ -522,26 +699,165 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <source>Switch to Dark</source>
         <translation>切换到深色</translation>
     </message>
+    <message>
+        <location filename="../src/views/SettingsPage.qml" line="161"/>
+        <source>Launch as Administrator</source>
+        <translation>以管理员身份启动</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SettingsPage.qml" line="167"/>
+        <source>Auto-elevate on next startup</source>
+        <translation>下次启动时自动提权</translation>
+    </message>
+</context>
+<context>
+    <name>SpeedGauge</name>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="214"/>
+        <source>Downloading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="215"/>
+        <source>Uploading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="216"/>
+        <source>Testing ping...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="217"/>
+        <source>Complete</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SystemCacheCleaner</name>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="15"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="29"/>
         <source>← Back</source>
         <translation>← 返回</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="34"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="49"/>
         <source>Cache Cleaner</source>
         <translation>缓存清理</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="83"/>
+        <source>Select All</source>
+        <translation>全选</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="101"/>
+        <source>Scan All</source>
+        <translation>全部扫描</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="133"/>
+        <source>Clean Selected</source>
+        <translation>清理选中项</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="163"/>
+        <source>Export Log</source>
+        <translation>导出日志</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="186"/>
+        <source>Log exported to: %1</source>
+        <translation>日志已导出至：%1</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="187"/>
+        <source>Export failed</source>
+        <translation>导出失败</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="422"/>
+        <source>%1 categories selected. Clean them now?
+
+Please save any unsaved work before proceeding.</source>
+        <translation>已选择 %1 个类别。立即清理吗？
+
+请先保存未保存的工作。</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="434"/>
+        <source>Administrator Privileges Required</source>
+        <translation>需要管理员权限</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="435"/>
+        <source>Some categories require administrator privileges. Relaunch as administrator?</source>
+        <translation>部分类别需要管理员权限。要以管理员身份重新启动吗？</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="436"/>
+        <source>Relaunch as Admin</source>
+        <translation>以管理员身份重新启动</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="437"/>
+        <source>Continue Without</source>
+        <translation>继续（不使用管理员权限）</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="455"/>
+        <source>=== Scan completed. Select categories to clean. ===</source>
+        <translation>=== 扫描完成。请选择要清理的类别。 ===</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="459"/>
+        <source>=== Process Completed ===</source>
+        <translation>=== 处理完成 ===</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="464"/>
+        <source>Click &quot;Scan All&quot; to analyze cache sizes.</source>
+        <translation>点击“全部扫描”分析缓存大小。</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="194"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="424"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="293"/>
+        <source>files</source>
+        <translation>个文件</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="352"/>
+        <source>Click &quot;Scan All&quot; to analyze cache sizes, then select items to clean.</source>
+        <translation>点击“全部扫描”分析缓存大小，然后选择要清理的项目。</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="375"/>
+        <source>Scanning...</source>
+        <translation>扫描中…</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="375"/>
+        <source>Cleaning...</source>
+        <translation>清理中…</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="421"/>
+        <source>Confirm Cleanup</source>
+        <translation>确认清理</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="423"/>
+        <source>Start Cleaning</source>
+        <translation>开始清理</translation>
     </message>
 </context>
 <context>
     <name>SystemToolsPage</name>
-    <message>
-        <source>⚙️ CATEGORY</source>
-        <translation type="vanished">⚙️ 分类</translation>
-    </message>
     <message>
         <location filename="../src/views/SystemToolsPage.qml" line="6"/>
         <source>System Tools</source>
@@ -611,16 +927,154 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     </message>
 </context>
 <context>
-    <name>VideoWatermarkAdder</name>
+    <name>ToolMeta</name>
     <message>
-        <location filename="../src/views/VideoWatermarkAdder.qml" line="15"/>
-        <source>← Back</source>
-        <translation>← 返回</translation>
+        <location filename="../src/style/ToolMeta.qml" line="9"/>
+        <source>Disable Auto Update</source>
+        <translation>禁用自动更新</translation>
     </message>
     <message>
-        <location filename="../src/views/VideoWatermarkAdder.qml" line="34"/>
+        <location filename="../src/style/ToolMeta.qml" line="10"/>
+        <source>Cache Cleaner</source>
+        <translation>缓存清理</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="11"/>
+        <source>Code Formatter</source>
+        <translation>代码格式化</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="12"/>
+        <source>Lorem Ipsum Generator</source>
+        <translation>Lorem Ipsum 生成器</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="13"/>
+        <source>Image Watermark</source>
+        <translation>图像水印</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="14"/>
         <source>Video Watermark</source>
         <translation>视频水印</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="15"/>
+        <source>Image Compression</source>
+        <translation>图像压缩</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="16"/>
+        <source>Video Format Converter</source>
+        <translation>视频格式转换器</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="17"/>
+        <source>Color Theme Picker</source>
+        <translation>颜色主题选择器</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="18"/>
+        <source>Network Speed Test</source>
+        <translation>网络速度测试</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="19"/>
+        <source>Theme Generator</source>
+        <translation>主题生成器</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="26"/>
+        <source>Prevents Windows updates automatically.</source>
+        <translation>阻止 Windows 自动更新。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="27"/>
+        <source>Cleans system cache &amp; temp files.</source>
+        <translation>清理系统缓存和临时文件。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="28"/>
+        <source>Format JSON, XML, CSS, HTML code.</source>
+        <translation>格式化 JSON、XML、CSS、HTML 代码。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="29"/>
+        <source>Generate placeholder text quickly.</source>
+        <translation>快速生成占位文本。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="30"/>
+        <source>Add watermarks to images easily.</source>
+        <translation>轻松为图像添加水印。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="31"/>
+        <source>Add watermarks to video files.</source>
+        <translation>为视频文件添加水印。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="32"/>
+        <source>Compress images without quality loss.</source>
+        <translation>无损压缩图像。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="33"/>
+        <source>Convert video formats easily.</source>
+        <translation>轻松转换视频格式。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="34"/>
+        <source>Generate &amp; save color schemes.</source>
+        <translation>生成并保存颜色方案。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="35"/>
+        <source>Measure download/upload speeds.</source>
+        <translation>测量下载/上传速度。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="36"/>
+        <source>Create custom color themes.</source>
+        <translation>创建自定义颜色主题。</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="43"/>
+        <location filename="../src/style/ToolMeta.qml" line="44"/>
+        <source>SYSTEM</source>
+        <translation>系统</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="45"/>
+        <location filename="../src/style/ToolMeta.qml" line="46"/>
+        <source>DEV</source>
+        <translation>开发</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="47"/>
+        <location filename="../src/style/ToolMeta.qml" line="48"/>
+        <location filename="../src/style/ToolMeta.qml" line="49"/>
+        <location filename="../src/style/ToolMeta.qml" line="50"/>
+        <source>MEDIA</source>
+        <translation>媒体</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="51"/>
+        <location filename="../src/style/ToolMeta.qml" line="52"/>
+        <location filename="../src/style/ToolMeta.qml" line="53"/>
+        <source>OTHER</source>
+        <translation>其他</translation>
+    </message>
+</context>
+<context>
+    <name>VideoWatermarkAdder</name>
+    <message>
+        <source>← Back</source>
+        <translation type="vanished">← 返回</translation>
+    </message>
+    <message>
+        <source>Video Watermark</source>
+        <translation type="vanished">视频水印</translation>
     </message>
 </context>
 <context>

@@ -13,4 +13,7 @@ QtObject {
     readonly property url updateDisabled: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/update_disabled.svg"
     readonly property url formatIndentIncrease: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/format_indent_increase.svg"
     readonly property url formatIndentDecrease: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/format_indent_decrease.svg"
+    readonly property url edit: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/edit.svg"
+    readonly property url driveFileMove: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/drive_file_move.svg"
+    readonly property url networkCheck: "qrc:/assets/icons/material-symbols-0.44.0/700/rounded/network_check.svg"
 }

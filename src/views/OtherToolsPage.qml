@@ -13,25 +13,11 @@ SepKits.ToolsPage {
 
     model: ListModel {
         ListElement {
-            iconKey: "updateDisabled"
-            title: qsTr("Color Theme Picker")
-            tagText: qsTr("OTHER")
-            description: qsTr("Generate & save color schemes.")
-            pageUrl: "views/ColorThemePicker.qml"
-        }
-        ListElement {
-            iconKey: "restoreFromTrash"
+            iconKey: "networkCheck"
             title: qsTr("Network Speed Test")
             tagText: qsTr("OTHER")
             description: qsTr("Measure download/upload speeds.")
             pageUrl: "views/NetworkSpeedTest.qml"
-        }
-        ListElement {
-            iconKey: "restoreFromTrash"
-            title: qsTr("Theme Generator")
-            tagText: qsTr("OTHER")
-            description: qsTr("Create custom color themes.")
-            pageUrl: "views/ThemeGenerator.qml"
         }
     }
 }

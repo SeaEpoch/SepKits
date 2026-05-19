@@ -143,34 +143,65 @@ Item {
                             }
                         }
                     }
+
+                    // 分隔线
+                    Rectangle {
+                        width: parent.width
+                        height: 1.05
+                        color: SepKits.Color.border
+                    }
+
+                    // 管理员启动
+                    RowLayout {
+                        width: parent.width
+
+                        Column {
+                            Layout.alignment: Qt.AlignLeft
+                            Text {
+                                text: qsTr("Launch as Administrator")
+                                color: SepKits.Color.foreground
+                                font.pixelSize: 14
+                            }
+
+                            Text {
+                                text: qsTr("Auto-elevate on next startup")
+                                color: SepKits.Color.mutedForeground
+                                font.pixelSize: 12
+                            }
+                        }
+
+                        Switch {
+                            id: _launchAsAdminSwitch
+                            Layout.alignment: Qt.AlignRight
+                            checked: SepKits.SettingsStore.launchAsAdmin
+                            onToggled: SepKits.SettingsStore.launchAsAdmin = checked
+
+                            indicator: Rectangle {
+                                implicitWidth: 44
+                                implicitHeight: 24
+                                radius: 12
+                                color: _launchAsAdminSwitch.checked
+                                    ? SepKits.Color.accent : SepKits.Color.muted
+                                border.color: _launchAsAdminSwitch.checked
+                                    ? SepKits.Color.accent : SepKits.Color.border
+
+                                Rectangle {
+                                    x: _launchAsAdminSwitch.checked ? parent.width - width - 3 : 3
+                                    y: (parent.height - height) / 2
+                                    width: 18
+                                    height: 18
+                                    radius: 9
+                                    color: _launchAsAdminSwitch.checked
+                                        ? SepKits.Color.accentForeground : SepKits.Color.mutedForeground
+                                    Behavior on x {
+                                        NumberAnimation { duration: 200; easing.type: Easing.InOutQuad }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
-
-            // SepKits.Card {
-            //     width: parent.width
-
-            //     content: Column {
-            //         width: parent.width
-            //         spacing: 24
-
-            //         Text {
-            //             bottomPadding: 24
-            //             text: qsTr("Shortcut Settings")
-            //             font.pixelSize: 22
-            //             font.bold: true
-            //             color: SepKits.Color.foreground
-            //         }
-
-            //         RowLayout {
-            //             width: parent.width
-
-            //             SepKits.ShortcutInput {
-            //                 width: 200
-            //                 onTextChanged: console.log("新快捷键:", shortcut)
-            //             }
-            //         }
-            //     }
-            // }
         }
     }
 }

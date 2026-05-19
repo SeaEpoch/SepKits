@@ -158,17 +158,80 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     <message>
         <location filename="../src/style/AppSettings.qml" line="19"/>
         <source>Minimize to tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimize to tray</translation>
     </message>
     <message>
         <location filename="../src/style/AppSettings.qml" line="20"/>
         <source>Exit directly</source>
-        <translation type="unfinished"></translation>
+        <translation>Exit directly</translation>
     </message>
     <message>
         <location filename="../src/style/AppSettings.qml" line="21"/>
         <source>Ask every time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ask every time</translation>
+    </message>
+</context>
+<context>
+    <name>CacheCleanerModel</name>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="8"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="157"/>
+        <source>User Temp</source>
+        <translation>User Temp</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="9"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="158"/>
+        <source>Legacy Temp</source>
+        <translation>Legacy Temp</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="10"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="159"/>
+        <source>Windows Temp</source>
+        <translation>Windows Temp</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="11"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="160"/>
+        <source>Prefetch</source>
+        <translation>Prefetch</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="12"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="161"/>
+        <source>System Drive Junk</source>
+        <translation>System Drive Junk</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="13"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="162"/>
+        <source>Windows *.bak</source>
+        <translation>Windows *.bak</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="14"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="163"/>
+        <source>Recycle Bin</source>
+        <translation>Recycle Bin</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="15"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="164"/>
+        <source>Cookies</source>
+        <translation>Cookies</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="16"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="165"/>
+        <source>Recent Files</source>
+        <translation>Recent Files</translation>
+    </message>
+    <message>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="17"/>
+        <location filename="../src/backend/models/CacheCleanerModel.cpp" line="166"/>
+        <source>Temporary Internet Files</source>
+        <translation>Temporary Internet Files</translation>
     </message>
 </context>
 <context>
@@ -199,10 +262,6 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 </context>
 <context>
     <name>DevToolsPage</name>
-    <message>
-        <source>💻 CATEGORY</source>
-        <translation type="vanished">💻 CATEGORY</translation>
-    </message>
     <message>
         <location filename="../src/views/DevToolsPage.qml" line="6"/>
         <source>Dev Tools</source>
@@ -261,10 +320,6 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>HomePage</name>
     <message>
-        <source>Welcome</source>
-        <translation type="vanished">Welcome</translation>
-    </message>
-    <message>
         <location filename="../src/views/HomePage.qml" line="6"/>
         <source>Your Toolkit</source>
         <translation>Your Toolkit</translation>
@@ -283,14 +338,61 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>LoremIpsumGenerator</name>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="15"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="38"/>
         <source>← Back</source>
         <translation>← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="34"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="58"/>
         <source>Lorem Ipsum Generator</source>
         <translation>Lorem Ipsum Generator</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="82"/>
+        <source>Count</source>
+        <translation>Count</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
+        <source>Words</source>
+        <translation>Words</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
+        <source>Sentences</source>
+        <translation>Sentences</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
+        <source>Paragraphs</source>
+        <translation>Paragraphs</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="109"/>
+        <source>English</source>
+        <translation>English</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="109"/>
+        <source>中文</source>
+        <translation>中文</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="117"/>
+        <source>Generate</source>
+        <translation>Generate</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="143"/>
+        <source>Copy</source>
+        <translation>Copy</translation>
+    </message>
+    <message>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="193"/>
+        <source>Generated text will appear here.
+Set the count, select unit and language, then click &quot;Generate&quot;.</source>
+        <translation>Generated text will appear here.
+Set the count, select unit and language, then click &quot;Generate&quot;.</translation>
     </message>
 </context>
 <context>
@@ -301,14 +403,24 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <translation>SeaEpoch Kits Demo</translation>
     </message>
     <message>
-        <location filename="../src/Main.qml" line="127"/>
+        <location filename="../src/Main.qml" line="128"/>
         <source>Close SepKits</source>
-        <translation type="unfinished"></translation>
+        <translation>Close SepKits</translation>
     </message>
     <message>
-        <location filename="../src/Main.qml" line="132"/>
+        <location filename="../src/Main.qml" line="129"/>
         <source>Minimize to system tray and continue running in the background?</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimize to system tray and continue running in the background?</translation>
+    </message>
+    <message>
+        <location filename="../src/Main.qml" line="131"/>
+        <source>Exit SepKits</source>
+        <translation>Exit SepKits</translation>
+    </message>
+    <message>
+        <location filename="../src/Main.qml" line="130"/>
+        <source>Minimize to Tray</source>
+        <translation>Minimize to Tray</translation>
     </message>
 </context>
 <context>
@@ -327,10 +439,6 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>MediaToolsPage</name>
     <message>
-        <source>🎞 CATEGORY</source>
-        <translation type="vanished">🎞 CATEGORY</translation>
-    </message>
-    <message>
         <location filename="../src/views/MediaToolsPage.qml" line="6"/>
         <source>Media Tools</source>
         <translation>Media Tools</translation>
@@ -347,72 +455,151 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     </message>
     <message>
         <location filename="../src/views/MediaToolsPage.qml" line="17"/>
+        <source>Watermark Adder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaToolsPage.qml" line="19"/>
+        <source>Add watermarks to media files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaToolsPage.qml" line="31"/>
+        <source>Media Format Converter</source>
+        <translation type="unfinished">Media Format Converter</translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaToolsPage.qml" line="33"/>
+        <source>Convert media formats easily.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Image Watermark</source>
-        <translation>Image Watermark</translation>
+        <translation type="vanished">Image Watermark</translation>
     </message>
     <message>
         <location filename="../src/views/MediaToolsPage.qml" line="18"/>
         <location filename="../src/views/MediaToolsPage.qml" line="25"/>
         <location filename="../src/views/MediaToolsPage.qml" line="32"/>
-        <location filename="../src/views/MediaToolsPage.qml" line="39"/>
         <source>MEDIA</source>
         <translation>MEDIA</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="19"/>
         <source>Add watermarks to images easily.</source>
-        <translation>Add watermarks to images easily.</translation>
+        <translation type="vanished">Add watermarks to images easily.</translation>
+    </message>
+    <message>
+        <source>Video Watermark</source>
+        <translation type="vanished">Video Watermark</translation>
+    </message>
+    <message>
+        <source>Add watermarks to video files.</source>
+        <translation type="vanished">Add watermarks to video files.</translation>
     </message>
     <message>
         <location filename="../src/views/MediaToolsPage.qml" line="24"/>
-        <source>Video Watermark</source>
-        <translation>Video Watermark</translation>
-    </message>
-    <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="26"/>
-        <source>Add watermarks to video files.</source>
-        <translation>Add watermarks to video files.</translation>
-    </message>
-    <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="31"/>
         <source>Image Compression</source>
         <translation>Image Compression</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="33"/>
+        <location filename="../src/views/MediaToolsPage.qml" line="26"/>
         <source>Compress images without quality loss.</source>
         <translation>Compress images without quality loss.</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="38"/>
         <source>Video Format Converter</source>
-        <translation>Video Format Converter</translation>
+        <translation type="vanished">Video Format Converter</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaToolsPage.qml" line="40"/>
         <source>Convert video formats easily.</source>
-        <translation>Convert video formats easily.</translation>
+        <translation type="vanished">Convert video formats easily.</translation>
     </message>
 </context>
 <context>
     <name>NetworkSpeedTest</name>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="15"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="44"/>
         <source>← Back</source>
         <translation>← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="34"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="64"/>
         <source>Network Speed Test</source>
         <translation>Network Speed Test</translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="475"/>
+        <source>Change Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="487"/>
+        <source>Auto (Best Server)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="75"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel</translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="75"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="145"/>
+        <source>ISP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="171"/>
+        <source>Internal IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="195"/>
+        <source>External IP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="246"/>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="292"/>
+        <source>Upload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="343"/>
+        <source>Ping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="388"/>
+        <source>Jitter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="433"/>
+        <source>Packet Loss</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="512"/>
+        <source>Speed Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="555"/>
+        <source>Speedtest output will appear here...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OtherToolsPage</name>
-    <message>
-        <source>📦 CATEGORY</source>
-        <translation type="vanished">📦 CATEGORY</translation>
-    </message>
     <message>
         <location filename="../src/views/OtherToolsPage.qml" line="6"/>
         <source>Other Tools</source>
@@ -429,49 +616,39 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <translation>All Other Tools</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="17"/>
         <source>Color Theme Picker</source>
-        <translation>Color Theme Picker</translation>
+        <translation type="vanished">Color Theme Picker</translation>
     </message>
     <message>
         <location filename="../src/views/OtherToolsPage.qml" line="18"/>
-        <location filename="../src/views/OtherToolsPage.qml" line="25"/>
-        <location filename="../src/views/OtherToolsPage.qml" line="32"/>
         <source>OTHER</source>
         <translation>OTHER</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="19"/>
         <source>Generate &amp; save color schemes.</source>
-        <translation>Generate &amp; save color schemes.</translation>
+        <translation type="vanished">Generate &amp; save color schemes.</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="24"/>
+        <location filename="../src/views/OtherToolsPage.qml" line="17"/>
         <source>Network Speed Test</source>
         <translation>Network Speed Test</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="26"/>
+        <location filename="../src/views/OtherToolsPage.qml" line="19"/>
         <source>Measure download/upload speeds.</source>
         <translation>Measure download/upload speeds.</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="31"/>
         <source>Theme Generator</source>
-        <translation>Theme Generator</translation>
+        <translation type="vanished">Theme Generator</translation>
     </message>
     <message>
-        <location filename="../src/views/OtherToolsPage.qml" line="33"/>
         <source>Create custom color themes.</source>
-        <translation>Create custom color themes.</translation>
+        <translation type="vanished">Create custom color themes.</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>CONFIGURATION</source>
-        <translation type="vanished">CONFIGURATION</translation>
-    </message>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="38"/>
         <source>Settings</source>
@@ -490,12 +667,12 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     <message>
         <location filename="../src/views/SettingsPage.qml" line="61"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Language</translation>
     </message>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="77"/>
         <source>When closing the program</source>
-        <translation type="unfinished"></translation>
+        <translation>When closing the program</translation>
     </message>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="97"/>
@@ -522,26 +699,165 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <source>Switch to Dark</source>
         <translation>Switch to Dark</translation>
     </message>
+    <message>
+        <location filename="../src/views/SettingsPage.qml" line="161"/>
+        <source>Launch as Administrator</source>
+        <translation>Launch as Administrator</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SettingsPage.qml" line="167"/>
+        <source>Auto-elevate on next startup</source>
+        <translation>Auto-elevate on next startup</translation>
+    </message>
+</context>
+<context>
+    <name>SpeedGauge</name>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="214"/>
+        <source>Downloading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="215"/>
+        <source>Uploading...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="216"/>
+        <source>Testing ping...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/SpeedGauge.qml" line="217"/>
+        <source>Complete</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SystemCacheCleaner</name>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="15"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="29"/>
         <source>← Back</source>
         <translation>← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="34"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="49"/>
         <source>Cache Cleaner</source>
         <translation>Cache Cleaner</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="83"/>
+        <source>Select All</source>
+        <translation>Select All</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="101"/>
+        <source>Scan All</source>
+        <translation>Scan All</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="133"/>
+        <source>Clean Selected</source>
+        <translation>Clean Selected</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="163"/>
+        <source>Export Log</source>
+        <translation>Export Log</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="186"/>
+        <source>Log exported to: %1</source>
+        <translation>Log exported to: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="187"/>
+        <source>Export failed</source>
+        <translation>Export failed</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="422"/>
+        <source>%1 categories selected. Clean them now?
+
+Please save any unsaved work before proceeding.</source>
+        <translation>%1 categories selected. Clean them now?
+
+Please save any unsaved work before proceeding.</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="434"/>
+        <source>Administrator Privileges Required</source>
+        <translation>Administrator Privileges Required</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="435"/>
+        <source>Some categories require administrator privileges. Relaunch as administrator?</source>
+        <translation>Some categories require administrator privileges. Relaunch as administrator?</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="436"/>
+        <source>Relaunch as Admin</source>
+        <translation>Relaunch as Admin</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="437"/>
+        <source>Continue Without</source>
+        <translation>Continue Without</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="455"/>
+        <source>=== Scan completed. Select categories to clean. ===</source>
+        <translation>=== Scan completed. Select categories to clean. ===</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="459"/>
+        <source>=== Process Completed ===</source>
+        <translation>=== Process Completed ===</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="464"/>
+        <source>Click &quot;Scan All&quot; to analyze cache sizes.</source>
+        <translation>Click &quot;Scan All&quot; to analyze cache sizes.</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="194"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="424"/>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="293"/>
+        <source>files</source>
+        <translation>files</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="352"/>
+        <source>Click &quot;Scan All&quot; to analyze cache sizes, then select items to clean.</source>
+        <translation>Click &quot;Scan All&quot; to analyze cache sizes, then select items to clean.</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="375"/>
+        <source>Scanning...</source>
+        <translation>Scanning...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="375"/>
+        <source>Cleaning...</source>
+        <translation>Cleaning...</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="421"/>
+        <source>Confirm Cleanup</source>
+        <translation>Confirm Cleanup</translation>
+    </message>
+    <message>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="423"/>
+        <source>Start Cleaning</source>
+        <translation>Start Cleaning</translation>
     </message>
 </context>
 <context>
     <name>SystemToolsPage</name>
-    <message>
-        <source>⚙️ CATEGORY</source>
-        <translation type="vanished">⚙️ CATEGORY</translation>
-    </message>
     <message>
         <location filename="../src/views/SystemToolsPage.qml" line="6"/>
         <source>System Tools</source>
@@ -611,16 +927,154 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     </message>
 </context>
 <context>
-    <name>VideoWatermarkAdder</name>
+    <name>ToolMeta</name>
     <message>
-        <location filename="../src/views/VideoWatermarkAdder.qml" line="15"/>
-        <source>← Back</source>
-        <translation>← Back</translation>
+        <location filename="../src/style/ToolMeta.qml" line="9"/>
+        <source>Disable Auto Update</source>
+        <translation>Disable Auto Update</translation>
     </message>
     <message>
-        <location filename="../src/views/VideoWatermarkAdder.qml" line="34"/>
+        <location filename="../src/style/ToolMeta.qml" line="10"/>
+        <source>Cache Cleaner</source>
+        <translation>Cache Cleaner</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="11"/>
+        <source>Code Formatter</source>
+        <translation>Code Formatter</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="12"/>
+        <source>Lorem Ipsum Generator</source>
+        <translation>Lorem Ipsum Generator</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="13"/>
+        <source>Image Watermark</source>
+        <translation>Image Watermark</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="14"/>
         <source>Video Watermark</source>
         <translation>Video Watermark</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="15"/>
+        <source>Image Compression</source>
+        <translation>Image Compression</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="16"/>
+        <source>Video Format Converter</source>
+        <translation>Video Format Converter</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="17"/>
+        <source>Color Theme Picker</source>
+        <translation>Color Theme Picker</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="18"/>
+        <source>Network Speed Test</source>
+        <translation>Network Speed Test</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="19"/>
+        <source>Theme Generator</source>
+        <translation>Theme Generator</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="26"/>
+        <source>Prevents Windows updates automatically.</source>
+        <translation>Prevents Windows updates automatically.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="27"/>
+        <source>Cleans system cache &amp; temp files.</source>
+        <translation>Cleans system cache &amp; temp files.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="28"/>
+        <source>Format JSON, XML, CSS, HTML code.</source>
+        <translation>Format JSON, XML, CSS, HTML code.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="29"/>
+        <source>Generate placeholder text quickly.</source>
+        <translation>Generate placeholder text quickly.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="30"/>
+        <source>Add watermarks to images easily.</source>
+        <translation>Add watermarks to images easily.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="31"/>
+        <source>Add watermarks to video files.</source>
+        <translation>Add watermarks to video files.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="32"/>
+        <source>Compress images without quality loss.</source>
+        <translation>Compress images without quality loss.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="33"/>
+        <source>Convert video formats easily.</source>
+        <translation>Convert video formats easily.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="34"/>
+        <source>Generate &amp; save color schemes.</source>
+        <translation>Generate &amp; save color schemes.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="35"/>
+        <source>Measure download/upload speeds.</source>
+        <translation>Measure download/upload speeds.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="36"/>
+        <source>Create custom color themes.</source>
+        <translation>Create custom color themes.</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="43"/>
+        <location filename="../src/style/ToolMeta.qml" line="44"/>
+        <source>SYSTEM</source>
+        <translation>SYSTEM</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="45"/>
+        <location filename="../src/style/ToolMeta.qml" line="46"/>
+        <source>DEV</source>
+        <translation>DEV</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="47"/>
+        <location filename="../src/style/ToolMeta.qml" line="48"/>
+        <location filename="../src/style/ToolMeta.qml" line="49"/>
+        <location filename="../src/style/ToolMeta.qml" line="50"/>
+        <source>MEDIA</source>
+        <translation>MEDIA</translation>
+    </message>
+    <message>
+        <location filename="../src/style/ToolMeta.qml" line="51"/>
+        <location filename="../src/style/ToolMeta.qml" line="52"/>
+        <location filename="../src/style/ToolMeta.qml" line="53"/>
+        <source>OTHER</source>
+        <translation>OTHER</translation>
+    </message>
+</context>
+<context>
+    <name>VideoWatermarkAdder</name>
+    <message>
+        <source>← Back</source>
+        <translation type="vanished">← Back</translation>
+    </message>
+    <message>
+        <source>Video Watermark</source>
+        <translation type="vanished">Video Watermark</translation>
     </message>
 </context>
 <context>

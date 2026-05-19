@@ -1,6 +1,8 @@
 #include "SettingsStore.h"
+#include <QClipboard>
 #include <QCoreApplication>
 #include <QDir>
+#include <QGuiApplication>
 #include <QStandardPaths>
 
 QString SettingsStore::iniFilePath()
@@ -31,4 +33,23 @@ void SettingsStore::setValue(const QString &key, const QVariant &value)
 {
     m_settings->setValue(key, value);
     m_settings->sync();
+}
+
+bool SettingsStore::launchAsAdmin() const
+{
+    return m_settings->value(QStringLiteral("launchAsAdmin"), false).toBool();
+}
+
+void SettingsStore::setLaunchAsAdmin(bool value)
+{
+    if (m_settings->value(QStringLiteral("launchAsAdmin"), false).toBool() == value)
+        return;
+    m_settings->setValue(QStringLiteral("launchAsAdmin"), value);
+    m_settings->sync();
+    emit launchAsAdminChanged();
+}
+
+void SettingsStore::copyToClipboard(const QString &text) const
+{
+    QGuiApplication::clipboard()->setText(text);
 }

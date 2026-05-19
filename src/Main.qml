@@ -122,17 +122,13 @@ Window {
         }
     }
 
-    Dialog {
+    SepKits.Dialog {
         id: _closeDialog
-        title: qsTr("Close SepKits")
-        standardButtons: Dialog.Yes | Dialog.No
-        modal: true
-
-        Text {
-            text: qsTr("Minimize to system tray and continue running in the background?")
-            color: SepKits.Color.foreground
-            font.pixelSize: 14
-        }
+        anchors.centerIn: parent
+        dialogTitle: qsTr("Close SepKits")
+        dialogMessage: qsTr("Minimize to system tray and continue running in the background?")
+        acceptText: qsTr("Minimize to Tray")
+        rejectText: qsTr("Exit SepKits")
 
         onAccepted: {
             _window.hide()

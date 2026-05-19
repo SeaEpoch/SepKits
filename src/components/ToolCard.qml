@@ -115,7 +115,7 @@ SepKits.Card {
             Button {
                 id: _pinBtn
 
-                property bool _pinned: SepKits.PinnedTools.isPinned(_root.title)
+                property bool _pinned: SepKits.PinnedTools.isPinned(_root.pageUrl)
 
                 text: _pinned ? qsTr("✓Pinned") : qsTr("Pin")
 
@@ -131,7 +131,7 @@ SepKits.Card {
 
                 onClicked: {
                     if (_pinned) {
-                        SepKits.PinnedTools.unpin(_root.title)
+                        SepKits.PinnedTools.unpin(_root.pageUrl)
                     } else {
                         SepKits.PinnedTools.pin({
                             "iconSource": _root.iconSource,
@@ -150,7 +150,7 @@ SepKits.Card {
                 Connections {
                     target: SepKits.PinnedTools
                     function onPinnedChanged() {
-                        _pinBtn._pinned = SepKits.PinnedTools.isPinned(_root.title)
+                        _pinBtn._pinned = SepKits.PinnedTools.isPinned(_root.pageUrl)
                     }
                 }
 

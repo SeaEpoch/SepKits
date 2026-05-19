@@ -13,31 +13,24 @@ SepKits.ToolsPage {
 
     model: ListModel {
         ListElement {
-            iconKey: "updateDisabled"
-            title: qsTr("Image Watermark")
+            iconKey: "brandingWatermark"
+            title: qsTr("Watermark Adder")
             tagText: qsTr("MEDIA")
-            description: qsTr("Add watermarks to images easily.")
+            description: qsTr("Add watermarks to media files.")
             pageUrl: "views/WatermarkAdder.qml"
         }
         ListElement {
-            iconKey: "restoreFromTrash"
-            title: qsTr("Video Watermark")
-            tagText: qsTr("MEDIA")
-            description: qsTr("Add watermarks to video files.")
-            pageUrl: "views/VideoWatermarkAdder.qml"
-        }
-        ListElement {
-            iconKey: "restoreFromTrash"
+            iconKey: "compress"
             title: qsTr("Image Compression")
             tagText: qsTr("MEDIA")
             description: qsTr("Compress images without quality loss.")
             pageUrl: "views/FileSizeCompressor.qml"
         }
         ListElement {
-            iconKey: "restoreFromTrash"
-            title: qsTr("Video Format Converter")
+            iconKey: "driveFileMove"
+            title: qsTr("Media Format Converter")
             tagText: qsTr("MEDIA")
-            description: qsTr("Convert video formats easily.")
+            description: qsTr("Convert media formats easily.")
             pageUrl: "views/MediaFormatConverter.qml"
         }
     }

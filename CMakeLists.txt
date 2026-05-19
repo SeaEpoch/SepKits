@@ -39,7 +39,9 @@ set(QML_PLAIN_FILES
     src/components/ToolsPage.qml
     src/components/Card.qml
     src/components/ComboBox.qml
-    src/components/ShortcutInput.qml
+    src/components/Dialog.qml
+    src/components/SpeedGauge.qml
+
 
     src/views/HomePage.qml
     src/views/SystemToolsPage.qml
@@ -51,7 +53,7 @@ set(QML_PLAIN_FILES
     src/views/WatermarkAdder.qml
     src/views/FileSizeCompressor.qml
     src/views/LoremIpsumGenerator.qml
-    src/views/VideoWatermarkAdder.qml
+
     src/views/ColorThemePicker.qml
     src/views/NetworkSpeedTest.qml
     src/views/ThemeGenerator.qml
@@ -70,6 +72,7 @@ set(QML_SINGLETON_FILES
     src/style/Theme.qml
     src/style/PinnedTools.qml
     src/style/AppSettings.qml
+    src/style/ToolMeta.qml
 )
 # 注册 qml 单例
 set_source_files_properties(${QML_SINGLETON_FILES}
@@ -78,12 +81,20 @@ set_source_files_properties(${QML_SINGLETON_FILES}
 
 # QML 模块 C++ 源文件
 set(CPP_FILES
-    src/LanguageManager.cpp
-    src/LanguageManager.h
-    src/SettingsStore.cpp
-    src/SettingsStore.h
-    src/SystemTrayHelper.cpp
-    src/SystemTrayHelper.h
+    src/backend/utils/LanguageManager.cpp
+    src/backend/utils/LanguageManager.h
+    src/backend/utils/SettingsStore.cpp
+    src/backend/utils/SettingsStore.h
+    src/backend/utils/SystemTrayHelper.cpp
+    src/backend/utils/SystemTrayHelper.h
+    src/backend/utils/SystemCacheCleaner.cpp
+    src/backend/utils/SystemCacheCleaner.h
+    src/backend/utils/LoremIpsumGenerator.cpp
+    src/backend/utils/LoremIpsumGenerator.h
+    src/backend/utils/NetworkSpeedTest.cpp
+    src/backend/utils/NetworkSpeedTest.h
+    src/backend/models/CacheCleanerModel.cpp
+    src/backend/models/CacheCleanerModel.h
 )
 
 qt_add_executable(SepKits
@@ -112,7 +123,7 @@ qt_add_translations(SepKits
     TS_FILE_DIR i18n
 )
 
-target_include_directories (SepKits PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/components")
+target_include_directories (SepKits PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/components" "${CMAKE_CURRENT_SOURCE_DIR}/src/backend/utils" "${CMAKE_CURRENT_SOURCE_DIR}/src/backend/models")
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -140,4 +151,9 @@ install(TARGETS SepKits
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+# Windows VERSIONINFO resource for executable metadata (reduces AV false positives)
+if(WIN32)
+    target_sources(SepKits PRIVATE resources/versioninfo.rc)
+endif()
 
