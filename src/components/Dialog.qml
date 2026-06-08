@@ -11,9 +11,10 @@ Dialog {
     property alias acceptText: _acceptBtn.text
     property alias rejectText: _rejectBtn.text
 
-    modal: true
+    modal: false
     padding: 0
     implicitWidth: Math.max(360, Math.min(_footerRow.implicitWidth + SepKits.Theme.spacingLg * 2, 580))
+    closePolicy: Popup.CloseOnEscape
 
     enter: Transition {
         NumberAnimation { property: "opacity"; from: 0.0; to: 1.0; duration: SepKits.Theme.animNormal; easing.type: Easing.InOutQuad }

@@ -7,14 +7,16 @@ Rectangle {
     id: _root
     color: SepKits.Color.background
 
-    property string _logContent: ""
-
-    function appendLog(message) {
-        _logContent += message + "\n"
-        _logArea.cursorPosition = _logArea.length
+    QtObject {
+        id: _private
+        property string logContent: ""
+        readonly property var model: SepKits.SystemCacheCleaner.model
     }
 
-    readonly property var _model: SepKits.SystemCacheCleaner.model
+    function appendLog(message) {
+        _private.logContent += message + "\n"
+        _logArea.cursorPosition = _logArea.length
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -60,7 +62,7 @@ Rectangle {
             Item {
                 implicitWidth: _selAllRow.implicitWidth
                 implicitHeight: _selAllRow.implicitHeight
-                visible: _model && _model.allScanned
+                visible: _private.model && _private.model.allScanned
 
                 RowLayout {
                     id: _selAllRow
@@ -69,12 +71,12 @@ Rectangle {
                     Rectangle {
                         implicitWidth: 16; implicitHeight: 16; radius: 3
                         border.width: 2
-                        border.color: _model && _model.anyChecked ? SepKits.Color.primary : SepKits.Color.border
-                        color: _model && _model.anyChecked ? SepKits.Color.primary : SepKits.Color.transparent
+                        border.color: _private.model && _private.model.anyChecked ? SepKits.Color.primary : SepKits.Color.border
+                        color: _private.model && _private.model.anyChecked ? SepKits.Color.primary : SepKits.Color.transparent
 
                         Text {
                             anchors.centerIn: parent
-                            text: _model && _model.anyChecked ? "✓" : ""
+                            text: _private.model && _private.model.anyChecked ? "✓" : ""
                             color: SepKits.Color.primaryForeground
                             font.pixelSize: 11; font.weight: Font.Bold
                         }
@@ -91,7 +93,7 @@ Rectangle {
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: { if (_model) _model.setAllChecked(!_model.anyChecked) }
+                    onClicked: { if (_private.model) _private.model.setAllChecked(!_private.model.anyChecked) }
                 }
             }
 
@@ -122,7 +124,7 @@ Rectangle {
                         : SepKits.Color.muted
                 }
                 onClicked: {
-                    _logContent = ""
+                    _private.logContent = ""
                     SepKits.SystemCacheCleaner.startScan()
                 }
             }
@@ -131,7 +133,7 @@ Rectangle {
             Button {
                 id: _cleanBtn
                 text: qsTr("Clean Selected")
-                enabled: _model && _model.allScanned && _model.anyChecked
+                enabled: _private.model && _private.model.allScanned && _private.model.anyChecked
                     && !SepKits.SystemCacheCleaner.running && !SepKits.SystemCacheCleaner.scanning
                 topPadding: SepKits.Theme.buttonPaddingV
                 bottomPadding: SepKits.Theme.buttonPaddingV
@@ -154,14 +156,26 @@ Rectangle {
                             : SepKits.Color.primary)
                         : SepKits.Color.muted
                 }
-                onClicked: _confirmDialog.open()
+                onClicked: {
+                    SepKits.DialogManager.confirm(
+                        qsTr("Confirm Cleanup"),
+                        qsTr("%1 categories selected. Clean them now?\n\nPlease save any unsaved work before proceeding.").arg(_private.model ? _private.model.checkedCount : 0),
+                        qsTr("Start Cleaning"),
+                        qsTr("Cancel"),
+                        function() {
+                            _private.logContent = ""
+                            if (_private.model) SepKits.SystemCacheCleaner.startCleanup(_private.model.checkedKeys())
+                        },
+                        null
+                    )
+                }
             }
 
             // Export
             Button {
                 id: _exportBtn
                 text: qsTr("Export Log")
-                visible: _logContent.length > 0
+                visible: _private.logContent.length > 0
                 topPadding: SepKits.Theme.buttonPaddingV
                 bottomPadding: SepKits.Theme.buttonPaddingV
                 leftPadding: SepKits.Theme.buttonPaddingH
@@ -182,7 +196,7 @@ Rectangle {
                     border.width: 1
                 }
                 onClicked: {
-                    var path = SepKits.SystemCacheCleaner.exportLog(_root._logContent)
+                    var path = SepKits.SystemCacheCleaner.exportLog(_root._private._logContent)
                     if (path) _root.appendLog(qsTr("Log exported to: %1").arg(path))
                     else _root.appendLog(qsTr("Export failed"))
                 }
@@ -238,7 +252,7 @@ Rectangle {
                     anchors.fill: parent
                     anchors.margins: 4
                     clip: true
-                    model: _model
+                    model: _private.model
 
                     delegate: Item {
                         width: _listView.width
@@ -344,7 +358,7 @@ Rectangle {
                     TextArea {
                         id: _logArea
                         readOnly: true
-                        text: _logContent
+                        text: _private.logContent
                         width: Math.max(_scrollView.availableWidth, implicitWidth)
                         color: SepKits.Color.foreground
                         font.family: SepKits.Font.fontFamilyBody
@@ -393,11 +407,10 @@ Rectangle {
                 contentItem: Item {
                     implicitHeight: 6
                     Rectangle {
-                        width: _progressBar.visualPosition * parent.width
+                        width: _progressBar.position * parent.width
                         height: parent.height
                         radius: 3
                         color: SepKits.Color.primary
-                        Behavior on width { NumberAnimation { duration: 200; easing.type: Easing.InOutQuad } }
                     }
                 }
             }
@@ -411,31 +424,6 @@ Rectangle {
                 horizontalAlignment: Text.AlignRight
             }
         }
-    }
-
-    // ═══ Dialogs ═══
-
-    SepKits.Dialog {
-        id: _confirmDialog
-        anchors.centerIn: parent
-        dialogTitle: qsTr("Confirm Cleanup")
-        dialogMessage: qsTr("%1 categories selected. Clean them now?\n\nPlease save any unsaved work before proceeding.").arg(_model ? _model.checkedCount : 0)
-        acceptText: qsTr("Start Cleaning")
-        rejectText: qsTr("Cancel")
-        onAccepted: {
-            _logContent = ""
-            if (_model) SepKits.SystemCacheCleaner.startCleanup(_model.checkedKeys())
-        }
-    }
-
-    SepKits.Dialog {
-        id: _elevationDialog
-        anchors.centerIn: parent
-        dialogTitle: qsTr("Administrator Privileges Required")
-        dialogMessage: qsTr("Some categories require administrator privileges. Relaunch as administrator?")
-        acceptText: qsTr("Relaunch as Admin")
-        rejectText: qsTr("Continue Without")
-        onAccepted: SepKits.SystemCacheCleaner.requestAdminRelaunch()
     }
 
     // ═══ Connections ═══
@@ -452,17 +440,26 @@ Rectangle {
         }
 
         function onScanAllCompleted() {
-            appendLog(qsTr("=== Scan completed. Select categories to clean. ==="))
+            // 不需要翻译
+            appendLog("=== Scan completed. Select categories to clean. ===")
         }
 
         function onCleanupFinished(cleanedCount, freedBytes) {
-            appendLog(qsTr("=== Process Completed ==="))
+            // 不需要翻译
+            appendLog("=== Process Completed ===")
         }
     }
 
     Component.onCompleted: {
         appendLog(qsTr("Click \"Scan All\" to analyze cache sizes."))
         if (!SepKits.SystemCacheCleaner.isRunningAsAdmin())
-            _elevationDialog.open()
+            SepKits.DialogManager.confirm(
+                qsTr("Administrator Privileges Required"),
+                qsTr("Some categories require administrator privileges. Relaunch as administrator?"),
+                qsTr("Relaunch as Admin"),
+                qsTr("Continue Without"),
+                function() { SepKits.SystemCacheCleaner.requestAdminRelaunch() },
+                null
+            )
     }
 }

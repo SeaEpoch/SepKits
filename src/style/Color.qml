@@ -13,9 +13,11 @@ QtObject {
     }
 
     // 主题列表（可用主题）
-    property QtObject _lightTheme: SepKits.LightTheme {}
-    property QtObject _darkTheme: SepKits.DarkTheme {}
-    readonly property var themeLists: [_lightTheme, _darkTheme]
+    property QtObject _private: QtObject {
+        property QtObject lightTheme: SepKits.LightTheme {}
+        property QtObject darkTheme: SepKits.DarkTheme {}
+    }
+    readonly property var themeLists: [_private.lightTheme, _private.darkTheme]
 
     // 主题类型
     property int currTheme: SepKits.SettingsStore.value("currTheme", Color.ThemeName.Light)
@@ -33,57 +35,43 @@ QtObject {
         SepKits.SettingsStore.setValue("currTheme", _root.currTheme)
     }
 
-    /////
-    // 参数1: color (string 或 color 类型，如 "#1976d2" 或 Colors.primary)
-    // 参数2: alpha (0.0 ~ 1.0 为归一化透明度；0~255 为整数透明度)
-    // 返回: "#AARRGGBB" 格式字符串（前两位为透明度，后六位为原颜色Hex）
     function alpha(baseColor, alphaValue) {
-            // 强制转为 Qt color 对象（支持所有合法 QML 颜色：#hex、named color、rgb()、transparent 等）
-            var qtColor = Qt.rgba(0, 0, 0, 0)
-            qtColor = baseColor
+        // 强制转为 color 对象，确保可以直接读取 r/g/b/a 分量（0~1）
+        var c = Qt.rgba(0, 0, 0, 0)
+        c = baseColor
 
-            // 获取标准化后的 #AARRGGBB 或 #RRGGBB 字符串
-            let fullHex = qtColor.toString().replace("#", "").toUpperCase()
-
-            // 要求1：检测命名颜色并发出警告（仍保留）
-            let inputStr = String(baseColor).trim().toLowerCase()
-            if (!inputStr.startsWith("#") && inputStr !== "") {
-                console.warn("Colors.alpha: 检测到命名颜色或特殊值 '" + baseColor + "'，已自动转换，但推荐统一使用 #RRGGBB 格式以获得最佳兼容性与性能。")
+        // 保留：检测命名颜色或特殊值（仅在传入字符串时生效）
+        if (typeof baseColor === 'string') {
+            var inputStr = baseColor.trim().toLowerCase()
+            if (inputStr !== "" && !inputStr.startsWith("#")) {
+                console.warn("Colors.alpha: 检测到命名颜色或特殊值 '" + baseColor +
+                             "'，已自动转换，但推荐统一使用 #RRGGBB 格式以获得最佳兼容性与性能。")
             }
-
-            // 全面处理 6 位（无透明度）和 8 位（带透明度）两种情况
-            let existingAlpha = 255          // 默认不透明
-            let rgbHex = ""
-            if (fullHex.length === 8) {
-                // 已带透明度的颜色（#AARRGGBB）
-                existingAlpha = parseInt(fullHex.substring(0, 2), 16)
-                rgbHex = fullHex.substring(2)
-            } else if (fullHex.length === 6) {
-                // 普通不透明颜色（#RRGGBB）
-                rgbHex = fullHex
-            } else {
-                console.warn("Colors.alpha: 不支持的颜色格式", baseColor)
-                return baseColor
-            }
-
-            // 处理新透明度（支持 0~1 或 0~255）
-            let newAlphaNorm = 1.0
-            if (alphaValue >= 0 && alphaValue <= 1) {
-                newAlphaNorm = alphaValue
-            } else if (alphaValue >= 0 && alphaValue <= 255) {
-                newAlphaNorm = alphaValue / 255
-            } else {
-                console.warn("Colors.alpha: 透明度值超出范围", alphaValue)
-                newAlphaNorm = 1.0
-            }
-
-            // 要求2：透明度叠加（乘法合成）
-            let finalAlpha = (existingAlpha / 255) * newAlphaNorm
-            let finalAlphaInt = Math.round(finalAlpha * 255)
-            let finalAlphaHex = finalAlphaInt.toString(16).toUpperCase().padStart(2, "0")
-
-            return "#" + finalAlphaHex + rgbHex
         }
+
+        // 直接读取颜色分量（0~1 浮点数）
+        var r = c.r
+        var g = c.g
+        var b = c.b
+        var existingAlpha = c.a  // 0~1
+
+        // 处理新透明度（支持 0~1 或 0~255）
+        var newAlphaNorm = 1.0
+        if (alphaValue >= 0 && alphaValue <= 1) {
+            newAlphaNorm = alphaValue
+        } else if (alphaValue >= 0 && alphaValue <= 255) {
+            newAlphaNorm = alphaValue / 255
+        } else {
+            console.warn("Colors.alpha: 透明度值超出范围", alphaValue)
+            newAlphaNorm = 1.0
+        }
+
+        // 透明度叠加（乘法合成）
+        var finalAlpha = existingAlpha * newAlphaNorm
+
+        // 返回颜色对象，完全避免字符串构造
+        return Qt.rgba(r, g, b, finalAlpha)
+    }
 
     // 返回对应的禁用状态下的颜色
     function disabled(color) {
@@ -91,7 +79,6 @@ QtObject {
     }
 
     // ==================== 主题颜色 ==================== \\
-
     readonly property color primary: themeLists[currTheme].primary
     readonly property color primaryForeground: themeLists[currTheme].primaryForeground
     readonly property color accentSecondary: themeLists[currTheme].accentSecondary

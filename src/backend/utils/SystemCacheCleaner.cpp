@@ -228,6 +228,8 @@ void SystemCacheCleaner::startScan() {
     m_worker.reset();
 
     m_model->resetAll();
+    m_progressValue = 0.0;
+    emit progressValueChanged();
     m_scanning.storeRelaxed(true);
     m_cancelled.storeRelaxed(0);
     emit scanningChanged();
@@ -343,6 +345,8 @@ void SystemCacheCleaner::startCleanup(const QStringList &enabled) {
         m_worker->join();
     m_worker.reset();
 
+    m_progressValue = 0.0;
+    emit progressValueChanged();
     m_running.storeRelaxed(true);
     m_cancelled.storeRelaxed(0);
     m_cleanedCount = 0;

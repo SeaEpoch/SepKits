@@ -8,10 +8,10 @@
 #include <QWKQuick/qwkquickglobal.h>
 #include "backend/utils/LanguageManager.h"
 #include "backend/utils/SettingsStore.h"
-#include "backend/utils/SystemTrayHelper.h"
 #include "backend/utils/LoremIpsumGenerator.h"
 #include "backend/utils/NetworkSpeedTest.h"
 #include "backend/utils/SystemCacheCleaner.h"
+#include "backend/utils/TrayMenuHelper.h"
 
 #ifdef Q_OS_WINDOWS
 #  include <windows.h>
@@ -106,9 +106,6 @@ int main(int argc, char* argv[])
     SettingsStore settingsStore(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "SettingsStore", &settingsStore);
 
-    SystemTrayHelper trayHelper(&app);
-    qmlRegisterSingletonInstance("SepKits", 1, 0, "SystemTrayHelper", &trayHelper);
-
     LoremIpsumGenerator loremIpsumGen(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "LoremIpsumGenerator", &loremIpsumGen);
 
@@ -117,6 +114,9 @@ int main(int argc, char* argv[])
 
     SystemCacheCleaner cacheCleaner(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "SystemCacheCleaner", &cacheCleaner);
+
+    TrayMenuHelper trayMenuHelper(&app);
+    qmlRegisterSingletonInstance("SepKits", 1, 0, "TrayMenuHelper", &trayMenuHelper);
 
     QObject::connect(&langManager, &LanguageManager::languageChanged,
                      &cacheCleaner, &SystemCacheCleaner::retranslate);

@@ -11,13 +11,9 @@ SepKits.ToolsPage {
     toolCardLabelBgColor: SepKits.Color.orange50
     toolCardLabelFgColor: SepKits.Color.orange600
 
+    resolveFromMeta: true
+
     model: ListModel {
-        ListElement {
-            iconKey: "networkCheck"
-            title: qsTr("Network Speed Test")
-            tagText: qsTr("OTHER")
-            description: qsTr("Measure download/upload speeds.")
-            pageUrl: "views/NetworkSpeedTest.qml"
-        }
+        ListElement { pageUrl: "views/NetworkSpeedTest.qml" }
     }
 }

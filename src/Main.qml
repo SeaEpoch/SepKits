@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import SepKits as SepKits
 import QWindowKit
+import Qt.labs.platform as Platform
 
 Window {
     id: _window
@@ -96,51 +97,69 @@ Window {
         case SepKits.AppSettings.CloseBehavior.MinimizeToTray:
             close.accepted = false
             _window.hide()
-            SepKits.SystemTrayHelper.show()
+            _trayIcon.show()
             break
         case SepKits.AppSettings.CloseBehavior.ExitDirectly:
             Qt.quit()
             break
         case SepKits.AppSettings.CloseBehavior.AskEveryTime:
             close.accepted = false
-            _closeDialog.open()
+            SepKits.DialogManager.confirm(
+                qsTr("Close SepKits"),
+                qsTr("Minimize to system tray and continue running in the background?"),
+                qsTr("Minimize to Tray"),
+                qsTr("Exit SepKits"),
+                function() {
+                    _window.hide()
+                    _trayIcon.show()
+                },
+                function() {
+                    _trayIcon.hide()
+                    Qt.quit()
+                }
+            )
             break
         }
     }
 
+    Platform.SystemTrayIcon {
+        id: _trayIcon
+        visible: false
+        tooltip: "SepKits"
+        icon.source: "qrc:/assets/images/sepwinkits-logo-modern.png"
+
+        onActivated: reason => {
+            if (reason === Platform.SystemTrayIcon.Trigger
+                || reason === Platform.SystemTrayIcon.DoubleClick) {
+                _trayIcon.hide()
+                _window.show()
+                _window.raise()
+                _window.requestActivate()
+            } else if (reason === Platform.SystemTrayIcon.Context) {
+                SepKits.TrayMenuHelper.showContextMenu()
+            }
+        }
+    }
+
     Connections {
-        target: SepKits.SystemTrayHelper
+        target: SepKits.TrayMenuHelper
+
         function onRestoreRequested() {
-            SepKits.SystemTrayHelper.hide()
+            _trayIcon.hide()
             _window.show()
             _window.raise()
             _window.requestActivate()
         }
+
         function onExitRequested() {
-            SepKits.SystemTrayHelper.hide()
-            Qt.quit()
-        }
-    }
-
-    SepKits.Dialog {
-        id: _closeDialog
-        anchors.centerIn: parent
-        dialogTitle: qsTr("Close SepKits")
-        dialogMessage: qsTr("Minimize to system tray and continue running in the background?")
-        acceptText: qsTr("Minimize to Tray")
-        rejectText: qsTr("Exit SepKits")
-
-        onAccepted: {
-            _window.hide()
-            SepKits.SystemTrayHelper.show()
-        }
-        onRejected: {
-            SepKits.SystemTrayHelper.hide()
+            _trayIcon.hide()
             Qt.quit()
         }
     }
 
     Component.onCompleted: {
+        SepKits.DialogManager.attachToWindow(_window)
+
         windowAgent.setup(_window)
         windowAgent.setTitleBar(_titleBar)
         windowAgent.setSystemButton(WindowAgent.Minimize, _titleBar.minButton)

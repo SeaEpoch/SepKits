@@ -7,18 +7,21 @@ Rectangle {
     id: _root
     color: SepKits.Color.background
 
-    property string _outputText: ""
-    property int _unitIndex: 0     // 0=Words, 1=Sentences, 2=Paragraphs
-    property int _langIndex: 0     // 0=English, 1=中文
+    QtObject {
+        id: _private
+        property string outputText: ""
+        property int unitIndex: 0     // 0=Words, 1=Sentences, 2=Paragraphs
+        property int langIndex: 0     // 0=English, 1=中文
+    }
 
     function generate() {
         let count = parseInt(_countInput.text)
         if (isNaN(count) || count < 1) {
-            _outputText = ""
+            _private.outputText = ""
             return
         }
         if (count > 999) count = 999
-        _outputText = SepKits.LoremIpsumGenerator.generate(count, _unitIndex, _langIndex)
+        _private.outputText = SepKits.LoremIpsumGenerator.generate(count, _private.unitIndex, _private.langIndex)
     }
 
     // ─── Layout ────────────────────────────────────────────────────────────
@@ -99,7 +102,7 @@ Rectangle {
                 Layout.preferredWidth: 150
                 model: [qsTr("Words"), qsTr("Sentences"), qsTr("Paragraphs")]
                 currentIndex: 0
-                onActivated: index => _root._unitIndex = index
+                onActivated: index => _private.unitIndex = index
             }
 
             // Language combo
@@ -108,7 +111,7 @@ Rectangle {
                 Layout.preferredWidth: 130
                 model: [qsTr("English"), qsTr("中文")]
                 currentIndex: 0
-                onActivated: index => _root._langIndex = index
+                onActivated: index => _private.langIndex = index
             }
 
             // Generate
@@ -141,7 +144,7 @@ Rectangle {
             Button {
                 id: _copyBtn
                 text: qsTr("Copy")
-                enabled: _outputText.length > 0
+                enabled: _private.outputText.length > 0
                 topPadding: SepKits.Theme.buttonPaddingV
                 bottomPadding: SepKits.Theme.buttonPaddingV
                 leftPadding: SepKits.Theme.buttonPaddingH
@@ -164,7 +167,7 @@ Rectangle {
                     border.color: SepKits.Color.border
                     border.width: 1
                 }
-                onClicked: SepKits.SettingsStore.copyToClipboard(_outputText)
+                onClicked: SepKits.SettingsStore.copyToClipboard(_private.outputText)
             }
         }
 
@@ -186,7 +189,7 @@ Rectangle {
                 TextArea {
                     id: _outputArea
                     readOnly: true
-                    text: _outputText
+                    text: _private.outputText
                     color: SepKits.Color.foreground
                     font.family: SepKits.Font.fontFamilyBody
                     font.pixelSize: SepKits.Font.sizeBody

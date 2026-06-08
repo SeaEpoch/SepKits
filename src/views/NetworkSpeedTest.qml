@@ -12,13 +12,16 @@ Rectangle {
     // ── Gauge speed binding ──
     // ALL backend properties must be accessed BEFORE any conditional branch,
     // otherwise QML only tracks properties from the first-evaluated branch.
-    readonly property double _gaugeSpeed: {
-        var dSpeed = SepKits.NetworkSpeedTest.downloadSpeed
-        var uSpeed = SepKits.NetworkSpeedTest.uploadSpeed
-        var phase = SepKits.NetworkSpeedTest.currentPhase
-        if (phase === "download") return dSpeed
-        if (phase === "upload") return uSpeed
-        return 0
+    QtObject {
+        id: _private
+        readonly property double gaugeSpeed: {
+            var dSpeed = SepKits.NetworkSpeedTest.downloadSpeed
+            var uSpeed = SepKits.NetworkSpeedTest.uploadSpeed
+            var phase = SepKits.NetworkSpeedTest.currentPhase
+            if (phase === "download") return dSpeed
+            if (phase === "upload") return uSpeed
+            return 0
+        }
     }
 
     // ── Helper ──
@@ -117,7 +120,7 @@ Rectangle {
                 SepKits.SpeedGauge {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    speed: _root._gaugeSpeed
+                    speed: _private.gaugeSpeed
                     maxSpeed: SepKits.NetworkSpeedTest.gaugeMaxSpeed
                     unit: SepKits.NetworkSpeedTest.speedUnit
                     phase: SepKits.NetworkSpeedTest.currentPhase

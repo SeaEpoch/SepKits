@@ -11,27 +11,11 @@ SepKits.ToolsPage {
     toolCardLabelBgColor: SepKits.Color.purple50
     toolCardLabelFgColor: SepKits.Color.purple600
 
+    resolveFromMeta: true
+
     model: ListModel {
-        ListElement {
-            iconKey: "brandingWatermark"
-            title: qsTr("Watermark Adder")
-            tagText: qsTr("MEDIA")
-            description: qsTr("Add watermarks to media files.")
-            pageUrl: "views/WatermarkAdder.qml"
-        }
-        ListElement {
-            iconKey: "compress"
-            title: qsTr("Image Compression")
-            tagText: qsTr("MEDIA")
-            description: qsTr("Compress images without quality loss.")
-            pageUrl: "views/FileSizeCompressor.qml"
-        }
-        ListElement {
-            iconKey: "driveFileMove"
-            title: qsTr("Media Format Converter")
-            tagText: qsTr("MEDIA")
-            description: qsTr("Convert media formats easily.")
-            pageUrl: "views/MediaFormatConverter.qml"
-        }
+        ListElement { pageUrl: "views/WatermarkAdder.qml" }
+        ListElement { pageUrl: "views/FileSizeCompressor.qml" }
+        ListElement { pageUrl: "views/MediaFormatConverter.qml" }
     }
 }

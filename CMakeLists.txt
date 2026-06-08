@@ -9,11 +9,14 @@ set(CMAKE_AUTOMOC ON) # 自动 MOC
 set(CMAKE_AUTORCC ON) # 自动 RCC
 set(CMAKE_AUTOUIC ON) # 自动 UIC
 
+# 设置第三方库根路径（方便后续引用）
+set(THIRD_PARTY_DIR "${CMAKE_SOURCE_DIR}/third_party")
+
+# Qt
 find_package(Qt6 REQUIRED COMPONENTS Quick Widgets LinguistTools)
 
 # QWindowKit
-set(QWindowKit_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/qwindowkit")
-set(QWindowKit_DIR "${QWindowKit_ROOT_DIR}/lib/cmake/QWindowKit")
+set(QWindowKit_DIR "${THIRD_PARTY_DIR}/qwindowkit/lib/cmake/QWindowKit")
 find_package(QWindowKit REQUIRED COMPONENTS Core Widgets Quick)
 
 qt_standard_project_setup(
@@ -48,7 +51,6 @@ set(QML_PLAIN_FILES
     src/views/SettingsPage.qml
     src/views/SystemCacheCleaner.qml
     src/views/WindowsAutoUpdateDisabler.qml
-    src/views/CodeFormatterCompressor.qml
     src/views/MediaFormatConverter.qml
     src/views/WatermarkAdder.qml
     src/views/FileSizeCompressor.qml
@@ -73,6 +75,7 @@ set(QML_SINGLETON_FILES
     src/style/PinnedTools.qml
     src/style/AppSettings.qml
     src/style/ToolMeta.qml
+    src/components/DialogManager.qml
 )
 # 注册 qml 单例
 set_source_files_properties(${QML_SINGLETON_FILES}
@@ -85,10 +88,10 @@ set(CPP_FILES
     src/backend/utils/LanguageManager.h
     src/backend/utils/SettingsStore.cpp
     src/backend/utils/SettingsStore.h
-    src/backend/utils/SystemTrayHelper.cpp
-    src/backend/utils/SystemTrayHelper.h
     src/backend/utils/SystemCacheCleaner.cpp
     src/backend/utils/SystemCacheCleaner.h
+    src/backend/utils/TrayMenuHelper.cpp
+    src/backend/utils/TrayMenuHelper.h
     src/backend/utils/LoremIpsumGenerator.cpp
     src/backend/utils/LoremIpsumGenerator.h
     src/backend/utils/NetworkSpeedTest.cpp
@@ -123,7 +126,11 @@ qt_add_translations(SepKits
     TS_FILE_DIR i18n
 )
 
-target_include_directories (SepKits PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src/components" "${CMAKE_CURRENT_SOURCE_DIR}/src/backend/utils" "${CMAKE_CURRENT_SOURCE_DIR}/src/backend/models")
+target_include_directories (SepKits PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/components"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/backend/utils"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/backend/models"
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

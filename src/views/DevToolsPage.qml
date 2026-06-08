@@ -11,20 +11,9 @@ SepKits.ToolsPage {
     toolCardLabelBgColor: SepKits.Color.green50
     toolCardLabelFgColor: SepKits.Color.green600
 
+    resolveFromMeta: true
+
     model: ListModel {
-        ListElement {
-            iconKey: "formatIndentDecrease"
-            title: qsTr("Code Formatter")
-            tagText: qsTr("DEV")
-            description: qsTr("Format JSON, XML, CSS, HTML code.")
-            pageUrl: "views/CodeFormatterCompressor.qml"
-        }
-        ListElement {
-            iconKey: "edit"
-            title: qsTr("Lorem Ipsum Generator")
-            tagText: qsTr("DEV")
-            description: qsTr("Generate placeholder text quickly.")
-            pageUrl: "views/LoremIpsumGenerator.qml"
-        }
+        ListElement { pageUrl: "views/LoremIpsumGenerator.qml" }
     }
 }

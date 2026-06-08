@@ -14,26 +14,30 @@ Canvas {
     property color uploadColor: SepKits.Color.purple500
 
     // ── Internal ──
-    // Per-unit scale: each unit gets its own non-linear label set derived from
-    // the same proportional breakdown (0, 1/200, 1/100, 1/20, 1/10, 1/4, 1/2, 3/4, 1) × max.
-    // This keeps the pointer in a visible range regardless of unit.
-    readonly property var _unitScale: ({
-        "Mbps": { labels: [0, 5, 10, 50, 100, 250, 500, 750, 1000], max: 1000 },
-        "kbps": { labels: [0, 5000, 10000, 50000, 100000, 250000, 500000, 750000, 1000000], max: 1000000 },
-        "Gbps": { labels: [0, 0.005, 0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1], max: 1 },
-        "B/s":  { labels: [0, 625000, 1250000, 6250000, 12500000, 31250000, 62500000, 93750000, 125000000], max: 125000000 },
-        "kB/s": { labels: [0, 625, 1250, 6250, 12500, 31250, 62500, 93750, 125000], max: 125000 },
-        "MB/s": { labels: [0, 0.625, 1.25, 6.25, 12.5, 31.25, 62.5, 93.75, 125], max: 125 },
-        "GB/s": { labels: [0, 0.000625, 0.00125, 0.00625, 0.0125, 0.03125, 0.0625, 0.09375, 0.125], max: 0.125 }
-    })[unit] || ({ labels: [0, 5, 10, 50, 100, 250, 500, 750, 1000], max: 1000 })
+    QtObject {
+        id: _private
 
-    readonly property real _startAngle: 135   // degrees — bottom-left
-    readonly property real _sweepAngle: 270   // degrees — total sweep
-    readonly property real _arcWidth: 24
+        // Per-unit scale: each unit gets its own non-linear label set derived from
+        // the same proportional breakdown (0, 1/200, 1/100, 1/20, 1/10, 1/4, 1/2, 3/4, 1) × max.
+        // This keeps the pointer in a visible range regardless of unit.
+        readonly property var unitScale: ({
+            "Mbps": { labels: [0, 5, 10, 50, 100, 250, 500, 750, 1000], max: 1000 },
+            "kbps": { labels: [0, 5000, 10000, 50000, 100000, 250000, 500000, 750000, 1000000], max: 1000000 },
+            "Gbps": { labels: [0, 0.005, 0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1], max: 1 },
+            "B/s":  { labels: [0, 625000, 1250000, 6250000, 12500000, 31250000, 62500000, 93750000, 125000000], max: 125000000 },
+            "kB/s": { labels: [0, 625, 1250, 6250, 12500, 31250, 62500, 93750, 125000], max: 125000 },
+            "MB/s": { labels: [0, 0.625, 1.25, 6.25, 12.5, 31.25, 62.5, 93.75, 125], max: 125 },
+            "GB/s": { labels: [0, 0.000625, 0.00125, 0.00625, 0.0125, 0.03125, 0.0625, 0.09375, 0.125], max: 0.125 }
+        })[unit] || ({ labels: [0, 5, 10, 50, 100, 250, 500, 750, 1000], max: 1000 })
 
-    // Smooth animated speed (manually animated, used in onPaint)
-    property double _targetSpeed: 0
-    property double _animatedSpeed: 0
+        readonly property real startAngle: 135   // degrees — bottom-left
+        readonly property real sweepAngle: 270   // degrees — total sweep
+        readonly property real arcWidth: 24
+
+        // Smooth animated speed (manually animated, used in onPaint)
+        property double targetSpeed: 0
+        property double animatedSpeed: 0
+    }
 
     Timer {
         id: _animTimer
@@ -54,13 +58,13 @@ Canvas {
         onTriggered: {
             _elapsed += interval
             if (_elapsed >= _duration) {
-                _gauge._animatedSpeed = _endVal
+                _private.animatedSpeed = _endVal
                 running = false
             } else {
                 var t = _elapsed / _duration
                 // Ease OutCubic: 1 - (1-t)^3
                 var eased = 1 - Math.pow(1 - t, 3)
-                _gauge._animatedSpeed = _startVal + (_endVal - _startVal) * eased
+                _private.animatedSpeed = _startVal + (_endVal - _startVal) * eased
             }
             _gauge.requestPaint()
         }
@@ -70,7 +74,7 @@ Canvas {
     renderStrategy: Canvas.Cooperative
 
     onSpeedChanged: {
-        _animTimer.startAnim(_animatedSpeed, speed)
+        _animTimer.startAnim(_private.animatedSpeed, speed)
         requestPaint()
     }
     onMaxSpeedChanged: requestPaint()
@@ -78,8 +82,8 @@ Canvas {
     onPhaseChanged: {
         if (phase === "upload" || phase === "done") {
             _animTimer.running = false
-            _animatedSpeed = 0
-            _targetSpeed = 0
+            _private.animatedSpeed = 0
+            _private.targetSpeed = 0
         }
         requestPaint()
     }
@@ -90,8 +94,8 @@ Canvas {
 
     // ── Map speed → angular fraction using non-linear scale ──
     function _speedToFrac(s) {
-        var labels = _unitScale.labels
-        var max = _unitScale.max
+        var labels = _private.unitScale.labels
+        var max = _private.unitScale.max
         if (s <= 0) return 0
         if (s >= max) return 1
         for (var i = 0; i < labels.length - 1; i++) {
@@ -138,14 +142,14 @@ Canvas {
         var cy = height / 2
         var r = Math.min(cx, cy) * 0.72
         var baseColor = _activeColor()
-        var frac = _speedToFrac(Math.min(Math.max(_animatedSpeed, 0), _unitScale.max))
-        var startRad = _startAngle * Math.PI / 180
-        var sweepRadTotal = _sweepAngle * Math.PI / 180
+        var frac = _speedToFrac(Math.min(Math.max(_private.animatedSpeed, 0), _private.unitScale.max))
+        var startRad = _private.startAngle * Math.PI / 180
+        var sweepRadTotal = _private.sweepAngle * Math.PI / 180
 
         // ── 1. Background arc ──
         ctx.beginPath()
         ctx.arc(cx, cy, r, startRad, startRad + sweepRadTotal)
-        ctx.lineWidth = _arcWidth
+        ctx.lineWidth = _private.arcWidth
         ctx.strokeStyle = SepKits.Color.muted
         ctx.lineCap = "round"
         ctx.stroke()
@@ -155,7 +159,7 @@ Canvas {
         if (showActive) {
             var activeSweep = frac * sweepRadTotal
             var segs = 72
-            ctx.lineWidth = _arcWidth
+            ctx.lineWidth = _private.arcWidth
             ctx.lineCap = "round"
 
             for (var i = 0; i < segs; i++) {
@@ -178,12 +182,12 @@ Canvas {
         ctx.font = "bold 13px sans-serif"
         ctx.fillStyle = SepKits.Color.mutedForeground
 
-        var labels = _unitScale.labels
-        var labelR = r - _arcWidth - 8
+        var labels = _private.unitScale.labels
+        var labelR = r - _private.arcWidth - 8
 
         for (var j = 0; j < labels.length; j++) {
             var labelFrac = j / (labels.length - 1)  // equal visual spacing
-            var angleDeg = _startAngle + labelFrac * _sweepAngle
+            var angleDeg = _private.startAngle + labelFrac * _private.sweepAngle
             var angleRad = angleDeg * Math.PI / 180
             var lx = cx + labelR * Math.cos(angleRad)
             var ly = cy + labelR * Math.sin(angleRad)
@@ -201,7 +205,7 @@ Canvas {
         ctx.textBaseline = "middle"
         ctx.font = "bold 36px sans-serif"
         ctx.fillStyle = SepKits.Color.foreground
-        ctx.fillText(_formatSpeed(_animatedSpeed), cx, chordY)
+        ctx.fillText(_formatSpeed(_private.animatedSpeed), cx, chordY)
 
         // Unit — above speed value, bottom-aligned with gap
         ctx.textBaseline = "bottom"
@@ -233,7 +237,7 @@ Canvas {
 
         var tipHalfW = 4.5
         var baseHalfW = 10
-        var pointerLen = r - _arcWidth / 2 - 4
+        var pointerLen = r - _private.arcWidth / 2 - 4
 
         // Pointer body with alpha gradient (tip=opaque, base=transparent)
         var ptrGrad = ctx.createLinearGradient(pointerLen, 0, -4, 0)

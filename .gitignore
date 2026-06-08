@@ -1,2 +1,16 @@
+# 构建目录
 build/
+
+# Qt Creator 相关
 CMakeLists.txt.user
+.qtcreator/
+
+# Git 自身目录
+.git/
+
+# Claude 相关
+.claude/
+CLAUDE.md
+
+# 文档（带空格和特殊字符的文件）
+SepKits*.md
