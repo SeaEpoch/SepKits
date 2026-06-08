@@ -164,3 +164,29 @@ if(WIN32)
     target_sources(SepKits PRIVATE resources/versioninfo.rc)
 endif()
 
+# ── Deploy external binaries & DLLs to build output directory ──────────
+add_custom_command(TARGET SepKits POST_BUILD
+    # --- Ookla Speedtest CLI ---
+    COMMAND ${CMAKE_COMMAND} -E make_directory
+        "$<TARGET_FILE_DIR:SepKits>/bin/ookla-speedtest-1.2.0-win64"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/third_party/ookla-speedtest-1.2.0-win64/speedtest.exe"
+        "$<TARGET_FILE_DIR:SepKits>/bin/ookla-speedtest-1.2.0-win64/"
+
+    # --- FFmpeg ---
+    COMMAND ${CMAKE_COMMAND} -E make_directory
+        "$<TARGET_FILE_DIR:SepKits>/bin/ffmpeg-2026-06-08-git-6028720d70-full_build"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/third_party/ffmpeg-2026-06-08-git-6028720d70-full_build/bin/ffmpeg.exe"
+        "${CMAKE_SOURCE_DIR}/third_party/ffmpeg-2026-06-08-git-6028720d70-full_build/bin/ffplay.exe"
+        "${CMAKE_SOURCE_DIR}/third_party/ffmpeg-2026-06-08-git-6028720d70-full_build/bin/ffprobe.exe"
+        "$<TARGET_FILE_DIR:SepKits>/bin/ffmpeg-2026-06-08-git-6028720d70-full_build/"
+
+    # --- QWindowKit DLLs (Debug/Release) ---
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<IF:$<CONFIG:Debug>,${CMAKE_SOURCE_DIR}/third_party/qwindowkit/bin/QWKCored.dll,${CMAKE_SOURCE_DIR}/third_party/qwindowkit/bin/QWKCore.dll>"
+        "$<IF:$<CONFIG:Debug>,${CMAKE_SOURCE_DIR}/third_party/qwindowkit/bin/QWKQuickd.dll,${CMAKE_SOURCE_DIR}/third_party/qwindowkit/bin/QWKQuick.dll>"
+        "$<IF:$<CONFIG:Debug>,${CMAKE_SOURCE_DIR}/third_party/qwindowkit/bin/QWKWidgetsd.dll,${CMAKE_SOURCE_DIR}/third_party/qwindowkit/bin/QWKWidgets.dll>"
+        "$<TARGET_FILE_DIR:SepKits>/"
+)
+

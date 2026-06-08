@@ -19,7 +19,7 @@ QString NetworkSpeedTest::speedtestPath()
     if (devFi.exists() && devFi.isExecutable())
         return devFi.absoluteFilePath();
     // Production: alongside executable
-    const QString prodPath = appDir + QStringLiteral("/speedtest.exe");
+    const QString prodPath = appDir + QStringLiteral("/bin/ookla-speedtest-1.2.0-win64/speedtest.exe");
     const QFileInfo prodFi(prodPath);
     if (prodFi.exists() && prodFi.isExecutable())
         return prodFi.absoluteFilePath();
