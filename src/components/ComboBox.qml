@@ -18,6 +18,8 @@ Column {
 
     // ── 公开属性（透传给内部 ComboBox）────────────────────────────────────
     property string label: ""
+    property int comboHeight: 48
+    property int comboRadius: 12
     property alias model: _combo.model
     property alias currentIndex: _combo.currentIndex
     property alias currentText: _combo.currentText
@@ -36,14 +38,14 @@ Column {
     ComboBox {
         id: _combo
         width: _root.width
-        height: 48
-        font.pixelSize: 14
+        height: _root.comboHeight
+        font.pixelSize: _root.comboHeight <= 32 ? SepKits.Font.sizeTiny : 14
 
         onActivated: index => _root.activated(index)
 
         // —— 选择框背景 ————————————————————————————————————————————————————
         background: Rectangle {
-            radius: 12
+            radius: _root.comboRadius
             color: _combo.hovered ? SepKits.Color.muted : SepKits.Color.background
             border.width: 1
             border.color: SepKits.Color.border
@@ -56,8 +58,8 @@ Column {
 
         // —— 当前选中文字 ───────────────────────────────────────────────────
         contentItem: Text {
-            leftPadding: 16
-            rightPadding: 36
+            leftPadding: _root.comboHeight <= 32 ? 8 : 16
+            rightPadding: _root.comboHeight <= 32 ? 24 : 36
             text: _combo.displayText
             font: _combo.font
             color: SepKits.Color.foreground
@@ -69,9 +71,9 @@ Column {
         indicator: SepKits.SvgIcon {
             anchors.verticalCenter: _combo.verticalCenter
             anchors.right: _combo.right
-            anchors.rightMargin: 16
-            width: 18
-            height: 18
+            anchors.rightMargin: _root.comboHeight <= 32 ? 6 : 16
+            width: _root.comboHeight <= 32 ? 12 : 18
+            height: _root.comboHeight <= 32 ? 12 : 18
             iconSource: SepKits.FontAwesome.chevronUp
             color: SepKits.Color.foreground
             rotation: _combo.popup.visible ? 0 : 180
@@ -103,7 +105,7 @@ Column {
             }
 
             background: Rectangle {
-                radius: 12
+                radius: _root.comboRadius
                 color: SepKits.Color.card
                 border.width: 1
                 border.color: SepKits.Color.border
@@ -114,7 +116,7 @@ Column {
         delegate: ItemDelegate {
             id: _itemDel
             width: _combo.width
-            height: 48
+            height: _root.comboHeight
 
             required property var modelData
             required property int index
@@ -123,11 +125,11 @@ Column {
             readonly property bool isLast: index === _combo.count - 1
 
             background: Rectangle {
-                color: _itemDel.isSelected ? SepKits.Color.accent : (_itemDel.hovered ? SepKits.Color.muted : SepKits.Color.alpha(SepKits.Color.muted, 0))
-                topLeftRadius: _itemDel.isFirst ? 12 : 0
-                topRightRadius: _itemDel.isFirst ? 12 : 0
-                bottomLeftRadius: _itemDel.isLast ? 12 : 0
-                bottomRightRadius: _itemDel.isLast ? 12 : 0
+                color: _itemDel.isSelected ? SepKits.Color.accent : (_itemDel.hovered ? SepKits.Color.alpha(SepKits.Color.muted, 0.6) : SepKits.Color.alpha(SepKits.Color.muted, 0))
+                topLeftRadius: _itemDel.isFirst ? _root.comboRadius : 0
+                topRightRadius: _itemDel.isFirst ? _root.comboRadius : 0
+                bottomLeftRadius: _itemDel.isLast ? _root.comboRadius : 0
+                bottomRightRadius: _itemDel.isLast ? _root.comboRadius : 0
                 Behavior on color {
                     ColorAnimation {
                         duration: 200

@@ -172,6 +172,14 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
     </message>
 </context>
 <context>
+    <name>BackButton</name>
+    <message>
+        <location filename="../src/components/BackButton.qml" line="7"/>
+        <source>← Back</source>
+        <translation type="unfinished">← Back</translation>
+    </message>
+</context>
+<context>
     <name>CacheCleanerModel</name>
     <message>
         <location filename="../src/backend/models/CacheCleanerModel.cpp" line="8"/>
@@ -256,12 +264,11 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>ColorThemePicker</name>
     <message>
-        <location filename="../src/views/ColorThemePicker.qml" line="15"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/ColorThemePicker.qml" line="34"/>
+        <location filename="../src/views/ColorThemePicker.qml" line="17"/>
         <source>Color Theme Picker</source>
         <translation>Color Theme Picker</translation>
     </message>
@@ -320,12 +327,11 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>FileSizeCompressor</name>
     <message>
-        <location filename="../src/views/FileSizeCompressor.qml" line="15"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/FileSizeCompressor.qml" line="34"/>
+        <location filename="../src/views/FileSizeCompressor.qml" line="17"/>
         <source>Image Compression</source>
         <translation>Image Compression</translation>
     </message>
@@ -351,57 +357,56 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>LoremIpsumGenerator</name>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="41"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="61"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="41"/>
         <source>Lorem Ipsum Generator</source>
         <translation>Lorem Ipsum Generator</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="85"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="65"/>
         <source>Count</source>
         <translation>Count</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="103"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="83"/>
         <source>Words</source>
         <translation>Words</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="103"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="83"/>
         <source>Sentences</source>
         <translation>Sentences</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="103"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="83"/>
         <source>Paragraphs</source>
         <translation>Paragraphs</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="112"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="92"/>
         <source>English</source>
         <translation>English</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="112"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="92"/>
         <source>中文</source>
         <translation>中文</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="120"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="100"/>
         <source>Generate</source>
         <translation>Generate</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="146"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="107"/>
         <source>Copy</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="../src/views/LoremIpsumGenerator.qml" line="196"/>
+        <location filename="../src/views/LoremIpsumGenerator.qml" line="135"/>
         <source>Generated text will appear here.
 Set the count, select unit and language, then click &quot;Generate&quot;.</source>
         <translation>Generated text will appear here.
@@ -439,14 +444,198 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
 <context>
     <name>MediaFormatConverter</name>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="15"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="34"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="38"/>
         <source>Media Format Converter</source>
         <translation>Media Format Converter</translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="40"/>
+        <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="41"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel</translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="41"/>
+        <source>Start Conversion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="47"/>
+        <source>Output Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="48"/>
+        <source>Select output folder...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="51"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="59"/>
+        <source>File Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="60"/>
+        <source>Output Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="61"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="62"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <source>Converting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="148"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <source>Ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="100"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <source>Converting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="100"/>
+        <source>Drag &amp; drop media files here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <source>Converting %n file(s)...</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <source>Add files to begin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <source>All files converted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <source>%n file(s) ready</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="108"/>
+        <source>Select Output Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="128"/>
+        <source>Settings</source>
+        <translation type="unfinished">Settings</translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="128"/>
+        <source>Settings: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="131"/>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="132"/>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="136"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="153"/>
+        <source>Trim</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="140"/>
+        <source>Codec</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="146"/>
+        <source>Apply to All Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="146"/>
+        <source>Apply to All Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="157"/>
+        <source>Volume</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="160"/>
+        <source>Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="163"/>
+        <source>Original</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
+        <source>Mono</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
+        <source>Stereo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/MediaFormatConverter.qml" line="162"/>
+        <source>Sample Rate</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -510,82 +699,81 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
 <context>
     <name>NetworkSpeedTest</name>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="47"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="67"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="48"/>
         <source>Network Speed Test</source>
         <translation>Network Speed Test</translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="478"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="440"/>
         <source>Change Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="490"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="452"/>
         <source>Auto (Best Server)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="78"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="59"/>
         <source>Cancel</source>
         <translation type="unfinished">Cancel</translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="78"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="59"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="148"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="110"/>
         <source>ISP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="174"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="136"/>
         <source>Internal IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="198"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="160"/>
         <source>External IP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="249"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="211"/>
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="295"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="257"/>
         <source>Upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="346"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="308"/>
         <source>Ping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="391"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="353"/>
         <source>Jitter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="436"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="398"/>
         <source>Packet Loss</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="515"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="477"/>
         <source>Speed Unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/NetworkSpeedTest.qml" line="558"/>
+        <location filename="../src/views/NetworkSpeedTest.qml" line="520"/>
         <source>Speedtest output will appear here...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -637,6 +825,24 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
     </message>
 </context>
 <context>
+    <name>PathSelector</name>
+    <message>
+        <location filename="../src/components/PathSelector.qml" line="49"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/PathSelector.qml" line="59"/>
+        <source>Select Output Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/PathSelector.qml" line="63"/>
+        <source>Select File</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsPage</name>
     <message>
         <location filename="../src/views/SettingsPage.qml" line="38"/>
@@ -679,22 +885,22 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
         <translation>Current Theme: Light</translation>
     </message>
     <message>
-        <location filename="../src/views/SettingsPage.qml" line="140"/>
+        <location filename="../src/views/SettingsPage.qml" line="120"/>
         <source>Switch to Light</source>
         <translation>Switch to Light</translation>
     </message>
     <message>
-        <location filename="../src/views/SettingsPage.qml" line="140"/>
+        <location filename="../src/views/SettingsPage.qml" line="120"/>
         <source>Switch to Dark</source>
         <translation>Switch to Dark</translation>
     </message>
     <message>
-        <location filename="../src/views/SettingsPage.qml" line="161"/>
+        <location filename="../src/views/SettingsPage.qml" line="144"/>
         <source>Launch as Administrator</source>
         <translation>Launch as Administrator</translation>
     </message>
     <message>
-        <location filename="../src/views/SettingsPage.qml" line="167"/>
+        <location filename="../src/views/SettingsPage.qml" line="150"/>
         <source>Auto-elevate on next startup</source>
         <translation>Auto-elevate on next startup</translation>
     </message>
@@ -725,47 +931,46 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
 <context>
     <name>SystemCacheCleaner</name>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="31"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="51"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="33"/>
         <source>Cache Cleaner</source>
         <translation>Cache Cleaner</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="85"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="67"/>
         <source>Select All</source>
         <translation>Select All</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="103"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="85"/>
         <source>Scan All</source>
         <translation>Scan All</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="135"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="96"/>
         <source>Clean Selected</source>
         <translation>Clean Selected</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="177"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="117"/>
         <source>Export Log</source>
         <translation>Export Log</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="200"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="121"/>
         <source>Log exported to: %1</source>
         <translation>Log exported to: %1</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="201"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="122"/>
         <source>Export failed</source>
         <translation>Export failed</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="162"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="102"/>
         <source>%1 categories selected. Clean them now?
 
 Please save any unsaved work before proceeding.</source>
@@ -774,22 +979,22 @@ Please save any unsaved work before proceeding.</source>
 Please save any unsaved work before proceeding.</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="457"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="342"/>
         <source>Administrator Privileges Required</source>
         <translation>Administrator Privileges Required</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="458"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="343"/>
         <source>Some categories require administrator privileges. Relaunch as administrator?</source>
         <translation>Some categories require administrator privileges. Relaunch as administrator?</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="459"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="344"/>
         <source>Relaunch as Admin</source>
         <translation>Relaunch as Admin</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="460"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="345"/>
         <source>Continue Without</source>
         <translation>Continue Without</translation>
     </message>
@@ -802,43 +1007,43 @@ Please save any unsaved work before proceeding.</translation>
         <translation type="vanished">=== Process Completed ===</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="454"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="339"/>
         <source>Click &quot;Scan All&quot; to analyze cache sizes.</source>
         <translation>Click &quot;Scan All&quot; to analyze cache sizes.</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="164"/>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="208"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="104"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="129"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="307"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="209"/>
         <source>files</source>
         <translation>files</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="366"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="268"/>
         <source>Click &quot;Scan All&quot; to analyze cache sizes, then select items to clean.</source>
         <translation>Click &quot;Scan All&quot; to analyze cache sizes, then select items to clean.</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="389"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="291"/>
         <source>Scanning...</source>
         <translation>Scanning...</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="389"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="291"/>
         <source>Cleaning...</source>
         <translation>Cleaning...</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="161"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="101"/>
         <source>Confirm Cleanup</source>
         <translation>Confirm Cleanup</translation>
     </message>
     <message>
-        <location filename="../src/views/SystemCacheCleaner.qml" line="163"/>
+        <location filename="../src/views/SystemCacheCleaner.qml" line="103"/>
         <source>Start Cleaning</source>
         <translation>Start Cleaning</translation>
     </message>
@@ -884,12 +1089,11 @@ Please save any unsaved work before proceeding.</translation>
 <context>
     <name>ThemeGenerator</name>
     <message>
-        <location filename="../src/views/ThemeGenerator.qml" line="15"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/ThemeGenerator.qml" line="34"/>
+        <location filename="../src/views/ThemeGenerator.qml" line="17"/>
         <source>Theme Generator</source>
         <translation>Theme Generator</translation>
     </message>
@@ -1074,12 +1278,11 @@ Please save any unsaved work before proceeding.</translation>
 <context>
     <name>WatermarkAdder</name>
     <message>
-        <location filename="../src/views/WatermarkAdder.qml" line="15"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/WatermarkAdder.qml" line="34"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="17"/>
         <source>Image Watermark</source>
         <translation>Image Watermark</translation>
     </message>
@@ -1135,12 +1338,11 @@ Please save any unsaved work before proceeding.</translation>
 <context>
     <name>WindowsAutoUpdateDisabler</name>
     <message>
-        <location filename="../src/views/WindowsAutoUpdateDisabler.qml" line="15"/>
         <source>← Back</source>
-        <translation>← Back</translation>
+        <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/WindowsAutoUpdateDisabler.qml" line="34"/>
+        <location filename="../src/views/WindowsAutoUpdateDisabler.qml" line="17"/>
         <source>Disable Auto Update</source>
         <translation>Disable Auto Update</translation>
     </message>

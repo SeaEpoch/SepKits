@@ -107,39 +107,22 @@ Item {
                             }
                         }
 
-                        Button {
+                        SepKits.PrimaryButton {
                             id: _switchThemeBtn
                             Layout.alignment: Qt.AlignRight
-
+                            bgColor: SepKits.Color.accent
+                            fgColor: SepKits.Color.accentForeground
                             leftPadding: 16
                             rightPadding: 16
                             topPadding: 8
                             bottomPadding: 8
-
-                            leftInset: 0
-                            rightInset: 0
-                            topInset: 0
-                            bottomInset: 0
-
+                            text: SepKits.Color.currTheme === SepKits.Color.ThemeName.Dark
+                                  ? qsTr("Switch to Light") : qsTr("Switch to Dark")
                             onClicked: {
                                 var nextTheme = SepKits.Color.currTheme === SepKits.Color.ThemeName.Dark
                                     ? SepKits.Color.ThemeName.Light
                                     : SepKits.Color.ThemeName.Dark
                                 SepKits.Color.switchTheme(nextTheme)
-                            }
-
-
-                            background: Rectangle {
-                                radius: 12
-                                color: SepKits.Color.accent
-                                opacity: _switchThemeBtn.hovered ? 0.9 : 1.0
-                            }
-
-                            contentItem: Text {
-                                text: SepKits.Color.currTheme === SepKits.Color.ThemeName.Dark
-                                      ? qsTr("Switch to Light") : qsTr("Switch to Dark")
-                                color: SepKits.Color.accentForeground
-                                font.pixelSize: 14
                             }
                         }
                     }

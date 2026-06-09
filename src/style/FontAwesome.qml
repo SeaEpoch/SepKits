@@ -21,6 +21,9 @@ QtObject {
     readonly property url heart: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/heart.svg"
     readonly property url arrowUpRightFromSquare: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/arrow-up-right-from-square.svg"
     readonly property url chevronUp: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/chevron-up.svg"
+    readonly property url image: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/image.svg"
+    readonly property url film: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/film.svg"
+    readonly property url compactDisc: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/solid/compact-disc.svg"
 
     // brands
     readonly property url windows: "qrc:/assets/icons/fontawesome-free-7.2.0-desktop/svgs-full/brands/windows.svg"

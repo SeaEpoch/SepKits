@@ -10,6 +10,7 @@
 #include "backend/utils/SettingsStore.h"
 #include "backend/utils/LoremIpsumGenerator.h"
 #include "backend/utils/NetworkSpeedTest.h"
+#include "backend/utils/MediaFormatConverter.h"
 #include "backend/utils/SystemCacheCleaner.h"
 #include "backend/utils/TrayMenuHelper.h"
 
@@ -111,6 +112,9 @@ int main(int argc, char* argv[])
 
     NetworkSpeedTest networkSpeedTest(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "NetworkSpeedTest", &networkSpeedTest);
+
+    MediaFormatConverter mediaFormatConverter(&app);
+    qmlRegisterSingletonInstance("SepKits", 1, 0, "MediaFormatConverter", &mediaFormatConverter);
 
     SystemCacheCleaner cacheCleaner(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "SystemCacheCleaner", &cacheCleaner);

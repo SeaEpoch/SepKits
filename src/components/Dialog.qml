@@ -68,59 +68,8 @@ Dialog {
             anchors.margins: SepKits.Theme.spacingLg
             spacing: SepKits.Theme.spacingMd
 
-            Button {
-                id: _rejectBtn
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-
-                contentItem: Text {
-                    text: _rejectBtn.text
-                    color: _rejectBtn.hovered ? SepKits.Color.foreground : SepKits.Color.mutedForeground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _rejectBtn.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                    border.color: SepKits.Color.border
-                    border.width: 1
-                }
-
-                onClicked: _root.reject()
-            }
-
-            Button {
-                id: _acceptBtn
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-
-                contentItem: Text {
-                    text: _acceptBtn.text
-                    color: SepKits.Color.primaryForeground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _acceptBtn.pressed ? SepKits.Color.alpha(SepKits.Color.primary, 0.8)
-                        : _acceptBtn.hovered ? SepKits.Color.alpha(SepKits.Color.primary, 0.9)
-                        : SepKits.Color.primary
-                }
-
-                onClicked: _root.accept()
-            }
+            SepKits.SecondaryButton { id: _rejectBtn; onClicked: _root.reject() }
+            SepKits.PrimaryButton { id: _acceptBtn; onClicked: _root.accept() }
         }
     }
 }

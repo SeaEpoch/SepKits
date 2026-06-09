@@ -42,26 +42,7 @@ Rectangle {
         RowLayout {
             spacing: SepKits.Theme.spacingMd
 
-            Button {
-                id: _backBtn
-                text: qsTr("← Back")
-                topPadding: SepKits.Theme.spacingSm
-                bottomPadding: SepKits.Theme.spacingSm
-                leftPadding: SepKits.Theme.spacingMd
-                rightPadding: SepKits.Theme.spacingMd
-                contentItem: Text {
-                    text: _backBtn.text
-                    color: SepKits.Color.foreground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeSmall
-                    font.weight: SepKits.Font.weightMedium
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _backBtn.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                }
-                onClicked: Window.window.navigateBack()
-            }
+            SepKits.BackButton {}
 
             Text {
                 text: qsTr("Network Speed Test")
@@ -73,28 +54,9 @@ Rectangle {
 
             Item { Layout.fillWidth: true }
 
-            Button {
+            SepKits.PrimaryButton {
                 id: _actionBtn
                 text: SepKits.NetworkSpeedTest.isRunning ? qsTr("Cancel") : qsTr("Start")
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _actionBtn.text
-                    color: SepKits.Color.primaryForeground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _actionBtn.pressed ? SepKits.Color.alpha(SepKits.Color.primary, 0.8)
-                        : _actionBtn.hovered ? SepKits.Color.alpha(SepKits.Color.primary, 0.9)
-                        : SepKits.Color.primary
-                }
                 onClicked: {
                     if (SepKits.NetworkSpeedTest.isRunning)
                         SepKits.NetworkSpeedTest.cancelTest()
@@ -570,29 +532,9 @@ Rectangle {
                     }
 
                     // Progress bar (no text)
-                    ProgressBar {
+                    SepKits.SepProgressBar {
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 6
                         value: SepKits.NetworkSpeedTest.progress
-                        from: 0
-                        to: 1
-
-                        background: Rectangle {
-                            radius: 3
-                            color: SepKits.Color.muted
-                        }
-                        contentItem: Item {
-                            Rectangle {
-                                width: parent.width * (parent.parent ? parent.parent.visualPosition : 0)
-                                height: parent.height
-                                radius: 3
-                                gradient: Gradient {
-                                    orientation: Gradient.Horizontal
-                                    GradientStop { position: 0; color: SepKits.Color.cyan400 }
-                                    GradientStop { position: 1; color: SepKits.Color.purple500 }
-                                }
-                            }
-                        }
                     }
                 }
             }

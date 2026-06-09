@@ -27,25 +27,7 @@ Rectangle {
         RowLayout {
             spacing: SepKits.Theme.spacingMd
 
-            Button {
-                text: qsTr("← Back")
-                topPadding: SepKits.Theme.spacingSm
-                bottomPadding: SepKits.Theme.spacingSm
-                leftPadding: SepKits.Theme.spacingMd
-                rightPadding: SepKits.Theme.spacingMd
-                contentItem: Text {
-                    text: parent.text
-                    color: SepKits.Color.foreground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeSmall
-                    font.weight: SepKits.Font.weightMedium
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: parent.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                }
-                onClicked: Window.window.navigateBack()
-            }
+            SepKits.BackButton {}
 
             Text {
                 text: qsTr("Cache Cleaner")
@@ -98,31 +80,10 @@ Rectangle {
             }
 
             // Scan
-            Button {
+            SepKits.PrimaryButton {
                 id: _scanBtn
                 text: qsTr("Scan All")
                 enabled: !SepKits.SystemCacheCleaner.scanning && !SepKits.SystemCacheCleaner.running
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _scanBtn.text
-                    color: _scanBtn.enabled ? SepKits.Color.primaryForeground : SepKits.Color.disabled(SepKits.Color.primaryForeground)
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _scanBtn.enabled
-                        ? (_scanBtn.pressed ? SepKits.Color.alpha(SepKits.Color.primary, 0.8)
-                            : _scanBtn.hovered ? SepKits.Color.alpha(SepKits.Color.primary, 0.9)
-                            : SepKits.Color.primary)
-                        : SepKits.Color.muted
-                }
                 onClicked: {
                     _private.logContent = ""
                     SepKits.SystemCacheCleaner.startScan()
@@ -130,32 +91,11 @@ Rectangle {
             }
 
             // Clean
-            Button {
+            SepKits.PrimaryButton {
                 id: _cleanBtn
                 text: qsTr("Clean Selected")
                 enabled: _private.model && _private.model.allScanned && _private.model.anyChecked
                     && !SepKits.SystemCacheCleaner.running && !SepKits.SystemCacheCleaner.scanning
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _cleanBtn.text
-                    color: _cleanBtn.enabled ? SepKits.Color.primaryForeground : SepKits.Color.disabled(SepKits.Color.primaryForeground)
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _cleanBtn.enabled
-                        ? (_cleanBtn.pressed ? SepKits.Color.alpha(SepKits.Color.primary, 0.8)
-                            : _cleanBtn.hovered ? SepKits.Color.alpha(SepKits.Color.primary, 0.9)
-                            : SepKits.Color.primary)
-                        : SepKits.Color.muted
-                }
                 onClicked: {
                     SepKits.DialogManager.confirm(
                         qsTr("Confirm Cleanup"),
@@ -172,29 +112,10 @@ Rectangle {
             }
 
             // Export
-            Button {
+            SepKits.SecondaryButton {
                 id: _exportBtn
                 text: qsTr("Export Log")
                 visible: _private.logContent.length > 0
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _exportBtn.text
-                    color: _exportBtn.hovered ? SepKits.Color.foreground : SepKits.Color.mutedForeground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _exportBtn.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                    border.color: SepKits.Color.border
-                    border.width: 1
-                }
                 onClicked: {
                     var path = SepKits.SystemCacheCleaner.exportLog(_root._private._logContent)
                     if (path) _root.appendLog(qsTr("Log exported to: %1").arg(path))
@@ -203,29 +124,10 @@ Rectangle {
             }
 
             // Cancel
-            Button {
+            SepKits.SecondaryButton {
                 id: _cancelBtn
                 text: qsTr("Cancel")
                 visible: SepKits.SystemCacheCleaner.scanning || SepKits.SystemCacheCleaner.running
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _cancelBtn.text
-                    color: _cancelBtn.hovered ? SepKits.Color.foreground : SepKits.Color.mutedForeground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _cancelBtn.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                    border.color: SepKits.Color.border
-                    border.width: 1
-                }
                 onClicked: SepKits.SystemCacheCleaner.cancel()
             }
         }
@@ -392,27 +294,10 @@ Rectangle {
                 font.pixelSize: SepKits.Font.sizeSmall
             }
 
-            ProgressBar {
+            SepKits.SepProgressBar {
                 id: _progressBar
                 Layout.fillWidth: true
-                from: 0.0
-                to: 1.0
                 value: SepKits.SystemCacheCleaner.progressValue
-
-                background: Rectangle {
-                    implicitHeight: 6
-                    radius: 3
-                    color: SepKits.Color.muted
-                }
-                contentItem: Item {
-                    implicitHeight: 6
-                    Rectangle {
-                        width: _progressBar.position * parent.width
-                        height: parent.height
-                        radius: 3
-                        color: SepKits.Color.primary
-                    }
-                }
             }
 
             Text {

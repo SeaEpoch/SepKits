@@ -35,27 +35,7 @@ Rectangle {
         RowLayout {
             spacing: SepKits.Theme.spacingMd
 
-            // Back
-            Button {
-                id: _backBtn
-                text: qsTr("← Back")
-                topPadding: SepKits.Theme.spacingSm
-                bottomPadding: SepKits.Theme.spacingSm
-                leftPadding: SepKits.Theme.spacingMd
-                rightPadding: SepKits.Theme.spacingMd
-                contentItem: Text {
-                    text: _backBtn.text
-                    color: SepKits.Color.foreground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeSmall
-                    font.weight: SepKits.Font.weightMedium
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _backBtn.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                }
-                onClicked: Window.window.navigateBack()
-            }
+            SepKits.BackButton {}
 
             Text {
                 text: qsTr("Lorem Ipsum Generator")
@@ -115,58 +95,17 @@ Rectangle {
             }
 
             // Generate
-            Button {
+            SepKits.PrimaryButton {
                 id: _generateBtn
                 text: qsTr("Generate")
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _generateBtn.text
-                    color: SepKits.Color.primaryForeground
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _generateBtn.pressed ? SepKits.Color.alpha(SepKits.Color.primary, 0.8)
-                        : _generateBtn.hovered ? SepKits.Color.alpha(SepKits.Color.primary, 0.9)
-                        : SepKits.Color.primary
-                }
                 onClicked: _root.generate()
             }
 
             // Copy
-            Button {
+            SepKits.SecondaryButton {
                 id: _copyBtn
                 text: qsTr("Copy")
                 enabled: _private.outputText.length > 0
-                topPadding: SepKits.Theme.buttonPaddingV
-                bottomPadding: SepKits.Theme.buttonPaddingV
-                leftPadding: SepKits.Theme.buttonPaddingH
-                rightPadding: SepKits.Theme.buttonPaddingH
-                contentItem: Text {
-                    text: _copyBtn.text
-                    color: _copyBtn.enabled
-                        ? (_copyBtn.hovered ? SepKits.Color.foreground : SepKits.Color.mutedForeground)
-                        : SepKits.Color.disabled(SepKits.Color.mutedForeground)
-                    font.family: SepKits.Font.fontFamilyBody
-                    font.pixelSize: SepKits.Font.sizeBody
-                    font.weight: SepKits.Font.weightMedium
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: SepKits.Theme.radius
-                    color: _copyBtn.hovered && _copyBtn.enabled
-                        ? SepKits.Color.muted : SepKits.Color.transparent
-                    border.color: SepKits.Color.border
-                    border.width: 1
-                }
                 onClicked: SepKits.SettingsStore.copyToClipboard(_private.outputText)
             }
         }

@@ -44,6 +44,11 @@ set(QML_PLAIN_FILES
     src/components/ComboBox.qml
     src/components/Dialog.qml
     src/components/SpeedGauge.qml
+    src/components/BackButton.qml
+    src/components/PathSelector.qml
+    src/components/PrimaryButton.qml
+    src/components/SecondaryButton.qml
+    src/components/SepProgressBar.qml
 
 
     src/views/HomePage.qml
@@ -96,6 +101,8 @@ set(CPP_FILES
     src/backend/utils/LoremIpsumGenerator.h
     src/backend/utils/NetworkSpeedTest.cpp
     src/backend/utils/NetworkSpeedTest.h
+    src/backend/utils/MediaFormatConverter.cpp
+    src/backend/utils/MediaFormatConverter.h
     src/backend/models/CacheCleanerModel.cpp
     src/backend/models/CacheCleanerModel.h
 )
