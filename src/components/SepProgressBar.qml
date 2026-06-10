@@ -1,10 +1,11 @@
 import QtQuick
 import QtQuick.Controls
+import SepKits as SepKits
 
 ProgressBar {
     id: _root
-    property color barColor: SepKits.Color.primary
-    property color barColorEnd: barColor
+    property color barColor: SepKits.Color.blue500
+    property color barColorEnd: SepKits.Color.purple500
 
     from: 0; to: 1
 

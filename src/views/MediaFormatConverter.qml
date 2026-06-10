@@ -26,6 +26,92 @@ Rectangle {
                 return imageFormats
             return []
         }
+
+        // ─── Settings field values (bridged between content Component and backend) ───
+        property string trimStart: ""
+        property string trimEnd: ""
+        property double volume: 0.0
+        property int channels: 0
+        property int sampleRate: 0
+        property string vTrimStart: ""
+        property string vTrimEnd: ""
+        property string vCodec: ""
+        property string vaTrimStart: ""
+        property string vaTrimEnd: ""
+        property double vaVolume: 0.0
+        property int vaChannels: 0
+        property int vaSampleRate: 0
+
+        function loadSettingsToPrivate() {
+            var f = settingsFile
+            if (!f)
+                return
+            var iv = settingsIsVideo
+            var as = (iv && f.videoSettings) ? f.videoSettings.audioSettings : f.audioSettings
+            trimStart = as.trimStart || ""
+            trimEnd = as.trimEnd || ""
+            volume = as.volume !== undefined ? as.volume : 0.0
+            channels = as.channels !== undefined ? as.channels : 0
+            sampleRate = as.sampleRate !== undefined ? as.sampleRate : 0
+            if (iv && f.videoSettings) {
+                var vs = f.videoSettings
+                vTrimStart = vs.trimStart || ""
+                vTrimEnd = vs.trimEnd || ""
+                vCodec = vs.videoCodec || ""
+                vaTrimStart = vs.audioSettings.trimStart || ""
+                vaTrimEnd = vs.audioSettings.trimEnd || ""
+                vaVolume = vs.audioSettings.volume !== undefined ? vs.audioSettings.volume : 0.0
+                vaChannels = vs.audioSettings.channels !== undefined ? vs.audioSettings.channels : 0
+                vaSampleRate = vs.audioSettings.sampleRate !== undefined ? vs.audioSettings.sampleRate : 0
+            }
+        }
+
+        function saveSettingsFromPrivate() {
+            var idx = settingsFileIndex
+            if (idx < 0)
+                return
+            if (settingsIsVideo) {
+                SepKits.MediaFormatConverter.setVideoTrim(idx, vTrimStart, vTrimEnd)
+                SepKits.MediaFormatConverter.setVideoCodec(idx, vCodec)
+                SepKits.MediaFormatConverter.setAudioTrim(idx, vaTrimStart, vaTrimEnd)
+                SepKits.MediaFormatConverter.setAudioVolume(idx, vaVolume)
+                SepKits.MediaFormatConverter.setAudioChannels(idx, vaChannels)
+                SepKits.MediaFormatConverter.setAudioSampleRate(idx, vaSampleRate)
+            } else {
+                SepKits.MediaFormatConverter.setAudioTrim(idx, trimStart, trimEnd)
+                SepKits.MediaFormatConverter.setAudioVolume(idx, volume)
+                SepKits.MediaFormatConverter.setAudioChannels(idx, channels)
+                SepKits.MediaFormatConverter.setAudioSampleRate(idx, sampleRate)
+            }
+        }
+
+        function applySettingsToAll() {
+            var f = settingsFile
+            if (!f)
+                return
+            if (f.type === "audio") {
+                SepKits.MediaFormatConverter.applyAudioSettingsToAll({
+                    "trimStart": trimStart,
+                    "trimEnd": trimEnd,
+                    "volume": volume,
+                    "channels": channels,
+                    "sampleRate": sampleRate
+                })
+            } else if (f.type === "video") {
+                SepKits.MediaFormatConverter.applyVideoSettingsToAll({
+                    "trimStart": vTrimStart,
+                    "trimEnd": vTrimEnd,
+                    "videoCodec": vCodec,
+                    "audioSettings": {
+                        "trimStart": vaTrimStart,
+                        "trimEnd": vaTrimEnd,
+                        "volume": vaVolume,
+                        "channels": vaChannels,
+                        "sampleRate": vaSampleRate
+                    }
+                })
+            }
+        }
     }
 
     readonly property bool isRunning: SepKits.MediaFormatConverter.isRunning
@@ -313,6 +399,7 @@ Rectangle {
                                     spacing: SepKits.Theme.spacingSm
                                     SepKits.ComboBox {
                                         id: _fmtCombo
+                                        anchors.verticalCenter: parent.verticalCenter
                                         label: ""
                                         width: 78
                                         comboHeight: 32
@@ -337,19 +424,18 @@ Rectangle {
                                     }
                                     Button {
                                         id: _settingsBtn
+                                        anchors.verticalCenter: parent.verticalCenter
                                         visible: _row.file.type === "audio"
                                                  || _row.file.type === "video"
                                         width: 28
                                         height: 28
                                         enabled: !_root.isRunning
-                                        topPadding: 0
-                                        bottomPadding: 0
-                                        leftPadding: 0
-                                        rightPadding: 0
+                                        topPadding: 7
+                                        bottomPadding: 7
+                                        leftPadding: 7
+                                        rightPadding: 7
                                         contentItem: SepKits.SvgIcon {
                                             anchors.centerIn: parent
-                                            width: 14
-                                            height: 14
                                             iconSource: SepKits.FontAwesome.gear
                                             color: _settingsBtn.hovered ? SepKits.Color.foreground : SepKits.Color.mutedForeground
                                             Behavior on color {
@@ -360,17 +446,27 @@ Rectangle {
                                         }
                                         background: Rectangle {
                                             radius: SepKits.Theme.radius
-                                            color: _settingsBtn.hovered ? SepKits.Color.muted : SepKits.Color.transparent
-                                            Behavior on color {
-                                                ColorAnimation {
-                                                    duration: SepKits.Theme.animFast
-                                                }
-                                            }
+                                            color: SepKits.Color.transparent
                                         }
                                         onClicked: {
                                             _private.settingsFileIndex = _row.index
-                                            _settingsPopup.reload()
-                                            _settingsPopup.open()
+                                            _private.loadSettingsToPrivate()
+                                            SepKits.DialogManager.custom(
+                                                _private.settingsFile ? qsTr("Settings: %1").arg(
+                                                                            _private.settingsFile.fileName) : qsTr(
+                                                                            "Settings"),
+                                                _settingsContentComp,
+                                                qsTr("Done"),
+                                                _private.settingsIsVideo ? qsTr(
+                                                                              "Apply to All Video") : qsTr(
+                                                                              "Apply to All Audio"),
+                                                function () {
+                                                    _private.saveSettingsFromPrivate()
+                                                },
+                                                function () {
+                                                    _private.applySettingsToAll()
+                                                }
+                                            )
                                         }
                                     }
                                 }
@@ -434,14 +530,12 @@ Rectangle {
                                     width: 28
                                     height: 28
                                     enabled: !_root.isRunning
-                                    topPadding: 0
-                                    bottomPadding: 0
-                                    leftPadding: 0
-                                    rightPadding: 0
+                                    topPadding: 7
+                                    bottomPadding: 7
+                                    leftPadding: 7
+                                    rightPadding: 7
                                     contentItem: SepKits.SvgIcon {
                                         anchors.centerIn: parent
-                                        width: 14
-                                        height: 14
                                         iconSource: SepKits.FontAwesome.xmark
                                         color: _delBtn.hovered ? SepKits.Color.distructive : SepKits.Color.mutedForeground
                                         Behavior on color {
@@ -510,8 +604,6 @@ Rectangle {
                 Layout.fillWidth: true
                 value: _root.convProgress
                 visible: _root.convertibleCount() > 0 || _root.isRunning
-                barColor: SepKits.Color.purple600
-                barColorEnd: SepKits.Color.purple500
             }
         }
     }
@@ -549,317 +641,189 @@ Rectangle {
         }
     }
 
-    Popup {
-        id: _settingsPopup
-        modal: false
-        parent: Overlay.overlay
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-        padding: 0
-        implicitWidth: 480
-        implicitHeight: _private.settingsIsVideo ? 520 : 340
-        enter: Transition {
-            NumberAnimation {
-                property: "opacity"
-                from: 0.0
-                to: 1.0
-                duration: SepKits.Theme.animNormal
-            }
-        }
-        exit: Transition {
-            NumberAnimation {
-                property: "opacity"
-                from: 1.0
-                to: 0.0
-                duration: SepKits.Theme.animNormal
-            }
-        }
-        background: Rectangle {
-            radius: SepKits.Theme.cardRadius
-            color: SepKits.Color.card
-            border.color: SepKits.Color.border
-            border.width: 1
-        }
+    Component {
+        id: _settingsContentComp
+        Item {
+            implicitWidth: _contentLayout.implicitWidth + SepKits.Theme.spacingLg * 2
+            implicitHeight: _contentLayout.implicitHeight
 
-        function aFields(ldr) {
-            return ldr.item ? {
-                                  "trimStart": ldr.item.trimStartField.text,
-                                  "trimEnd": ldr.item.trimEndField.text,
-                                  "volume": ldr.item.volSlider.value,
-                                  "channels": ldr.item.chCombo.currentIndex,
-                                  "sampleRate": ldr.item.srCombo.sampleRateValue()
-                              } : null
-        }
-        function setAFields(ldr, ts, te, v, c, sr) {
-            if (!ldr.item)
-                return
-            ldr.item.trimStartField.text = ts || ""
-            ldr.item.trimEndField.text = te || ""
-            ldr.item.volSlider.value = v !== undefined ? v : 0.0
-            ldr.item.chCombo.currentIndex = c !== undefined ? c : 0
-            ldr.item.srCombo.loadSampleRate(sr !== undefined ? sr : 0)
-        }
-        function setAudioToBackend(idx, ldr) {
-            var f = aFields(ldr)
-            if (!f)
-                return
-            SepKits.MediaFormatConverter.setAudioTrim(idx, f.trimStart, f.trimEnd)
-            SepKits.MediaFormatConverter.setAudioVolume(idx, f.volume)
-            SepKits.MediaFormatConverter.setAudioChannels(idx, f.channels)
-            SepKits.MediaFormatConverter.setAudioSampleRate(idx, f.sampleRate)
-        }
-        function reload() {
-            var f = _private.settingsFile
-            if (!f)
-                return
-            var iv = _private.settingsIsVideo
-            var as = (iv && f.videoSettings) ? f.videoSettings.audioSettings : f.audioSettings
-            setAFields(_audioLoader, as.trimStart, as.trimEnd, as.volume, as.channels,
-                       as.sampleRate)
-            if (iv && f.videoSettings) {
-                var vs = f.videoSettings
-                _vTrimStart.text = vs.trimStart || ""
-                _vTrimEnd.text = vs.trimEnd || ""
-                _vCodecCombo._find(vs.videoCodec || "")
-                setAFields(_vaAudioLoader, vs.audioSettings.trimStart, vs.audioSettings.trimEnd,
-                           vs.audioSettings.volume, vs.audioSettings.channels,
-                           vs.audioSettings.sampleRate)
-            }
-        }
-        function saveAndClose() {
-            var idx = _private.settingsFileIndex
-            if (idx < 0) {
-                close()
-                return
-            }
-            if (_private.settingsIsVideo) {
-                SepKits.MediaFormatConverter.setVideoTrim(idx, _vTrimStart.text, _vTrimEnd.text)
-                SepKits.MediaFormatConverter.setVideoCodec(
-                            idx,
-                            _vCodecCombo.currentText === "Copy" ? "" : _vCodecCombo.currentText)
-                setAudioToBackend(idx, _vaAudioLoader)
-            } else {
-                setAudioToBackend(idx, _audioLoader)
-            }
-            close()
-        }
-        function applyToAll() {
-            var f = _private.settingsFile
-            if (!f)
-                return
-            if (f.type === "audio") {
-                var af = aFields(_audioLoader)
-                if (af)
-                    SepKits.MediaFormatConverter.applyAudioSettingsToAll(af)
-            } else if (f.type === "video") {
-                SepKits.MediaFormatConverter.applyVideoSettingsToAll({
-                                                                         "trimStart": _vTrimStart.text,
-                                                                         "trimEnd": _vTrimEnd.text,
-                                                                         "videoCodec": _vCodecCombo.currentText === "Copy" ? "" : _vCodecCombo.currentText,
-                                                                         "audioSettings": aFields(
-                                                                                              _vaAudioLoader)
-                                                                                          || {}
-                                                                     })
-            }
-            close()
-        }
-
-        contentItem: Rectangle {
-            color: SepKits.Color.transparent
-            clip: true
             ColumnLayout {
+                id: _contentLayout
                 anchors.fill: parent
-                anchors.margins: SepKits.Theme.spacingLg
+                anchors.leftMargin: SepKits.Theme.spacingLg
+                anchors.rightMargin: SepKits.Theme.spacingLg
                 spacing: SepKits.Theme.spacingMd
-                Text {
-                    Layout.fillWidth: true
-                    text: _private.settingsFile ? qsTr("Settings: %1").arg(
-                                                      _private.settingsFile.fileName) : qsTr(
-                                                      "Settings")
-                    font.family: SepKits.Font.fontFamilyTitle
-                    font.pixelSize: SepKits.Font.sizeH3
-                    font.weight: SepKits.Font.weightH3
-                    color: SepKits.Color.foreground
-                    elide: Text.ElideRight
-                    Layout.bottomMargin: SepKits.Theme.spacingSm
-                }
+
                 ColumnLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     visible: _private.settingsIsVideo
                     spacing: 0
-                    TabBar {
-                        id: _tabBar
-                        Layout.fillWidth: true
+
+                TabBar {
+                    id: _tabBar
+                    Layout.fillWidth: true
+                    background: Rectangle {
+                        color: SepKits.Color.transparent
+                    }
+                    TabButton {
+                        text: qsTr("Video")
+                        font.pixelSize: SepKits.Font.sizeSmall
+                        contentItem: Text {
+                            text: parent.text
+                            font.family: SepKits.Font.fontFamilyBody
+                            font.pixelSize: parent.font.pixelSize
+                            color: parent.checked ? SepKits.Color.primary : SepKits.Color.mutedForeground
+                            horizontalAlignment: Text.AlignHCenter
+                        }
                         background: Rectangle {
                             color: SepKits.Color.transparent
-                        }
-                        TabButton {
-                            text: qsTr("Video")
-                            font.pixelSize: SepKits.Font.sizeSmall
-                            contentItem: Text {
-                                text: parent.text
-                                font.family: SepKits.Font.fontFamilyBody
-                                font.pixelSize: parent.font.pixelSize
-                                color: parent.checked ? SepKits.Color.primary : SepKits.Color.mutedForeground
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-                            background: Rectangle {
-                                color: SepKits.Color.transparent
-                                Rectangle {
-                                    anchors.bottom: parent.bottom
-                                    width: parent.width
-                                    height: 2
-                                    color: parent.parent.checked ? SepKits.Color.primary : SepKits.Color.transparent
-                                }
-                            }
-                        }
-                        TabButton {
-                            text: qsTr("Audio")
-                            font.pixelSize: SepKits.Font.sizeSmall
-                            contentItem: Text {
-                                text: parent.text
-                                font.family: SepKits.Font.fontFamilyBody
-                                font.pixelSize: parent.font.pixelSize
-                                color: parent.checked ? SepKits.Color.primary : SepKits.Color.mutedForeground
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-                            background: Rectangle {
-                                color: SepKits.Color.transparent
-                                Rectangle {
-                                    anchors.bottom: parent.bottom
-                                    width: parent.width
-                                    height: 2
-                                    color: parent.parent.checked ? SepKits.Color.primary : SepKits.Color.transparent
-                                }
+                            Rectangle {
+                                anchors.bottom: parent.bottom
+                                width: parent.width
+                                height: 2
+                                color: parent.parent.checked ? SepKits.Color.primary : SepKits.Color.transparent
                             }
                         }
                     }
-                    Rectangle {
-                        Layout.fillWidth: true
-                        height: 1
-                        color: SepKits.Color.border
-                    }
-                    StackLayout {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.topMargin: SepKits.Theme.spacingMd
-                        currentIndex: _tabBar.currentIndex
-                        ColumnLayout {
-                            spacing: SepKits.Theme.spacingMd
-                            RowLayout {
-                                spacing: SepKits.Theme.spacingSm
-                                Text {
-                                    Layout.preferredWidth: 80
-                                    text: qsTr("Trim")
-                                    font.family: SepKits.Font.fontFamilyBody
-                                    font.pixelSize: SepKits.Font.sizeSmall
-                                    color: SepKits.Color.foreground
-                                }
-                                TextField {
-                                    id: _vTrimStart
-                                    Layout.fillWidth: true
-                                    placeholderText: "0:0:0"
-                                    font.pixelSize: SepKits.Font.sizeSmall
-                                    color: SepKits.Color.foreground
-                                    background: Rectangle {
-                                        radius: SepKits.Theme.radius
-                                        color: SepKits.Color.background
-                                        border.width: 1
-                                        border.color: SepKits.Color.border
-                                    }
-                                }
-                                Text {
-                                    text: "—"
-                                    color: SepKits.Color.mutedForeground
-                                }
-                                TextField {
-                                    id: _vTrimEnd
-                                    Layout.fillWidth: true
-                                    placeholderText: "0:5:0"
-                                    font.pixelSize: SepKits.Font.sizeSmall
-                                    color: SepKits.Color.foreground
-                                    background: Rectangle {
-                                        radius: SepKits.Theme.radius
-                                        color: SepKits.Color.background
-                                        border.width: 1
-                                        border.color: SepKits.Color.border
-                                    }
-                                }
-                            }
-                            RowLayout {
-                                spacing: SepKits.Theme.spacingSm
-                                Text {
-                                    Layout.preferredWidth: 80
-                                    text: qsTr("Codec")
-                                    font.family: SepKits.Font.fontFamilyBody
-                                    font.pixelSize: SepKits.Font.sizeSmall
-                                    color: SepKits.Color.foreground
-                                }
-                                ComboBox {
-                                    id: _vCodecCombo
-                                    Layout.fillWidth: true
-                                    model: ["Copy", "libx264", "libx265", "libvpx-vp9"]
-                                    font.pixelSize: SepKits.Font.sizeSmall
-                                    function _find(v) {
-                                        for (var i = 0; i < model.length; i++)
-                                            if (String(model[i]).toLowerCase() === String(
-                                                        v).toLowerCase()) {
-                                                currentIndex = i
-                                                return
-                                            }
-                                        currentIndex = 0
-                                    }
-                                    background: Rectangle {
-                                        radius: SepKits.Theme.radius
-                                        color: SepKits.Color.background
-                                        border.width: 1
-                                        border.color: SepKits.Color.border
-                                    }
-                                    contentItem: Text {
-                                        text: _vCodecCombo.displayText
-                                        font: _vCodecCombo.font
-                                        color: SepKits.Color.foreground
-                                        verticalAlignment: Text.AlignVCenter
-                                        leftPadding: 8
-                                    }
-                                }
-                            }
-                            Item {
-                                Layout.fillHeight: true
-                            }
+                    TabButton {
+                        text: qsTr("Audio")
+                        font.pixelSize: SepKits.Font.sizeSmall
+                        contentItem: Text {
+                            text: parent.text
+                            font.family: SepKits.Font.fontFamilyBody
+                            font.pixelSize: parent.font.pixelSize
+                            color: parent.checked ? SepKits.Color.primary : SepKits.Color.mutedForeground
+                            horizontalAlignment: Text.AlignHCenter
                         }
-                        Loader {
-                            id: _vaAudioLoader
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            sourceComponent: _audioFieldsComp
+                        background: Rectangle {
+                            color: SepKits.Color.transparent
+                            Rectangle {
+                                anchors.bottom: parent.bottom
+                                width: parent.width
+                                height: 2
+                                color: parent.parent.checked ? SepKits.Color.primary : SepKits.Color.transparent
+                            }
                         }
                     }
                 }
-                Loader {
-                    id: _audioLoader
+                Rectangle {
+                    Layout.fillWidth: true
+                    height: 1
+                    color: SepKits.Color.border
+                }
+                StackLayout {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    active: !_private.settingsIsVideo
-                    sourceComponent: _audioFieldsComp
-                }
-                RowLayout {
-                    Layout.fillWidth: true
-                    spacing: SepKits.Theme.spacingMd
-                    SepKits.SecondaryButton {
-                        text: _private.settingsIsVideo ? qsTr("Apply to All Video") : qsTr(
-                                                             "Apply to All Audio")
-                        onClicked: _settingsPopup.applyToAll()
+                    Layout.topMargin: SepKits.Theme.spacingMd
+                    currentIndex: _tabBar.currentIndex
+
+                    ColumnLayout {
+                        spacing: SepKits.Theme.spacingMd
+                        RowLayout {
+                            spacing: SepKits.Theme.spacingSm
+                            Text {
+                                Layout.preferredWidth: 80
+                                text: qsTr("Trim")
+                                font.family: SepKits.Font.fontFamilyBody
+                                font.pixelSize: SepKits.Font.sizeSmall
+                                color: SepKits.Color.foreground
+                            }
+                            TextField {
+                                Layout.fillWidth: true
+                                placeholderText: "0:0:0"
+                                font.pixelSize: SepKits.Font.sizeSmall
+                                color: SepKits.Color.foreground
+                                text: _private.vTrimStart
+                                onTextChanged: _private.vTrimStart = text
+                                background: Rectangle {
+                                    radius: SepKits.Theme.radius
+                                    color: SepKits.Color.background
+                                    border.width: 1
+                                    border.color: SepKits.Color.border
+                                }
+                            }
+                            Text {
+                                text: "—"
+                                color: SepKits.Color.mutedForeground
+                            }
+                            TextField {
+                                Layout.fillWidth: true
+                                placeholderText: "0:5:0"
+                                font.pixelSize: SepKits.Font.sizeSmall
+                                color: SepKits.Color.foreground
+                                text: _private.vTrimEnd
+                                onTextChanged: _private.vTrimEnd = text
+                                background: Rectangle {
+                                    radius: SepKits.Theme.radius
+                                    color: SepKits.Color.background
+                                    border.width: 1
+                                    border.color: SepKits.Color.border
+                                }
+                            }
+                        }
+                        RowLayout {
+                            spacing: SepKits.Theme.spacingSm
+                            Text {
+                                Layout.preferredWidth: 80
+                                text: qsTr("Codec")
+                                font.family: SepKits.Font.fontFamilyBody
+                                font.pixelSize: SepKits.Font.sizeSmall
+                                color: SepKits.Color.foreground
+                            }
+                            ComboBox {
+                                id: _vCodecCombo
+                                Layout.fillWidth: true
+                                model: ["Copy", "libx264", "libx265", "libvpx-vp9"]
+                                font.pixelSize: SepKits.Font.sizeSmall
+                                currentIndex: {
+                                    var codes = ["", "libx264", "libx265", "libvpx-vp9"]
+                                    var v = _private.vCodec.toLowerCase()
+                                    for (var i = 0; i < codes.length; i++)
+                                        if (codes[i] === v)
+                                            return i
+                                    return 0
+                                }
+                                onCurrentIndexChanged: {
+                                    var codes = ["", "libx264", "libx265", "libvpx-vp9"]
+                                    if (currentIndex >= 0 && currentIndex < codes.length)
+                                        _private.vCodec = codes[currentIndex]
+                                }
+                                background: Rectangle {
+                                    radius: SepKits.Theme.radius
+                                    color: SepKits.Color.background
+                                    border.width: 1
+                                    border.color: SepKits.Color.border
+                                }
+                                contentItem: Text {
+                                    text: _vCodecCombo.displayText
+                                    font: _vCodecCombo.font
+                                    color: SepKits.Color.foreground
+                                    verticalAlignment: Text.AlignVCenter
+                                    leftPadding: 8
+                                }
+                            }
+                        }
+                        Item { Layout.fillHeight: true }
                     }
-                    Item {
+
+                    Loader {
+                        id: _vaAudioLoader
                         Layout.fillWidth: true
-                    }
-                    SepKits.PrimaryButton {
-                        text: qsTr("Done")
-                        onClicked: _settingsPopup.saveAndClose()
+                        Layout.fillHeight: true
+                        sourceComponent: _audioFieldsComp
                     }
                 }
             }
+
+            Loader {
+                id: _audioLoader
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                active: !_private.settingsIsVideo
+                sourceComponent: _audioFieldsComp
+            }
+        }
         }
     }
 
@@ -867,11 +831,8 @@ Rectangle {
         id: _audioFieldsComp
         ColumnLayout {
             spacing: SepKits.Theme.spacingMd
-            property alias trimStartField: _trimStart
-            property alias trimEndField: _trimEnd
-            property alias volSlider: _volSlider
-            property alias chCombo: _chCombo
-            property alias srCombo: _srCombo
+            readonly property bool _forVideo: _private.settingsIsVideo
+
             RowLayout {
                 spacing: SepKits.Theme.spacingSm
                 Text {
@@ -882,11 +843,12 @@ Rectangle {
                     color: SepKits.Color.foreground
                 }
                 TextField {
-                    id: _trimStart
                     Layout.fillWidth: true
                     placeholderText: "0:0:0"
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
+                    text: _forVideo ? _private.vaTrimStart : _private.trimStart
+                    onTextChanged: _forVideo ? (_private.vaTrimStart = text) : (_private.trimStart = text)
                     background: Rectangle {
                         radius: SepKits.Theme.radius
                         color: SepKits.Color.background
@@ -900,11 +862,12 @@ Rectangle {
                     font.pixelSize: SepKits.Font.sizeSmall
                 }
                 TextField {
-                    id: _trimEnd
                     Layout.fillWidth: true
                     placeholderText: "0:5:0"
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
+                    text: _forVideo ? _private.vaTrimEnd : _private.trimEnd
+                    onTextChanged: _forVideo ? (_private.vaTrimEnd = text) : (_private.trimEnd = text)
                     background: Rectangle {
                         radius: SepKits.Theme.radius
                         color: SepKits.Color.background
@@ -928,7 +891,8 @@ Rectangle {
                     from: -20
                     to: 20
                     stepSize: 0.5
-                    value: 0
+                    value: _forVideo ? _private.vaVolume : _private.volume
+                    onValueChanged: _forVideo ? (_private.vaVolume = value) : (_private.volume = value)
                 }
                 Text {
                     Layout.preferredWidth: 56
@@ -949,10 +913,11 @@ Rectangle {
                     color: SepKits.Color.foreground
                 }
                 ComboBox {
-                    id: _chCombo
                     Layout.fillWidth: true
                     model: [qsTr("Original"), qsTr("Mono"), qsTr("Stereo")]
                     font.pixelSize: SepKits.Font.sizeSmall
+                    currentIndex: _forVideo ? _private.vaChannels : _private.channels
+                    onCurrentIndexChanged: _forVideo ? (_private.vaChannels = currentIndex) : (_private.channels = currentIndex)
                     background: Rectangle {
                         radius: SepKits.Theme.radius
                         color: SepKits.Color.background
@@ -960,8 +925,8 @@ Rectangle {
                         border.color: SepKits.Color.border
                     }
                     contentItem: Text {
-                        text: _chCombo.displayText
-                        font: _chCombo.font
+                        text: parent.displayText
+                        font: parent.font
                         color: SepKits.Color.foreground
                         verticalAlignment: Text.AlignVCenter
                         leftPadding: 8
@@ -978,29 +943,25 @@ Rectangle {
                     color: SepKits.Color.foreground
                 }
                 ComboBox {
-                    id: _srCombo
                     Layout.fillWidth: true
                     model: [qsTr("Original"), "22050 Hz", "44100 Hz", "48000 Hz", "96000 Hz"]
                     font.pixelSize: SepKits.Font.sizeSmall
-                    property int _value: 0
-                    function loadSampleRate(v) {
-                        _value = v
-                        _updateIndex()
+                    currentIndex: {
+                        var rates = [0, 22050, 44100, 48000, 96000]
+                        var v = _forVideo ? _private.vaSampleRate : _private.sampleRate
+                        for (var i = 0; i < rates.length; i++)
+                            if (rates[i] === v)
+                                return i
+                        return 0
                     }
-                    function sampleRateValue() {
-                        var r = [0, 22050, 44100, 48000, 96000]
-                        return r[currentIndex]
+                    onCurrentIndexChanged: {
+                        var rates = [0, 22050, 44100, 48000, 96000]
+                        var val = rates[currentIndex] || 0
+                        if (_forVideo)
+                            _private.vaSampleRate = val
+                        else
+                            _private.sampleRate = val
                     }
-                    function _updateIndex() {
-                        var r = [0, 22050, 44100, 48000, 96000]
-                        for (var i = 0; i < r.length; i++)
-                            if (r[i] === _value) {
-                                currentIndex = i
-                                return
-                            }
-                        currentIndex = 0
-                    }
-                    Component.onCompleted: _updateIndex()
                     background: Rectangle {
                         radius: SepKits.Theme.radius
                         color: SepKits.Color.background
@@ -1008,8 +969,8 @@ Rectangle {
                         border.color: SepKits.Color.border
                     }
                     contentItem: Text {
-                        text: _srCombo.displayText
-                        font: _srCombo.font
+                        text: parent.displayText
+                        font: parent.font
                         color: SepKits.Color.foreground
                         verticalAlignment: Text.AlignVCenter
                         leftPadding: 8

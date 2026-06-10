@@ -314,12 +314,12 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
 <context>
     <name>DialogManager</name>
     <message>
-        <location filename="../src/components/DialogManager.qml" line="20"/>
+        <location filename="../src/components/DialogManager.qml" line="21"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/components/DialogManager.qml" line="21"/>
+        <location filename="../src/components/DialogManager.qml" line="22"/>
         <source>Cancel</source>
         <translation type="unfinished">Cancel</translation>
     </message>
@@ -448,94 +448,94 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
         <translation type="vanished">← Back</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="38"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="149"/>
         <source>Media Format Converter</source>
         <translation>Media Format Converter</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="40"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
         <source>Log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="41"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="171"/>
         <source>Cancel</source>
         <translation type="unfinished">Cancel</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="41"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="171"/>
         <source>Start Conversion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="47"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="187"/>
         <source>Output Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="48"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="202"/>
         <source>Select output folder...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="51"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="217"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="59"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="251"/>
         <source>File Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="60"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="264"/>
         <source>Output Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="61"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="277"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="62"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="290"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="495"/>
         <source>Converting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
-        <location filename="../src/views/MediaFormatConverter.qml" line="148"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="459"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="497"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="499"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="91"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="501"/>
         <source>Ready</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="100"/>
-        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="570"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="590"/>
         <source>Converting...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="100"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="570"/>
         <source>Drag &amp; drop media files here</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="589"/>
         <source>Converting %n file(s)...</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -543,17 +543,17 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
         </translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="594"/>
         <source>Add files to begin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="595"/>
         <source>All files converted</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../src/views/MediaFormatConverter.qml" line="104"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="597"/>
         <source>%n file(s) ready</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -561,79 +561,79 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
         </translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="108"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="613"/>
         <source>Select Output Folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="128"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="456"/>
         <source>Settings</source>
         <translation type="unfinished">Settings</translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="128"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="455"/>
         <source>Settings: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="131"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="670"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="132"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="690"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="136"/>
-        <location filename="../src/views/MediaFormatConverter.qml" line="153"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="727"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="840"/>
         <source>Trim</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="140"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="769"/>
         <source>Codec</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="146"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="460"/>
         <source>Apply to All Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="146"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="461"/>
         <source>Apply to All Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="157"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="883"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="160"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="910"/>
         <source>Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
-        <location filename="../src/views/MediaFormatConverter.qml" line="163"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="917"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="947"/>
         <source>Original</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="917"/>
         <source>Mono</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="161"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="917"/>
         <source>Stereo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="162"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="940"/>
         <source>Sample Rate</source>
         <translation type="unfinished"></translation>
     </message>

@@ -10,10 +10,15 @@ Dialog {
     property alias dialogMessage: _messageText.text
     property alias acceptText: _acceptBtn.text
     property alias rejectText: _rejectBtn.text
+    property Component contentComponent: null
 
     modal: false
     padding: 0
-    implicitWidth: Math.max(360, Math.min(_footerRow.implicitWidth + SepKits.Theme.spacingLg * 2, 580))
+    implicitWidth: {
+        var contentW = _customLoader.active ? _customLoader.implicitWidth : 0
+        var footerW = _footerRow.implicitWidth + SepKits.Theme.spacingLg * 2
+        return Math.max(360, Math.min(Math.max(contentW, footerW), 580))
+    }
     closePolicy: Popup.CloseOnEscape
 
     enter: Transition {
@@ -47,15 +52,29 @@ Dialog {
         }
     }
 
-    contentItem: Text {
-        id: _messageText
-        color: SepKits.Color.mutedForeground
-        font.family: SepKits.Font.fontFamilyBody
-        font.pixelSize: SepKits.Font.sizeBody
-        font.weight: SepKits.Font.weightBody
-        wrapMode: Text.WordWrap
-        leftPadding: SepKits.Theme.spacingLg
-        rightPadding: SepKits.Theme.spacingLg
+    contentItem: Item {
+        implicitWidth: _customLoader.active ? _customLoader.implicitWidth : _messageText.implicitWidth
+        implicitHeight: _customLoader.active ? _customLoader.implicitHeight : _messageText.implicitHeight
+
+        Text {
+            id: _messageText
+            anchors.fill: parent
+            visible: !_customLoader.active
+            color: SepKits.Color.mutedForeground
+            font.family: SepKits.Font.fontFamilyBody
+            font.pixelSize: SepKits.Font.sizeBody
+            font.weight: SepKits.Font.weightBody
+            wrapMode: Text.WordWrap
+            leftPadding: SepKits.Theme.spacingLg
+            rightPadding: SepKits.Theme.spacingLg
+        }
+
+        Loader {
+            id: _customLoader
+            anchors.fill: parent
+            active: _root.contentComponent !== null
+            sourceComponent: _root.contentComponent
+        }
     }
 
     footer: Item {
