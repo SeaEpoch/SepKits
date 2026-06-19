@@ -1,18 +1,20 @@
 #include <QApplication>
+#include <QDir>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QSettings>
 #include <QStandardPaths>
-#include <QDir>
 #include <QWKQuick/qwkquickglobal.h>
+
 #include "backend/utils/LanguageManager.h"
-#include "backend/utils/SettingsStore.h"
 #include "backend/utils/LoremIpsumGenerator.h"
-#include "backend/utils/NetworkSpeedTest.h"
 #include "backend/utils/MediaFormatConverter.h"
+#include "backend/utils/NetworkSpeedTest.h"
+#include "backend/utils/SettingsStore.h"
 #include "backend/utils/SystemCacheCleaner.h"
 #include "backend/utils/TrayMenuHelper.h"
+#include "uxtheme.h"
 
 #ifdef Q_OS_WINDOWS
 #  include <windows.h>
@@ -71,7 +73,7 @@ int main(int argc, char* argv[])
     qputenv("QT_WIN_DEBUG_CONSOLE", "attach");
 #endif
     // qputenv("QSG_INFO", "1");                  // 打印 Qt Scene Graph 信息，用于性能调试
-    // qputenv("QSG_NO_VSYNC", "1");              // 禁用垂直同步，提高帧率（仅限开发环境）
+    // qputenv("QSG_NO_VSYNC", "1"); // 禁用垂直同步，提高帧率（仅限开发环境）
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
@@ -80,10 +82,10 @@ int main(int argc, char* argv[])
 #endif
 
 #ifdef Q_OS_WINDOWS
-    qputenv("QSG_RHI_BACKEND", "d3d11");                // options: d3d11, d3d12, opengl, vulkan
+    qputenv("QSG_RHI_BACKEND", "d3d12");                // options: d3d11, d3d12, opengl, vulkan
     qputenv("QT_QPA_DISABLE_REDIRECTION_SURFACE", "1"); // 禁用窗口重定向表面
 #endif
-    //qputenv("QSG_RHI_HDR", "scrgb"); // other options: hdr10, p3
+    qputenv("QSG_RHI_HDR", "p3"); // options: scrgb, hdr10, p3
 
     QApplication app(argc, argv);
     app.setOrganizationName(QStringLiteral("SeaEpoch"));

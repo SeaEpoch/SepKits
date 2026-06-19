@@ -576,23 +576,23 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="670"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="672"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="690"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="692"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="727"/>
-        <location filename="../src/views/MediaFormatConverter.qml" line="840"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="729"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="832"/>
         <source>Trim</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="769"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="772"/>
         <source>Codec</source>
         <translation type="unfinished"></translation>
     </message>
@@ -607,33 +607,33 @@ Set the count, select unit and language, then click &quot;Generate&quot;.</trans
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="883"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="875"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="910"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="902"/>
         <source>Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="917"/>
-        <location filename="../src/views/MediaFormatConverter.qml" line="947"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="912"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="931"/>
         <source>Original</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="917"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="912"/>
         <source>Mono</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="917"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="912"/>
         <source>Stereo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/views/MediaFormatConverter.qml" line="940"/>
+        <location filename="../src/views/MediaFormatConverter.qml" line="921"/>
         <source>Sample Rate</source>
         <translation type="unfinished"></translation>
     </message>

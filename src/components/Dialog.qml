@@ -44,7 +44,7 @@ Dialog {
             anchors.bottom: parent.bottom
             anchors.leftMargin: SepKits.Theme.spacingLg
             anchors.rightMargin: SepKits.Theme.spacingLg
-            anchors.bottomMargin: SepKits.Theme.spacingSm
+            anchors.bottomMargin: SepKits.Theme.spacingMd
             color: SepKits.Color.foreground
             font.family: SepKits.Font.fontFamilyTitle
             font.pixelSize: SepKits.Font.sizeH3

@@ -645,13 +645,15 @@ Rectangle {
         id: _settingsContentComp
         Item {
             implicitWidth: _contentLayout.implicitWidth + SepKits.Theme.spacingLg * 2
-            implicitHeight: _contentLayout.implicitHeight
+            implicitHeight: _contentLayout.implicitHeight + SepKits.Theme.spacingMd * 2
 
             ColumnLayout {
                 id: _contentLayout
                 anchors.fill: parent
                 anchors.leftMargin: SepKits.Theme.spacingLg
                 anchors.rightMargin: SepKits.Theme.spacingLg
+                anchors.topMargin: SepKits.Theme.spacingMd
+                anchors.bottomMargin: SepKits.Theme.spacingMd
                 spacing: SepKits.Theme.spacingMd
 
                 ColumnLayout {
@@ -746,6 +748,7 @@ Rectangle {
                             Text {
                                 text: "—"
                                 color: SepKits.Color.mutedForeground
+                                font.pixelSize: SepKits.Font.sizeSmall
                             }
                             TextField {
                                 Layout.fillWidth: true
@@ -771,11 +774,13 @@ Rectangle {
                                 font.pixelSize: SepKits.Font.sizeSmall
                                 color: SepKits.Color.foreground
                             }
-                            ComboBox {
+                            SepKits.ComboBox {
                                 id: _vCodecCombo
                                 Layout.fillWidth: true
+                                label: ""
+                                comboHeight: 32
+                                comboRadius: SepKits.Theme.radius
                                 model: ["Copy", "libx264", "libx265", "libvpx-vp9"]
-                                font.pixelSize: SepKits.Font.sizeSmall
                                 currentIndex: {
                                     var codes = ["", "libx264", "libx265", "libvpx-vp9"]
                                     var v = _private.vCodec.toLowerCase()
@@ -784,23 +789,10 @@ Rectangle {
                                             return i
                                     return 0
                                 }
-                                onCurrentIndexChanged: {
+                                onActivated: index => {
                                     var codes = ["", "libx264", "libx265", "libvpx-vp9"]
-                                    if (currentIndex >= 0 && currentIndex < codes.length)
-                                        _private.vCodec = codes[currentIndex]
-                                }
-                                background: Rectangle {
-                                    radius: SepKits.Theme.radius
-                                    color: SepKits.Color.background
-                                    border.width: 1
-                                    border.color: SepKits.Color.border
-                                }
-                                contentItem: Text {
-                                    text: _vCodecCombo.displayText
-                                    font: _vCodecCombo.font
-                                    color: SepKits.Color.foreground
-                                    verticalAlignment: Text.AlignVCenter
-                                    leftPadding: 8
+                                    if (index >= 0 && index < codes.length)
+                                        _private.vCodec = codes[index]
                                 }
                             }
                         }
@@ -885,7 +877,7 @@ Rectangle {
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
                 }
-                Slider {
+                SepKits.SepSlider {
                     id: _volSlider
                     Layout.fillWidth: true
                     from: -20
@@ -912,25 +904,14 @@ Rectangle {
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
                 }
-                ComboBox {
+                SepKits.ComboBox {
                     Layout.fillWidth: true
+                    label: ""
+                    comboHeight: 32
+                    comboRadius: SepKits.Theme.radius
                     model: [qsTr("Original"), qsTr("Mono"), qsTr("Stereo")]
-                    font.pixelSize: SepKits.Font.sizeSmall
                     currentIndex: _forVideo ? _private.vaChannels : _private.channels
-                    onCurrentIndexChanged: _forVideo ? (_private.vaChannels = currentIndex) : (_private.channels = currentIndex)
-                    background: Rectangle {
-                        radius: SepKits.Theme.radius
-                        color: SepKits.Color.background
-                        border.width: 1
-                        border.color: SepKits.Color.border
-                    }
-                    contentItem: Text {
-                        text: parent.displayText
-                        font: parent.font
-                        color: SepKits.Color.foreground
-                        verticalAlignment: Text.AlignVCenter
-                        leftPadding: 8
-                    }
+                    onActivated: index => { if (_forVideo) _private.vaChannels = index; else _private.channels = index }
                 }
             }
             RowLayout {
@@ -942,10 +923,12 @@ Rectangle {
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
                 }
-                ComboBox {
+                SepKits.ComboBox {
                     Layout.fillWidth: true
+                    label: ""
+                    comboHeight: 32
+                    comboRadius: SepKits.Theme.radius
                     model: [qsTr("Original"), "22050 Hz", "44100 Hz", "48000 Hz", "96000 Hz"]
-                    font.pixelSize: SepKits.Font.sizeSmall
                     currentIndex: {
                         var rates = [0, 22050, 44100, 48000, 96000]
                         var v = _forVideo ? _private.vaSampleRate : _private.sampleRate
@@ -954,26 +937,13 @@ Rectangle {
                                 return i
                         return 0
                     }
-                    onCurrentIndexChanged: {
+                    onActivated: index => {
                         var rates = [0, 22050, 44100, 48000, 96000]
-                        var val = rates[currentIndex] || 0
+                        var val = rates[index] || 0
                         if (_forVideo)
                             _private.vaSampleRate = val
                         else
                             _private.sampleRate = val
-                    }
-                    background: Rectangle {
-                        radius: SepKits.Theme.radius
-                        color: SepKits.Color.background
-                        border.width: 1
-                        border.color: SepKits.Color.border
-                    }
-                    contentItem: Text {
-                        text: parent.displayText
-                        font: parent.font
-                        color: SepKits.Color.foreground
-                        verticalAlignment: Text.AlignVCenter
-                        leftPadding: 8
                     }
                 }
             }

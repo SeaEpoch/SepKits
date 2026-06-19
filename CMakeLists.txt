@@ -49,6 +49,7 @@ set(QML_PLAIN_FILES
     src/components/PrimaryButton.qml
     src/components/SecondaryButton.qml
     src/components/SepProgressBar.qml
+    src/components/SepSlider.qml
 
 
     src/views/HomePage.qml
