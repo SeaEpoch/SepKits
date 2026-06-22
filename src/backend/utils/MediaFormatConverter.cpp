@@ -1,4 +1,5 @@
 #include "MediaFormatConverter.h"
+#include "Logger.h"
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
@@ -174,8 +175,8 @@ void MediaFormatConverter::parseProgress(const QString &line) {
 
 void MediaFormatConverter::startConversion() {
     if (m_currentIndex>=0||m_files.isEmpty()) return;
-    if (ffmpegPath().isEmpty()) { emit logMessage("[Error] FFmpeg not found."); return; }
-    m_cancelled=false; m_successCount=0; m_failCount=0; m_progress=0.0; m_logLines.clear(); m_logFilePath.clear();
+    if (ffmpegPath().isEmpty()) { Logger::instance()->log(Logger::Error, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, "FFmpeg not found."); return; }
+    m_cancelled=false; m_successCount=0; m_failCount=0; m_progress=0.0;
     for (auto &f : m_files) if (f.status!="done") f.status=QStringLiteral("pending");
     m_currentIndex=0; emit filesChanged(); emit isRunningChanged(); emit progressChanged(); emit currentFileIndexChanged();
     if (!m_process) { m_process=new QProcess(this);
@@ -187,14 +188,14 @@ void MediaFormatConverter::startConversion() {
 void MediaFormatConverter::cancelConversion() {
     m_cancelled=true; if(m_process&&m_process->state()!=QProcess::NotRunning){m_process->kill();m_process->waitForFinished(3000);}
     if(m_probeProcess&&m_probeProcess->state()!=QProcess::NotRunning){m_probeProcess->kill();m_probeProcess->waitForFinished(3000);}
-    resetState(); emit logMessage("[Info] Conversion cancelled.");
+    resetState(); Logger::instance()->log(Logger::Info, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, "Conversion cancelled.");
 }
 void MediaFormatConverter::convertNext() {
     if (m_cancelled) { resetState(); return; }
     while (m_currentIndex<m_files.size()) { const auto &e=m_files[m_currentIndex]; if (e.type!="unknown"&&e.status!="done") break; m_currentIndex++; }
-    if (m_currentIndex>=m_files.size()) { emit logMessage(QStringLiteral("[Info] Complete: %1 ok, %2 failed.").arg(m_successCount).arg(m_failCount)); emit conversionFinished(m_successCount,m_failCount); resetState(); return; }
+    if (m_currentIndex>=m_files.size()) { Logger::instance()->log(Logger::Info, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, QStringLiteral("Complete: %1 ok, %2 failed.").arg(m_successCount).arg(m_failCount)); emit conversionFinished(m_successCount,m_failCount); resetState(); return; }
     updateFileStatus(m_currentIndex, "converting");
-    emit logMessage(QStringLiteral("[Info] Converting: %1").arg(QFileInfo(m_files[m_currentIndex].path).fileName()));
+    Logger::instance()->log(Logger::Info, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, QStringLiteral("Converting: %1").arg(QFileInfo(m_files[m_currentIndex].path).fileName()));
     emit currentFileIndexChanged();
     QString outPath = m_outputDir+"/"+QFileInfo(m_files[m_currentIndex].path).completeBaseName()+"."+m_files[m_currentIndex].targetFormat;
     m_currentDuration = probeDuration(m_files[m_currentIndex].path);
@@ -202,15 +203,15 @@ void MediaFormatConverter::convertNext() {
 }
 void MediaFormatConverter::onReadyReadStderr() {
     const QString data = QString::fromUtf8(m_process->readAllStandardError());
-    for (const QString &line : data.split("\r\n", Qt::SkipEmptyParts)) { parseProgress(line); if (!line.trimmed().isEmpty()) { m_logLines.append(line); emit logMessage(line); } }
+    for (const QString &line : data.split("\r\n", Qt::SkipEmptyParts)) { parseProgress(line); if (!line.trimmed().isEmpty()) Logger::instance()->info("MediaFormatConverter", "onReadyReadStderr", line); }
 }
 void MediaFormatConverter::onProcessFinished(int exitCode, QProcess::ExitStatus status) {
     if (m_cancelled) return;
-    if (status==QProcess::NormalExit&&exitCode==0) { m_successCount++; updateFileStatus(m_currentIndex,"done"); m_fileProgress=1.0; if(!m_files.isEmpty())m_progress=double(m_currentIndex+1)/m_files.size(); emit progressChanged(); emit logMessage(QStringLiteral("[OK] %1 done.").arg(QFileInfo(m_files[m_currentIndex].path).fileName())); }
-    else { m_failCount++; updateFileStatus(m_currentIndex,"failed"); emit logMessage(QStringLiteral("[Fail] %1 failed (exit %2).").arg(QFileInfo(m_files[m_currentIndex].path).fileName()).arg(exitCode)); }
+    if (status==QProcess::NormalExit&&exitCode==0) { m_successCount++; updateFileStatus(m_currentIndex,"done"); m_fileProgress=1.0; if(!m_files.isEmpty())m_progress=double(m_currentIndex+1)/m_files.size(); emit progressChanged(); Logger::instance()->log(Logger::Info, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, QStringLiteral("%1 done.").arg(QFileInfo(m_files[m_currentIndex].path).fileName())); }
+    else { m_failCount++; updateFileStatus(m_currentIndex,"failed"); Logger::instance()->log(Logger::Error, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, QStringLiteral("%1 failed (exit %2).").arg(QFileInfo(m_files[m_currentIndex].path).fileName()).arg(exitCode)); }
     m_currentIndex++; convertNext();
 }
-void MediaFormatConverter::onProcessError(QProcess::ProcessError) { if (!m_cancelled) emit logMessage(QStringLiteral("[Error] %1").arg(m_process->errorString())); }
+void MediaFormatConverter::onProcessError(QProcess::ProcessError) { if (!m_cancelled) Logger::instance()->log(Logger::Error, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__, m_process->errorString()); }
 
 void MediaFormatConverter::resetState() {
     m_currentIndex=-1; m_progress=0.0; m_fileProgress=0.0; m_currentDuration=0.0; m_cancelled=false;
@@ -218,13 +219,6 @@ void MediaFormatConverter::resetState() {
     emit filesChanged(); emit isRunningChanged(); emit progressChanged(); emit currentFileIndexChanged();
 }
 void MediaFormatConverter::updateFileStatus(int i, const QString &s) { if (i>=0&&i<m_files.size()&&m_files[i].status!=s) { m_files[i].status=s; emit filesChanged(); } }
-
-QString MediaFormatConverter::saveLog() const {
-    if (m_logLines.isEmpty()) return {};
-    QString path = QStandardPaths::writableLocation(QStandardPaths::TempLocation)+"/SepKits_ffmpeg_log.txt";
-    QFile f(path); if (f.open(QIODevice::WriteOnly|QIODevice::Truncate)) { f.write(m_logLines.join("\n").toUtf8()); f.close(); return path; }
-    return {};
-}
 
 QVariantMap MediaFormatConverter::fileToVariant(const FileEntry &e) const {
     QVariantMap m; m["path"]=e.path; m["fileName"]=QFileInfo(e.path).fileName(); m["type"]=e.type;

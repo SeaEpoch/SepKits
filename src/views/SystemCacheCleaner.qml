@@ -111,18 +111,6 @@ Rectangle {
                 }
             }
 
-            // Export
-            SepKits.SecondaryButton {
-                id: _exportBtn
-                text: qsTr("Export Log")
-                visible: _private.logContent.length > 0
-                onClicked: {
-                    var path = SepKits.SystemCacheCleaner.exportLog(_root._private._logContent)
-                    if (path) _root.appendLog(qsTr("Log exported to: %1").arg(path))
-                    else _root.appendLog(qsTr("Export failed"))
-                }
-            }
-
             // Cancel
             SepKits.SecondaryButton {
                 id: _cancelBtn

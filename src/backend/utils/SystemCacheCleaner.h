@@ -30,13 +30,11 @@ public:
 
     Q_INVOKABLE bool isRunningAsAdmin() const;
     Q_INVOKABLE void requestAdminRelaunch();
-    Q_INVOKABLE QString exportLog(const QString &content);
 
 public slots:
     void startScan();
     void startCleanup(const QStringList &enabled);
     void cancel();
-    void saveLogToFile(const QString &filePath, const QString &content);
     void retranslate();
 
 signals:

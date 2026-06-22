@@ -185,6 +185,54 @@ Item {
                     }
                 }
             }
+
+            // 高级设置
+            SepKits.Card {
+                width: parent.width
+
+                content: Column {
+                    width: parent.width
+                    spacing: 24
+
+                    Text {
+                        bottomPadding: 24
+                        text: qsTr("Advanced Settings")
+                        font.pixelSize: 22
+                        font.bold: true
+                        color: SepKits.Color.foreground
+                    }
+
+                    // 查看今日日志
+                    RowLayout {
+                        width: parent.width
+
+                        Column {
+                            Layout.alignment: Qt.AlignLeft
+                            Text {
+                                text: qsTr("Today's Log")
+                                color: SepKits.Color.foreground
+                                font.pixelSize: 14
+                            }
+
+                            Text {
+                                text: qsTr("View the application log for today")
+                                color: SepKits.Color.mutedForeground
+                                font.pixelSize: 12
+                            }
+                        }
+
+                        SepKits.SecondaryButton {
+                            Layout.alignment: Qt.AlignRight
+                            text: qsTr("Open Log")
+                            leftPadding: 16
+                            rightPadding: 16
+                            topPadding: 8
+                            bottomPadding: 8
+                            onClicked: SepKits.Logger.openTodayLog()
+                        }
+                    }
+                }
+            }
         }
     }
 }

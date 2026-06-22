@@ -1,4 +1,5 @@
 #include "SystemCacheCleaner.h"
+#include "Logger.h"
 
 #include <QCoreApplication>
 #include <QDateTime>
@@ -321,6 +322,7 @@ void SystemCacheCleaner::doScan() {
     };
 
     const int n = steps.size();
+    Logger::instance()->info("SystemCacheCleaner", "doScan", "Scan started");
     for (int i = 0; i < n; ++i) {
         if (m_cancelled.loadRelaxed()) return;
         setProgress(qreal(i) / n, QStringLiteral("Scanning %1...").arg(steps[i].key));
@@ -333,6 +335,8 @@ void SystemCacheCleaner::doScan() {
             m_model->setScanResult(i, c.files, c.bytes);
         }, Qt::QueuedConnection);
     }
+    Logger::instance()->info("SystemCacheCleaner", "doScan",
+        QStringLiteral("Scan complete: %1 categories").arg(n));
     setProgress(1.0, QStringLiteral("Scan complete"));
 }
 
@@ -375,6 +379,7 @@ void SystemCacheCleaner::startCleanup(const QStringList &enabled) {
 }
 
 void SystemCacheCleaner::doCleanup(const QStringList &enabled) {
+    Logger::instance()->info("SystemCacheCleaner", "doCleanup", "Cleanup started");
     emitProgress(QStringLiteral("=== System Cache Cleanup Started ==="));
 
     const QString home  = QDir::homePath();
@@ -469,32 +474,15 @@ void SystemCacheCleaner::doCleanup(const QStringList &enabled) {
     emitProgress(m_cleanedCount > 0
         ? QStringLiteral("Cleanup completed successfully.")
         : QStringLiteral("Cleanup completed. Tip: run as administrator to clean system paths."));
-}
-
-// ─── Export ───────────────────────────────────────────────────────
-
-void SystemCacheCleaner::saveLogToFile(const QString &path, const QString &content) {
-    QFile f(path);
-    if (f.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream(&f) << content;
-        f.close();
-    }
+    Logger::instance()->info("SystemCacheCleaner", "doCleanup",
+        QStringLiteral("Cleanup finished: %1 files removed, %2 freed")
+            .arg(m_cleanedCount).arg(formatSize(m_freedBytes)));
 }
 
 void SystemCacheCleaner::retranslate()
 {
     if (m_model)
         m_model->retranslate();
-}
-
-QString SystemCacheCleaner::exportLog(const QString &content) {
-    const QString dir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)
-                        + QStringLiteral("/SepKits");
-    QDir().mkpath(dir);
-    const QString ts = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd_HHmmss"));
-    const QString fp = dir + QStringLiteral("/SepKits_CleanupLog_") + ts + QStringLiteral(".txt");
-    saveLogToFile(fp, content);
-    return QFile::exists(fp) ? fp : QString();
 }
 
 // ─── Format ───────────────────────────────────────────────────────

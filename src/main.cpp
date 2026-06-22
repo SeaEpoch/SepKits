@@ -8,6 +8,7 @@
 #include <QWKQuick/qwkquickglobal.h>
 
 #include "backend/utils/LanguageManager.h"
+#include "backend/utils/Logger.h"
 #include "backend/utils/LoremIpsumGenerator.h"
 #include "backend/utils/MediaFormatConverter.h"
 #include "backend/utils/NetworkSpeedTest.h"
@@ -102,6 +103,9 @@ int main(int argc, char* argv[])
 #endif
     engine.rootContext()->setContextProperty(QStringLiteral("$curveRenderingAvailable"), QVariant(curveRenderingAvailable));
     QWK::registerTypes(&engine);
+
+    Logger logger(&app);
+    qmlRegisterSingletonInstance("SepKits", 1, 0, "Logger", &logger);
 
     LanguageManager langManager(&engine, &app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "LanguageManager", &langManager);

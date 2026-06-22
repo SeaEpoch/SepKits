@@ -1,4 +1,5 @@
 #include "NetworkSpeedTest.h"
+#include "Logger.h"
 
 #include <QCoreApplication>
 #include <QDir>
@@ -223,6 +224,8 @@ void NetworkSpeedTest::startTest()
 
     m_process->setProgram(path);
     m_process->setArguments(args);
+
+    Logger::instance()->info("NetworkSpeedTest", "startTest", "Speed test started");
     m_process->start();
 
     m_pendingBuffer.clear();
@@ -261,6 +264,7 @@ void NetworkSpeedTest::onReadyRead()
 
         // Accumulate raw JSON line for QML log display
         m_rawLog += line + QStringLiteral("\n");
+        Logger::instance()->info("NetworkSpeedTest", "onReadyRead", line);
     }
     if (!m_rawLog.isEmpty())
         emit rawLogChanged();
@@ -288,6 +292,8 @@ void NetworkSpeedTest::onFinished(int exitCode, QProcess::ExitStatus status)
         // speedtest.exe returned an error — show stderr in log
         if (!m_stderrBuffer.isEmpty()) {
             m_rawLog += QStringLiteral("[Error] ") + m_stderrBuffer.trimmed() + QStringLiteral("\n");
+            Logger::instance()->error("NetworkSpeedTest", "speedtest.exe failed",
+                m_stderrBuffer.trimmed());
             emit rawLogChanged();
         }
         setPhase(QStringLiteral("idle"));
@@ -457,4 +463,10 @@ void NetworkSpeedTest::processResult(const QJsonObject &obj)
         m_resultUrl = result.value(QStringLiteral("url")).toString();
         emit resultUrlChanged();
     }
+
+    Logger::instance()->info("NetworkSpeedTest", "processResult",
+        QStringLiteral("Download: %1 %2, Upload: %3 %4, Ping: %5 ms")
+            .arg(m_downloadResult).arg(m_speedUnit)
+            .arg(m_uploadResult).arg(m_speedUnit)
+            .arg(m_pingLatency));
 }

@@ -32,13 +32,12 @@ public:
     Q_INVOKABLE void applyVideoSettingsToAll(const QVariantMap &settings);
     Q_INVOKABLE void startConversion();
     Q_INVOKABLE void cancelConversion();
-    Q_INVOKABLE QString saveLog() const;
     static QString ffmpegPath(); static QString ffprobePath();
 
 signals:
     void filesChanged(); void progressChanged(); void currentFileIndexChanged();
     void isRunningChanged(); void outputDirChanged();
-    void conversionFinished(int successCount, int failCount); void logMessage(const QString &msg);
+    void conversionFinished(int successCount, int failCount);
 
 private slots:
     void onProcessFinished(int exitCode, QProcess::ExitStatus status);
@@ -57,5 +56,4 @@ private:
     QList<FileEntry> m_files; QProcess *m_process = nullptr; QProcess *m_probeProcess = nullptr;
     QString m_outputDir; int m_currentIndex = -1; double m_progress = 0.0; double m_fileProgress = 0.0;
     double m_currentDuration = 0.0; int m_successCount = 0; int m_failCount = 0; bool m_cancelled = false;
-    QStringList m_logLines; QString m_logFilePath;
 };

@@ -117,7 +117,6 @@ Rectangle {
     readonly property bool isRunning: SepKits.MediaFormatConverter.isRunning
     readonly property double convProgress: SepKits.MediaFormatConverter.progress
     readonly property var fileList: SepKits.MediaFormatConverter.files
-    property bool _hasConverted: false
 
     function convertibleCount() {
         var n = 0
@@ -156,14 +155,9 @@ Rectangle {
                 Layout.fillWidth: true
             }
             SepKits.SecondaryButton {
-                id: _logBtn
-                visible: _root._hasConverted && !_root.isRunning
-                text: qsTr("Log")
-                onClicked: {
-                    var p = SepKits.MediaFormatConverter.saveLog()
-                    if (p)
-                        Qt.openUrlExternally(p)
-                }
+                text: qsTr("Add Files")
+                enabled: !_root.isRunning
+                onClicked: _addFilesDialog.open()
             }
             SepKits.PrimaryButton {
                 id: _actionBtn
@@ -173,7 +167,6 @@ Rectangle {
                     if (_root.isRunning)
                         SepKits.MediaFormatConverter.cancelConversion()
                     else {
-                        _root._hasConverted = true
                         SepKits.MediaFormatConverter.startConversion()
                     }
                 }
@@ -618,6 +611,32 @@ Rectangle {
             _outputPathField.text = p
             SepKits.MediaFormatConverter.outputDir = p
             SepKits.SettingsStore.setValue("mediaConverterOutputDir", p)
+        }
+    }
+
+    FileDialog {
+        id: _addFilesDialog
+        title: qsTr("Select Media Files")
+        fileMode: FileDialog.OpenFiles
+        nameFilters: [
+            qsTr("All Media (%1)").arg("*.mp3 *.wav *.flac *.aac *.ogg *.wma *.m4a *.opus *.mp4 *.avi *.mkv *.mov *.webm *.wmv *.flv *.jpg *.jpeg *.png *.bmp *.webp *.tiff *.gif *.ico"),
+            qsTr("Audio (%1)").arg("*.mp3 *.wav *.flac *.aac *.ogg *.wma *.m4a *.opus"),
+            qsTr("Video (%1)").arg("*.mp4 *.avi *.mkv *.mov *.webm *.wmv *.flv"),
+            qsTr("Images (%1)").arg("*.jpg *.jpeg *.png *.bmp *.webp *.tiff *.gif *.ico"),
+            qsTr("All Files (%1)").arg("*.*")
+        ]
+        onAccepted: {
+            var paths = []
+            for (var i = 0; i < selectedFiles.length; i++) {
+                var u = selectedFiles[i].toString()
+                if (u.startsWith("file:///"))
+                    u = u.substring(8)
+                else if (u.startsWith("file://"))
+                    u = u.substring(7)
+                u = decodeURIComponent(u)
+                paths.push(u)
+            }
+            SepKits.MediaFormatConverter.addFiles(paths)
         }
     }
 

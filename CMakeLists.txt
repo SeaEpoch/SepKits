@@ -104,6 +104,8 @@ set(CPP_FILES
     src/backend/utils/NetworkSpeedTest.h
     src/backend/utils/MediaFormatConverter.cpp
     src/backend/utils/MediaFormatConverter.h
+    src/backend/utils/Logger.cpp
+    src/backend/utils/Logger.h
     src/backend/models/CacheCleanerModel.cpp
     src/backend/models/CacheCleanerModel.h
 )
