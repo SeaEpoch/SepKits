@@ -14,3 +14,8 @@ CLAUDE.md
 
 # 文档（带空格和特殊字符的文件）
 SepKits*.md
+
+# 大文件限制
+third_party/ffmpeg-*/bin/ffplay.exe
+third_party/ffmpeg-*/bin/ffmepg.exe
+third_party/ffmpeg-*/bin/ffprobe.exe

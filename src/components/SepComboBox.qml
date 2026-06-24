@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Controls
 import SepKits as SepKits
+import Qt5Compat.GraphicalEffects
 
 // SepComboBox —— 基于官方 ComboBox 封装的下拉列表控件
 // 用法示例：
@@ -11,7 +12,6 @@ import SepKits as SepKits
 //       currentIndex: 0
 //       onActivated: (index) => console.log("selected:", index)
 //   }
-
 Column {
     id: _root
     spacing: 8
@@ -20,6 +20,7 @@ Column {
     property string label: ""
     property int comboHeight: 48
     property int comboRadius: 12
+    property int maxPopupHeight: 310
     property alias model: _combo.model
     property alias currentIndex: _combo.currentIndex
     property alias currentText: _combo.currentText
@@ -87,13 +88,15 @@ Column {
 
         // —— 下拉弹出层 ────────────────────────────────────────────────────
         popup: Popup {
+            id: _popup
             y: _combo.height + 8
             width: _combo.width
-            height: contentItem.implicitHeight
+            height: Math.min(contentItem.implicitHeight, _root.maxPopupHeight)
             padding: 0
             closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
             contentItem: ListView {
+                id: _listView
                 implicitHeight: contentHeight
                 model: _combo.delegateModel
                 currentIndex: _combo.highlightedIndex
@@ -101,6 +104,28 @@ Column {
                 boundsBehavior: Flickable.StopAtBounds
                 ScrollBar.vertical: ScrollBar {
                     policy: ScrollBar.AsNeeded
+                }
+
+                // ─────────────────────────────────────────────────────────────────
+                // 【BUG 修复记录 —— 2026/06】
+                // 问题描述：
+                //   Popup 的圆角边缘出现直角露白/溢出缺陷。
+                // 原因分析（物理本质）：
+                //   Popup 的内部视图层级中，`contentItem` (ListView) 的渲染层级高于 `background`。
+                //   当 ListView 的子项（或是滚动时的非首尾项）延伸至 Popup 边缘时，其自身的“直角”
+                //   图像会直接遮挡并覆盖在下方 background 的“圆角”之上，导致视觉上圆角失效。
+                //   又因 QML 原生的 `clip: true` 仅支持轴对称的正矩形裁剪，无法对 ListView 自身进行圆角剪裁。
+                // 解决方案：
+                //   利用 `Qt5Compat.GraphicalEffects` 的 `OpacityMask` 组件，为上层的 ListView
+                //   强制套用一层与外框同等半径的圆角不透明遮罩，使遮挡在圆角外部的直角部分完全透明。
+                // ─────────────────────────────────────────────────────────────────
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                        width: _listView.width
+                        height: _listView.height
+                        radius: _root.comboRadius // 严格同步外层的圆角大小
+                    }
                 }
             }
 
@@ -125,7 +150,11 @@ Column {
             readonly property bool isLast: index === _combo.count - 1
 
             background: Rectangle {
-                color: _itemDel.isSelected ? SepKits.Color.accent : (_itemDel.hovered ? SepKits.Color.alpha(SepKits.Color.muted, 0.6) : SepKits.Color.alpha(SepKits.Color.muted, 0))
+                color: _itemDel.isSelected ? SepKits.Color.accent : (_itemDel.hovered ? SepKits.Color.alpha(
+                                                                                            SepKits.Color.muted,
+                                                                                            0.6) : SepKits.Color.alpha(
+                                                                                            SepKits.Color.muted,
+                                                                                            0))
                 topLeftRadius: _itemDel.isFirst ? _root.comboRadius : 0
                 topRightRadius: _itemDel.isFirst ? _root.comboRadius : 0
                 bottomLeftRadius: _itemDel.isLast ? _root.comboRadius : 0

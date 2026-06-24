@@ -444,7 +444,7 @@ Rectangle {
                                 color: SepKits.Color.foreground
                             }
 
-                            SepKits.ComboBox {
+                            SepKits.SepComboBox {
                                 id: _serverCombo
                                 label: ""
                                 Layout.fillWidth: true
@@ -481,7 +481,7 @@ Rectangle {
                                 color: SepKits.Color.foreground
                             }
 
-                            SepKits.ComboBox {
+                            SepKits.SepComboBox {
                                 id: _unitCombo
                                 label: ""
                                 Layout.fillWidth: true

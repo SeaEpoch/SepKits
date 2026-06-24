@@ -41,7 +41,7 @@ set(QML_PLAIN_FILES
     src/components/LoadingPage.qml
     src/components/ToolsPage.qml
     src/components/Card.qml
-    src/components/ComboBox.qml
+    src/components/SepComboBox.qml
     src/components/Dialog.qml
     src/components/SpeedGauge.qml
     src/components/BackButton.qml

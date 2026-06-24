@@ -28,13 +28,62 @@ QString MediaFormatConverter::ffprobePath() {
 
 static QString detectType(const QString &path) {
     const QString ext = QFileInfo(path).suffix().toLower();
-    static const QStringList audioExts = {"mp3","wav","flac","aac","ogg","wma","m4a","opus","aiff","alac","ac3","dts","amr"};
-    static const QStringList videoExts = {"mp4","avi","mkv","mov","webm","wmv","flv","m4v","mpeg","mpg","ts","mts","3gp","ogv","divx"};
-    static const QStringList imageExts = {"jpg","jpeg","png","bmp","webp","gif","tiff","tif","ico","svg"};
+    static const QStringList audioExts = {
+        "mp3","wav","flac","aac","ogg","wma","m4a","opus",
+        "aiff","aif","alac","ac3","dts","amr",
+        "m4r","mp2","w64","cvs","cdda","8svx","amb","gsm","au",
+        "oga","caf","voc","txw","avr","wv","vms","ima",
+        "ra","sd2","pvf","smp","vox","snd","sndr","cvsd","dvms","hcom",
+        "htk","paf","ircam","sf","sndt","sou","maud","sln","wve","prc",
+        "tta","spx","sph","nist"
+    };
+    static const QStringList videoExts = {
+        "mp4","avi","mkv","mov","webm","wmv","flv","m4v",
+        "mpeg","mpg","ts","mts","3gp","ogv","divx",
+        "hevc","h265","mpeg2","m2v","mjpeg","av1","swf",
+        "avchd","vob","xvid","mxf","rm","f4v","asf","rmvb",
+        "wtv","3g2","m2ts"
+    };
+    static const QStringList imageExts = {
+        "jpg","jpeg","png","bmp","webp","gif","tiff","tif","ico","svg",
+        "jp2","j2k","jls","dpx","exr","hdr","rgbe",
+        "fits","fit","qoi",
+        "pam","pbm","pgm","ppm","pfm","phm","pgmyuv",
+        "sgi","rgb","rgba","ras","sun",
+        "tga","xbm","xwd","pcx","vbn","wbmp","pix",
+        "apng","avif","jxl","pgx"
+    };
     if (audioExts.contains(ext)) return QStringLiteral("audio");
     if (videoExts.contains(ext)) return QStringLiteral("video");
     if (imageExts.contains(ext)) return QStringLiteral("image");
     return QStringLiteral("unknown");
+}
+
+static QString classifyImageCodec(const QString &codec) {
+    static const QStringList staticCodecs = {
+        "mjpeg","jpeg2000","jpegls","png","bmp","tiff",
+        "dpx","exr","hdr","fits","qoi",
+        "pam","pbm","pgm","ppm","pfm","phm","pgmyuv",
+        "sgi","sunrast","targa","xbm","xwd",
+        "pcx","vbn","wbmp","alias_pix"
+    };
+    static const QStringList dynamicCodecs = {
+        "apng","gif","webp","avif","jpegxl"
+    };
+    if (staticCodecs.contains(codec)) return QStringLiteral("static");
+    if (dynamicCodecs.contains(codec)) return QStringLiteral("dynamic");
+    return QStringLiteral("static");
+}
+static bool isAudioTarget(const QString &fmt) {
+    static const QStringList audioTargets = {
+        "mp3","wav","ogg","m4a","flac","m4r","opus","aac","wma",
+        "mp2","amr","w64","aiff","cvs","cdda","8svx","amb","gsm","au",
+        "ac3","dts","oga","caf","voc","txw","avr","wv","vms","ima",
+        "ra","sd2","pvf","smp","vox","snd","sndr","cvsd","dvms","hcom",
+        "htk","paf","ircam","sndt","sou","maud","sln","wve","prc",
+        "tta","spx","sph","nist"
+    };
+    return audioTargets.contains(fmt.toLower());
 }
 static QString formatForType(const QString &type) {
     if (type == "audio") return QStringLiteral("mp3");
@@ -75,7 +124,18 @@ void MediaFormatConverter::addFiles(const QStringList &paths) {
         const bool dup = std::any_of(m_files.begin(), m_files.end(), [&](const FileEntry &f) { return f.path == fi.absoluteFilePath(); });
         if (dup) continue;
         FileEntry e; e.path = fi.absoluteFilePath(); e.type = type; e.fileSize = fi.size();
-        e.targetFormat = formatForType(type); e.status = QStringLiteral("pending"); m_files.append(e);
+        e.targetFormat = formatForType(type); e.status = QStringLiteral("pending");
+        if (type == "image") {
+            const QString codec = probeImageCodec(path);
+            e.imageCodec = codec;
+            e.imageCategory = classifyImageCodec(codec);
+            if (e.imageCategory == "dynamic")
+                e.targetFormat = QStringLiteral("gif");
+            Logger::instance()->log(Logger::Info, "MediaFormatConverter", __FUNCTION__,
+                __FILE__, __LINE__,
+                QStringLiteral("Image codec: %1, category: %2").arg(codec, e.imageCategory));
+        }
+        m_files.append(e);
     }
     emit filesChanged();
 }
@@ -111,28 +171,59 @@ void MediaFormatConverter::applyVideoSettingsToAll(const QVariantMap &s) {
 // ─── Quality helpers ───
 static void appendAudioQuality(QStringList &args, const QString &fmt) {
     const QString f = fmt.toLower();
-    if (f=="wav") { args<<"-c:a"<<"pcm_s16le"; }
-    else if (f=="flac") { args<<"-c:a"<<"flac"<<"-compression_level"<<"12"; }
-    else if (f=="mp3") { args<<"-c:a"<<"libmp3lame"<<"-q:a"<<"0"; }
-    else if (f=="aac"||f=="m4a") { args<<"-c:a"<<"aac"<<"-b:a"<<"320k"; }
-    else if (f=="ogg") { args<<"-c:a"<<"libvorbis"<<"-q:a"<<"10"; }
-    else if (f=="opus") { args<<"-c:a"<<"libopus"<<"-b:a"<<"320k"; }
-    else if (f=="wma") { args<<"-c:a"<<"wmav2"<<"-b:a"<<"320k"; }
+    if (f=="wav")            { args<<"-c:a"<<"pcm_s16le"; }
+    else if (f=="flac")      { args<<"-c:a"<<"flac"<<"-compression_level"<<"12"; }
+    else if (f=="mp3")       { args<<"-c:a"<<"libmp3lame"<<"-q:a"<<"0"; }
+    else if (f=="aac"||f=="m4a"||f=="m4r") { args<<"-c:a"<<"aac"<<"-b:a"<<"320k"; }
+    else if (f=="ogg"||f=="oga") { args<<"-c:a"<<"libvorbis"<<"-q:a"<<"10"; }
+    else if (f=="opus")      { args<<"-c:a"<<"libopus"<<"-b:a"<<"320k"; }
+    else if (f=="wma")       { args<<"-c:a"<<"wmav2"<<"-b:a"<<"320k"; }
+    else if (f=="mp2")       { args<<"-c:a"<<"mp2"<<"-b:a"<<"384k"; }
+    else if (f=="amr")       { args<<"-c:a"<<"libopencore_amrnb"<<"-b:a"<<"12.2k"; }
+    else if (f=="ac3")       { args<<"-c:a"<<"ac3"<<"-b:a"<<"448k"; }
+    else if (f=="dts")       { args<<"-c:a"<<"dts"<<"-b:a"<<"1536k"; }
+    else if (f=="aiff")      { args<<"-c:a"<<"pcm_s16be"; }
+    else if (f=="w64")       { args<<"-c:a"<<"pcm_s16le"; }
+    else if (f=="au"||f=="snd") { args<<"-c:a"<<"pcm_s16be"; }
+    else if (f=="ra")        { args<<"-c:a"<<"real_144"<<"-b:a"<<"64k"; }
+    else if (f=="wv")        { args<<"-c:a"<<"wavpack"; }
+    else if (f=="tta")       { args<<"-c:a"<<"tta"; }
+    else if (f=="spx")       { args<<"-c:a"<<"libspeex"<<"-b:a"<<"32k"; }
+    else if (f=="vms"||f=="dvms"||f=="cvsd") { args<<"-c:a"<<"adpcm_vms"; }
+    else if (f=="ima")       { args<<"-c:a"<<"adpcm_ima_wav"; }
+    else                     { args<<"-q:a"<<"0"; }
 }
-static void appendVideoQuality(QStringList &args, const QString &, bool codecSpecified) {
-    if (!codecSpecified) { args<<"-c:v"<<"libx264"<<"-crf"<<"16"<<"-preset"<<"medium"; }
-    else { args<<"-crf"<<"16"; }
+static void appendVideoQuality(QStringList &args, const QString &fmt, bool codecSpecified) {
+    const QString f = fmt.toLower();
+    if (!codecSpecified) {
+        if (f=="webm")            { args<<"-c:v"<<"libvpx-vp9"<<"-crf"<<"30"<<"-b:v"<<"0"; }
+        else if (f=="ogg"||f=="ogv") { args<<"-c:v"<<"libtheora"<<"-q:v"<<"7"; }
+        else if (f=="av1")        { args<<"-c:v"<<"libaom-av1"<<"-crf"<<"30"; }
+        else if (f=="mpeg"||f=="mpg"||f=="mpeg2") { args<<"-c:v"<<"mpeg2video"<<"-q:v"<<"1"; }
+        else if (f=="mjpeg")      { args<<"-c:v"<<"mjpeg"<<"-q:v"<<"1"; }
+        else if (f=="flv")        { args<<"-c:v"<<"flv"<<"-q:v"<<"1"; }
+        else if (f=="wmv")        { args<<"-c:v"<<"wmv2"<<"-q:v"<<"1"; }
+        else                      { args<<"-c:v"<<"libx264"<<"-crf"<<"16"<<"-preset"<<"medium"; }
+    } else {
+        args<<"-crf"<<"16";
+    }
 }
 static void appendImageQuality(QStringList &args, const QString &fmt) {
     const QString f = fmt.toLower();
-    if (f=="jpg"||f=="jpeg") { args<<"-q:v"<<"1"; }
-    else if (f=="webp") { args<<"-lossless"<<"1"<<"-q:v"<<"100"; }
-    else if (f=="png") { args<<"-compression_level"<<"0"; }
+    if (f=="jpg"||f=="jpeg")      { args<<"-q:v"<<"1"; }
+    else if (f=="webp")           { args<<"-lossless"<<"1"<<"-q:v"<<"100"; }
+    else if (f=="png")            { args<<"-compression_level"<<"0"; }
     else if (f=="tiff"||f=="tif") { args<<"-compression_algo"<<"raw"; }
-    else { args<<"-q:v"<<"1"; }
+    else if (f=="jp2"||f=="j2k")  { args<<"-c:v"<<"libopenjpeg"<<"-q:v"<<"1"; }
+    else if (f=="jls")            { args<<"-c:v"<<"libjpegls"; }
+    else if (f=="avif")           { args<<"-c:v"<<"libaom-av1"<<"-crf"<<"10"; }
+    else if (f=="jxl")            { args<<"-c:v"<<"libjxl"<<"-q:v"<<"90"; }
+    else if (f=="apng")           { args<<"-plays"<<"0"; }
+    else if (f=="bmp")            { args<<"-q:v"<<"1"; }
+    else                          { args<<"-q:v"<<"1"; }
 }
 
-QStringList MediaFormatConverter::buildFFmpegArgs(const FileEntry &entry, const QString &outPath) {
+QStringList MediaFormatConverter::buildFFmpegArgs(const FileEntry &entry, const QString &outPath, const QString &imageFrameRate) {
     QStringList args; args<<"-y"<<"-i"<<entry.path;
     const AudioSettings &audio = (entry.type=="video") ? entry.videoSettings.audioSettings : entry.audioSettings;
     if (entry.type=="audio") {
@@ -144,14 +235,42 @@ QStringList MediaFormatConverter::buildFFmpegArgs(const FileEntry &entry, const 
         appendAudioQuality(args, entry.targetFormat);
     } else if (entry.type=="video") {
         const VideoSettings &vid = entry.videoSettings;
-        if (!vid.trimStart.isEmpty()) args<<"-ss"<<vid.trimStart;
-        if (!vid.trimEnd.isEmpty()) args<<"-to"<<vid.trimEnd;
-        bool cs = !vid.videoCodec.isEmpty(); if (cs) args<<"-c:v"<<vid.videoCodec;
-        appendVideoQuality(args, entry.targetFormat, cs);
-        if (audio.volume!=0.0) args<<"-af"<<QStringLiteral("volume=%1dB").arg(audio.volume);
-        if (audio.channels>0) args<<"-ac"<<QString::number(audio.channels);
-        if (audio.sampleRate>0) args<<"-ar"<<QString::number(audio.sampleRate);
-    } else if (entry.type=="image") { appendImageQuality(args, entry.targetFormat); }
+        const QString tgt = entry.targetFormat.toLower();
+        // 路径 A：视频→音频提取
+        if (isAudioTarget(tgt)) {
+            if (!vid.trimStart.isEmpty()) args<<"-ss"<<vid.trimStart;
+            if (!vid.trimEnd.isEmpty()) args<<"-to"<<vid.trimEnd;
+            args<<"-vn";
+            appendAudioQuality(args, tgt);
+        }
+        // 路径 B：视频→GIF
+        else if (tgt == "gif") {
+            if (!vid.trimStart.isEmpty()) args<<"-ss"<<vid.trimStart;
+            if (!vid.trimEnd.isEmpty()) args<<"-to"<<vid.trimEnd;
+            args<<"-vf"<<"fps=10,scale=320:-1:flags=lanczos";
+            args<<"-loop"<<"0";
+        }
+        // 路径 C：普通视频转换
+        else {
+            if (!vid.trimStart.isEmpty()) args<<"-ss"<<vid.trimStart;
+            if (!vid.trimEnd.isEmpty()) args<<"-to"<<vid.trimEnd;
+            bool cs = !vid.videoCodec.isEmpty(); if (cs) args<<"-c:v"<<vid.videoCodec;
+            appendVideoQuality(args, entry.targetFormat, cs);
+            if (audio.volume!=0.0) args<<"-af"<<QStringLiteral("volume=%1dB").arg(audio.volume);
+            if (audio.channels>0) args<<"-ac"<<QString::number(audio.channels);
+            if (audio.sampleRate>0) args<<"-ar"<<QString::number(audio.sampleRate);
+        }
+    } else if (entry.type=="image") {
+        if (entry.imageCategory == "dynamic") {
+            if (!imageFrameRate.isEmpty())
+                args << "-r" << imageFrameRate;
+            const QString tgt = entry.targetFormat.toLower();
+            if (tgt == "gif")       args << "-loop" << "0";
+            else if (tgt == "webp") args << "-loop" << "0";
+            else if (tgt == "apng") args << "-plays" << "0";
+        }
+        appendImageQuality(args, entry.targetFormat);
+    }
     args<<outPath; return args;
 }
 
@@ -162,6 +281,20 @@ double MediaFormatConverter::probeDuration(const QString &path) {
     if (!m_probeProcess->waitForFinished(10000)) return 0.0;
     bool ok; double d = QString::fromUtf8(m_probeProcess->readAllStandardOutput()).trimmed().toDouble(&ok);
     return ok ? d : 0.0;
+}
+QString MediaFormatConverter::probeImageCodec(const QString &path) {
+    QProcess probe;
+    QStringList args; args<<"-v"<<"error"<<"-select_streams"<<"v:0"<<"-show_entries"<<"stream=codec_name"<<"-of"<<"default=noprint_wrappers=1:nokey=1"<<path;
+    probe.start(ffprobePath(), args);
+    if (!probe.waitForFinished(5000)) return {};
+    return QString::fromUtf8(probe.readAllStandardOutput()).trimmed().toLower();
+}
+QString MediaFormatConverter::probeImageFrameRate(const QString &path) {
+    QProcess probe;
+    QStringList args; args<<"-v"<<"error"<<"-select_streams"<<"v:0"<<"-show_entries"<<"stream=r_frame_rate"<<"-of"<<"csv=p=0"<<path;
+    probe.start(ffprobePath(), args);
+    if (!probe.waitForFinished(5000)) return {};
+    return QString::fromUtf8(probe.readAllStandardOutput()).trimmed();
 }
 void MediaFormatConverter::parseProgress(const QString &line) {
     if (m_currentDuration<=0.0) return;
@@ -199,7 +332,14 @@ void MediaFormatConverter::convertNext() {
     emit currentFileIndexChanged();
     QString outPath = m_outputDir+"/"+QFileInfo(m_files[m_currentIndex].path).completeBaseName()+"."+m_files[m_currentIndex].targetFormat;
     m_currentDuration = probeDuration(m_files[m_currentIndex].path);
-    m_process->start(ffmpegPath(), buildFFmpegArgs(m_files[m_currentIndex], outPath));
+    QString frameRate;
+    if (m_files[m_currentIndex].type == "image" && m_files[m_currentIndex].imageCategory == "dynamic") {
+        frameRate = probeImageFrameRate(m_files[m_currentIndex].path);
+        if (!frameRate.isEmpty())
+            Logger::instance()->log(Logger::Info, "MediaFormatConverter", __FUNCTION__, __FILE__, __LINE__,
+                QStringLiteral("Dynamic image frame rate: %1").arg(frameRate));
+    }
+    m_process->start(ffmpegPath(), buildFFmpegArgs(m_files[m_currentIndex], outPath, frameRate));
 }
 void MediaFormatConverter::onReadyReadStderr() {
     const QString data = QString::fromUtf8(m_process->readAllStandardError());
@@ -215,7 +355,7 @@ void MediaFormatConverter::onProcessError(QProcess::ProcessError) { if (!m_cance
 
 void MediaFormatConverter::resetState() {
     m_currentIndex=-1; m_progress=0.0; m_fileProgress=0.0; m_currentDuration=0.0; m_cancelled=false;
-    for (auto &f : m_files) if (f.status!="done") f.status=QStringLiteral("pending");
+    for (auto &f : m_files) if (f.status!="done"&&f.status!="failed") f.status=QStringLiteral("pending");
     emit filesChanged(); emit isRunningChanged(); emit progressChanged(); emit currentFileIndexChanged();
 }
 void MediaFormatConverter::updateFileStatus(int i, const QString &s) { if (i>=0&&i<m_files.size()&&m_files[i].status!=s) { m_files[i].status=s; emit filesChanged(); } }
@@ -223,6 +363,7 @@ void MediaFormatConverter::updateFileStatus(int i, const QString &s) { if (i>=0&
 QVariantMap MediaFormatConverter::fileToVariant(const FileEntry &e) const {
     QVariantMap m; m["path"]=e.path; m["fileName"]=QFileInfo(e.path).fileName(); m["type"]=e.type;
     m["fileSize"]=e.fileSize; m["fileSizeText"]=formatSize(e.fileSize); m["targetFormat"]=e.targetFormat; m["status"]=e.status;
+    m["imageCodec"]=e.imageCodec; m["imageCategory"]=e.imageCategory;
     QVariantMap am; am["trimStart"]=e.audioSettings.trimStart; am["trimEnd"]=e.audioSettings.trimEnd; am["volume"]=e.audioSettings.volume; am["channels"]=e.audioSettings.channels; am["sampleRate"]=e.audioSettings.sampleRate; m["audioSettings"]=am;
     QVariantMap vm; vm["trimStart"]=e.videoSettings.trimStart; vm["trimEnd"]=e.videoSettings.trimEnd; vm["videoCodec"]=e.videoSettings.videoCodec;
     QVariantMap va; va["trimStart"]=e.videoSettings.audioSettings.trimStart; va["trimEnd"]=e.videoSettings.audioSettings.trimEnd; va["volume"]=e.videoSettings.audioSettings.volume; va["channels"]=e.videoSettings.audioSettings.channels; va["sampleRate"]=e.videoSettings.audioSettings.sampleRate; vm["audioSettings"]=va; m["videoSettings"]=vm;

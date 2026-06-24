@@ -77,7 +77,7 @@ Rectangle {
             }
 
             // Unit combo
-            SepKits.ComboBox {
+            SepKits.SepComboBox {
                 label: ""
                 Layout.preferredWidth: 150
                 model: [qsTr("Words"), qsTr("Sentences"), qsTr("Paragraphs")]
@@ -86,7 +86,7 @@ Rectangle {
             }
 
             // Language combo
-            SepKits.ComboBox {
+            SepKits.SepComboBox {
                 label: ""
                 Layout.preferredWidth: 130
                 model: [qsTr("English"), qsTr("中文")]

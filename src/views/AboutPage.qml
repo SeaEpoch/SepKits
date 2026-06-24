@@ -322,7 +322,7 @@ Item {
                             id: _githubButton
                             width: parent.width
                             height: 48
-                            onClicked: Qt.openUrlExternally("https://github.com/SeaEpoch")
+                            onClicked: Qt.openUrlExternally("https://github.com/SeaEpoch/SepKits")
                             flat: false
 
                             leftPadding: 24

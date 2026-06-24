@@ -14,17 +14,47 @@ Rectangle {
         readonly property var settingsFile: settingsFileIndex >= 0
                                             && settingsFileIndex < SepKits.MediaFormatConverter.files.length ? SepKits.MediaFormatConverter.files[settingsFileIndex] : null
         readonly property bool settingsIsVideo: settingsFile && settingsFile.type === "video"
-        readonly property var audioFormats: ["MP3", "WAV", "FLAC", "AAC", "OGG", "WMA", "M4A", "OPUS"]
-        readonly property var videoFormats: ["MP4", "AVI", "MKV", "MOV", "WebM", "WMV", "FLV"]
-        readonly property var imageFormats: ["JPG", "PNG", "BMP", "WebP", "TIFF", "GIF", "ICO"]
-        function formatsForType(type) {
-            if (type === "audio")
+        readonly property var audioFormats: [
+            "MP3","WAV","OGG","M4A","FLAC","M4R","OPUS","AAC","WMA",
+            "MP2","AMR","W64","AIFF","CVS","CDDA","8SVX","AMB","GSM","AU",
+            "AC3","DTS","OGA","CAF","VOC","TXW","AVR","WV","VMS","IMA",
+            "RA","SD2","PVF","SMP","VOX","SND","SNDR","CVSD","DVMS","HCOM",
+            "HTK","PAF","IRCAM","SNDT","SOU","MAUD","SLN","WVE","PRC",
+            "TTA","SPX","SPH","NIST"
+        ]
+        readonly property var videoFormats: [
+            "MP4","AVI","MOV","WEBM","MPEG","WMV","MPG","OGV","MKV",
+            "3GP","HEVC","MPEG-2","M4V","MJPEG","DIVX","FLV","AV1","SWF",
+            "AVCHD","VOB","TS","XVID","MXF","RM","MTS","F4V","ASF","RMVB",
+            "WTV","3G2","M2V","M2TS"
+        ]
+        readonly property var staticImageFormats: [
+            "PNG","JPEG","BMP","TIFF",
+            "HDR","EXR","JP2","WBMP","PPM","PGM","PCX","SGI","SUN",
+            "TGA","XBM","XWD","PAM","PBM","PFM"
+        ]
+        readonly property var dynamicImageFormats: ["GIF","WebP","APNG","AVIF"]
+        function formatsForType(file) {
+            if (!file) return []
+            if (file.type === "audio")
                 return audioFormats
-            if (type === "video")
-                return videoFormats
-            if (type === "image")
-                return imageFormats
+            if (file.type === "video")
+                return videoFormats.concat(["GIF"]).concat(audioFormats)
+            if (file.type === "image") {
+                if (file.imageCategory === "dynamic")
+                    return dynamicImageFormats
+                return staticImageFormats
+            }
             return []
+        }
+        function formatValue(name) {
+            var m = {
+                "JPEG": "jpg", "MPEG-2": "mpeg2",
+                "WebM": "webm", "SUN": "sun", "MPEG": "mpeg",
+                "CDDA": "cdda", "AVCHD": "mts"
+            }
+            var v = m[name]
+            return v !== undefined ? v : name.toLowerCase()
         }
 
         // ─── Settings field values (bridged between content Component and backend) ───
@@ -249,7 +279,7 @@ Rectangle {
                             }
                         }
                         Item {
-                            Layout.preferredWidth: 140
+                            Layout.preferredWidth: 210
                             Layout.fillHeight: true
                             Text {
                                 anchors.left: parent.left
@@ -382,7 +412,7 @@ Rectangle {
                                 }
                             }
                             Item {
-                                Layout.preferredWidth: 140
+                                Layout.preferredWidth: 210
                                 Layout.fillHeight: true
                                 Row {
                                     anchors {
@@ -390,29 +420,30 @@ Rectangle {
                                         verticalCenter: parent.verticalCenter
                                     }
                                     spacing: SepKits.Theme.spacingSm
-                                    SepKits.ComboBox {
+                                    SepKits.SepComboBox {
                                         id: _fmtCombo
                                         anchors.verticalCenter: parent.verticalCenter
                                         label: ""
-                                        width: 78
+                                        width: 117
                                         comboHeight: 32
                                         comboRadius: SepKits.Theme.radius
                                         enabled: !_root.isRunning
-                                        model: _private.formatsForType(_row.file.type)
+                                        model: _private.formatsForType(_row.file)
                                         currentIndex: {
-                                            var fmts = _private.formatsForType(_row.file.type)
+                                            var fmts = _private.formatsForType(_row.file)
                                             var tgt = String(_row.file.targetFormat).toLowerCase()
                                             for (var i = 0; i < fmts.length; i++) {
-                                                if (String(fmts[i]).toLowerCase() === tgt)
+                                                if (_private.formatValue(String(fmts[i])) === tgt)
                                                     return i
                                             }
                                             return -1
                                         }
                                         onActivated: idx => {
                                                          SepKits.MediaFormatConverter.setTargetFormat(
-                                                             _row.index, String(
-                                                                 _fmtCombo.model[idx]).toLowerCase(
-                                                                 ))
+                                                             _row.index,
+                                                             _private.formatValue(
+                                                                 String(_fmtCombo.model[idx]))
+                                                         )
                                                      }
                                     }
                                     Button {
@@ -619,10 +650,10 @@ Rectangle {
         title: qsTr("Select Media Files")
         fileMode: FileDialog.OpenFiles
         nameFilters: [
-            qsTr("All Media (%1)").arg("*.mp3 *.wav *.flac *.aac *.ogg *.wma *.m4a *.opus *.mp4 *.avi *.mkv *.mov *.webm *.wmv *.flv *.jpg *.jpeg *.png *.bmp *.webp *.tiff *.gif *.ico"),
-            qsTr("Audio (%1)").arg("*.mp3 *.wav *.flac *.aac *.ogg *.wma *.m4a *.opus"),
-            qsTr("Video (%1)").arg("*.mp4 *.avi *.mkv *.mov *.webm *.wmv *.flv"),
-            qsTr("Images (%1)").arg("*.jpg *.jpeg *.png *.bmp *.webp *.tiff *.gif *.ico"),
+            qsTr("All Media (%1)").arg("*.mp3 *.wav *.flac *.aac *.ogg *.wma *.m4a *.opus *.m4r *.mp2 *.amr *.w64 *.aiff *.aif *.cvs *.cdda *.8svx *.amb *.gsm *.au *.ac3 *.dts *.oga *.caf *.voc *.txw *.avr *.wv *.vms *.ima *.ra *.sd2 *.pvf *.smp *.vox *.snd *.sndr *.cvsd *.dvms *.hcom *.htk *.paf *.ircam *.sf *.sndt *.sou *.maud *.sln *.wve *.prc *.tta *.spx *.sph *.nist *.mp4 *.avi *.mkv *.mov *.webm *.wmv *.flv *.mpeg *.mpg *.ogv *.3gp *.hevc *.h265 *.mpeg2 *.m4v *.mjpeg *.divx *.av1 *.swf *.avchd *.vob *.ts *.xvid *.mxf *.rm *.mts *.f4v *.asf *.rmvb *.wtv *.3g2 *.m2v *.m2ts *.jpg *.jpeg *.png *.bmp *.webp *.tiff *.tif *.gif *.ico *.jp2 *.j2k *.jls *.dpx *.exr *.hdr *.rgbe *.fits *.fit *.qoi *.pam *.pbm *.pgm *.ppm *.pfm *.phm *.pgmyuv *.sgi *.rgb *.rgba *.ras *.sun *.tga *.xbm *.xwd *.pcx *.vbn *.wbmp *.pix *.apng *.avif *.jxl *.pgx"),
+            qsTr("Audio (%1)").arg("*.mp3 *.wav *.flac *.aac *.ogg *.wma *.m4a *.opus *.m4r *.mp2 *.amr *.w64 *.aiff *.aif *.cvs *.cdda *.8svx *.amb *.gsm *.au *.ac3 *.dts *.oga *.caf *.voc *.txw *.avr *.wv *.vms *.ima *.ra *.sd2 *.pvf *.smp *.vox *.snd *.sndr *.cvsd *.dvms *.hcom *.htk *.paf *.ircam *.sf *.sndt *.sou *.maud *.sln *.wve *.prc *.tta *.spx *.sph *.nist"),
+            qsTr("Video (%1)").arg("*.mp4 *.avi *.mkv *.mov *.webm *.wmv *.flv *.mpeg *.mpg *.ogv *.3gp *.hevc *.h265 *.mpeg2 *.m4v *.mjpeg *.divx *.av1 *.swf *.avchd *.vob *.ts *.xvid *.mxf *.rm *.mts *.f4v *.asf *.rmvb *.wtv *.3g2 *.m2v *.m2ts"),
+            qsTr("Images (%1)").arg("*.jpg *.jpeg *.png *.bmp *.webp *.tiff *.tif *.gif *.ico *.jp2 *.j2k *.jls *.dpx *.exr *.hdr *.rgbe *.fits *.fit *.qoi *.pam *.pbm *.pgm *.ppm *.pfm *.phm *.pgmyuv *.sgi *.rgb *.rgba *.ras *.sun *.tga *.xbm *.xwd *.pcx *.vbn *.wbmp *.pix *.apng *.avif *.jxl"),
             qsTr("All Files (%1)").arg("*.*")
         ]
         onAccepted: {
@@ -641,6 +672,7 @@ Rectangle {
     }
 
     DropArea {
+        z: 1
         anchors.fill: parent
         enabled: !_root.isRunning
         onDropped: function (d) {
@@ -793,7 +825,7 @@ Rectangle {
                                 font.pixelSize: SepKits.Font.sizeSmall
                                 color: SepKits.Color.foreground
                             }
-                            SepKits.ComboBox {
+                            SepKits.SepComboBox {
                                 id: _vCodecCombo
                                 Layout.fillWidth: true
                                 label: ""
@@ -923,7 +955,7 @@ Rectangle {
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
                 }
-                SepKits.ComboBox {
+                SepKits.SepComboBox {
                     Layout.fillWidth: true
                     label: ""
                     comboHeight: 32
@@ -942,7 +974,7 @@ Rectangle {
                     font.pixelSize: SepKits.Font.sizeSmall
                     color: SepKits.Color.foreground
                 }
-                SepKits.ComboBox {
+                SepKits.SepComboBox {
                     Layout.fillWidth: true
                     label: ""
                     comboHeight: 32

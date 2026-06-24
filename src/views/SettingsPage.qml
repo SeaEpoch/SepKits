@@ -56,7 +56,7 @@ Item {
                     }
 
                     // 语言设置
-                    SepKits.ComboBox {
+                    SepKits.SepComboBox {
                         width: parent.width
                         label: qsTr("Language")
                         model: SepKits.LanguageManager.model
@@ -72,7 +72,7 @@ Item {
                     }
 
                     // 关闭程序时的行为
-                    SepKits.ComboBox {
+                    SepKits.SepComboBox {
                         width: parent.width
                         label: qsTr("When closing the program")
                         model: SepKits.AppSettings.closeBehaviorModel

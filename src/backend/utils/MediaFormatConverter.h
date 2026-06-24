@@ -46,11 +46,14 @@ private slots:
 private:
     struct AudioSettings { QString trimStart; QString trimEnd; double volume = 0.0; int channels = 0; int sampleRate = 0; };
     struct VideoSettings { QString trimStart; QString trimEnd; QString videoCodec; AudioSettings audioSettings; };
-    struct FileEntry { QString path; QString type; qint64 fileSize = 0; QString targetFormat; QString status; AudioSettings audioSettings; VideoSettings videoSettings; };
+    struct FileEntry { QString path; QString type; qint64 fileSize = 0; QString targetFormat; QString status; QString imageCodec; QString imageCategory; AudioSettings audioSettings; VideoSettings videoSettings; };
 
     void convertNext(); void updateFileStatus(int index, const QString &status);
-    QStringList buildFFmpegArgs(const FileEntry &entry, const QString &outPath);
+    QStringList buildFFmpegArgs(const FileEntry &entry, const QString &outPath,
+                                const QString &imageFrameRate = {});
     double probeDuration(const QString &path); void parseProgress(const QString &line);
+    static QString probeImageCodec(const QString &path);
+    static QString probeImageFrameRate(const QString &path);
     void resetState(); QVariantMap fileToVariant(const FileEntry &entry) const;
 
     QList<FileEntry> m_files; QProcess *m_process = nullptr; QProcess *m_probeProcess = nullptr;
