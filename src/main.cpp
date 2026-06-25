@@ -11,6 +11,8 @@
 #include "backend/utils/Logger.h"
 #include "backend/utils/LoremIpsumGenerator.h"
 #include "backend/utils/MediaFormatConverter.h"
+#include "backend/utils/WatermarkProcessor.h"
+#include "backend/utils/ImageCompressor.h"
 #include "backend/utils/NetworkSpeedTest.h"
 #include "backend/utils/SettingsStore.h"
 #include "backend/utils/SystemCacheCleaner.h"
@@ -121,6 +123,12 @@ int main(int argc, char* argv[])
 
     MediaFormatConverter mediaFormatConverter(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "MediaFormatConverter", &mediaFormatConverter);
+
+    WatermarkProcessor watermarkProcessor(&app);
+    qmlRegisterSingletonInstance("SepKits", 1, 0, "WatermarkProcessor", &watermarkProcessor);
+
+    ImageCompressor imageCompressor(&app);
+    qmlRegisterSingletonInstance("SepKits", 1, 0, "ImageCompressor", &imageCompressor);
 
     SystemCacheCleaner cacheCleaner(&app);
     qmlRegisterSingletonInstance("SepKits", 1, 0, "SystemCacheCleaner", &cacheCleaner);

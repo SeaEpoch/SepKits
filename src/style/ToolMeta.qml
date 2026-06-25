@@ -11,7 +11,7 @@ QtObject {
             case "views/LoremIpsumGenerator.qml": return qsTr("Lorem Ipsum Generator")
             case "views/WatermarkAdder.qml": return qsTr("Watermark Adder")
             case "views/VideoWatermarkAdder.qml": return qsTr("Video Watermark")
-            case "views/FileSizeCompressor.qml": return qsTr("Image Compression")
+            case "views/ImageCompression.qml": return qsTr("Image Compression")
             case "views/MediaFormatConverter.qml": return qsTr("Media Format Converter")
             case "views/ColorThemePicker.qml": return qsTr("Color Theme Picker")
             case "views/NetworkSpeedTest.qml": return qsTr("Network Speed Test")
@@ -27,7 +27,7 @@ QtObject {
             case "views/LoremIpsumGenerator.qml": return qsTr("Generate placeholder text quickly.")
             case "views/WatermarkAdder.qml": return qsTr("Add watermarks to media files.")
             case "views/VideoWatermarkAdder.qml": return qsTr("Add watermarks to video files.")
-            case "views/FileSizeCompressor.qml": return qsTr("Compress images without quality loss.")
+            case "views/ImageCompression.qml": return qsTr("Compress images without quality loss.")
             case "views/MediaFormatConverter.qml": return qsTr("Convert media formats easily.")
             case "views/ColorThemePicker.qml": return qsTr("Generate & save color schemes.")
             case "views/NetworkSpeedTest.qml": return qsTr("Measure download/upload speeds.")
@@ -43,7 +43,7 @@ QtObject {
             case "views/LoremIpsumGenerator.qml": return qsTr("DEV")
             case "views/WatermarkAdder.qml": return qsTr("MEDIA")
             case "views/VideoWatermarkAdder.qml": return qsTr("MEDIA")
-            case "views/FileSizeCompressor.qml": return qsTr("MEDIA")
+            case "views/ImageCompression.qml": return qsTr("MEDIA")
             case "views/MediaFormatConverter.qml": return qsTr("MEDIA")
             case "views/ColorThemePicker.qml": return qsTr("OTHER")
             case "views/NetworkSpeedTest.qml": return qsTr("OTHER")
@@ -59,7 +59,7 @@ QtObject {
             case "views/LoremIpsumGenerator.qml": return "edit"
             case "views/WatermarkAdder.qml": return "brandingWatermark"
             case "views/VideoWatermarkAdder.qml": return "brandingWatermark"
-            case "views/FileSizeCompressor.qml": return "compress"
+            case "views/ImageCompression.qml": return "compress"
             case "views/MediaFormatConverter.qml": return "driveFileMove"
             case "views/ColorThemePicker.qml": return "changeCircle"
             case "views/NetworkSpeedTest.qml": return "networkCheck"

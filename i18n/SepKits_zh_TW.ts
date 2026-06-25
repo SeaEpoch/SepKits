@@ -331,9 +331,8 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <translation type="vanished">← 返回</translation>
     </message>
     <message>
-        <location filename="../src/views/FileSizeCompressor.qml" line="17"/>
         <source>Image Compression</source>
-        <translation>圖片壓縮</translation>
+        <translation type="vanished">圖片壓縮</translation>
     </message>
 </context>
 <context>
@@ -352,6 +351,143 @@ Our mission is to make Windows management simple, intuitive, and accessible to e
         <location filename="../src/views/HomePage.qml" line="8"/>
         <source>Pinned Tools</source>
         <translation>釘選工具</translation>
+    </message>
+</context>
+<context>
+    <name>ImageCompression</name>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="40"/>
+        <source>Image Compression</source>
+        <translation type="unfinished">圖片壓縮</translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="49"/>
+        <source>Add Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="53"/>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="53"/>
+        <source>Start Compression</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="66"/>
+        <source>Output to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="88"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="98"/>
+        <source>Apply quality to all:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="116"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="141"/>
+        <source>File Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="148"/>
+        <source>Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="156"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="163"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="258"/>
+        <source>Compressing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="259"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="260"/>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="261"/>
+        <source>Ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="304"/>
+        <source>Drag and drop image files here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/views/ImageCompression.qml" line="324"/>
+        <source>Compressing %n file(s)...</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="325"/>
+        <source>Compressing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="328"/>
+        <source>Add files to begin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="330"/>
+        <source>All files compressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../src/views/ImageCompression.qml" line="331"/>
+        <source>%n file(s) ready</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="348"/>
+        <source>Add Image Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="351"/>
+        <source>Images (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="352"/>
+        <source>All Files (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/ImageCompression.qml" line="365"/>
+        <source>Select Output Folder</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1327,9 +1463,194 @@ Please save any unsaved work before proceeding.</source>
         <translation type="vanished">← 返回</translation>
     </message>
     <message>
-        <location filename="../src/views/WatermarkAdder.qml" line="17"/>
         <source>Image Watermark</source>
-        <translation>圖片浮水印</translation>
+        <translation type="vanished">圖片浮水印</translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="116"/>
+        <source>Watermark Adder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="130"/>
+        <source>Cancel</source>
+        <translation type="unfinished">取消</translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="130"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="146"/>
+        <source>Output to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="168"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="457"/>
+        <source>Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="277"/>
+        <source>Single Watermark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="296"/>
+        <source>Batch Watermark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="125"/>
+        <source>Add File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="253"/>
+        <source>Add a file to preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="327"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="330"/>
+        <source>Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="330"/>
+        <source>Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="355"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="552"/>
+        <source>Watermark text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="365"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="562"/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="386"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="582"/>
+        <source>Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="418"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="614"/>
+        <source>Size: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="449"/>
+        <source>Select watermark image...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="402"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="479"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="598"/>
+        <source>Opacity: %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="495"/>
+        <source>Size: %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="513"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="630"/>
+        <source>Rotation: %1°</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="528"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="684"/>
+        <source>File: %1 (%2×%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="646"/>
+        <source>H Spacing: %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="662"/>
+        <source>V Spacing: %1%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="676"/>
+        <source>Watermark text will repeat in a grid pattern across the entire media.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="702"/>
+        <source>Processing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="703"/>
+        <source>Complete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="704"/>
+        <source>Ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="731"/>
+        <source>Select Media File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="734"/>
+        <source>All Media (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="735"/>
+        <source>Videos (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="736"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="761"/>
+        <source>Images (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="737"/>
+        <location filename="../src/views/WatermarkAdder.qml" line="762"/>
+        <source>All Files (*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="747"/>
+        <source>Select Output Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="758"/>
+        <source>Select Watermark Image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/views/WatermarkAdder.qml" line="773"/>
+        <source>Select Font</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

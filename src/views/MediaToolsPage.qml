@@ -15,7 +15,7 @@ SepKits.ToolsPage {
 
     model: ListModel {
         ListElement { pageUrl: "views/WatermarkAdder.qml" }
-        ListElement { pageUrl: "views/FileSizeCompressor.qml" }
+        ListElement { pageUrl: "views/ImageCompression.qml" }
         ListElement { pageUrl: "views/MediaFormatConverter.qml" }
     }
 }

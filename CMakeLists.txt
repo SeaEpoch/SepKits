@@ -50,6 +50,7 @@ set(QML_PLAIN_FILES
     src/components/SecondaryButton.qml
     src/components/SepProgressBar.qml
     src/components/SepSlider.qml
+    src/components/SepColorPicker.qml
 
 
     src/views/HomePage.qml
@@ -59,7 +60,7 @@ set(QML_PLAIN_FILES
     src/views/WindowsAutoUpdateDisabler.qml
     src/views/MediaFormatConverter.qml
     src/views/WatermarkAdder.qml
-    src/views/FileSizeCompressor.qml
+    src/views/ImageCompression.qml
     src/views/LoremIpsumGenerator.qml
 
     src/views/ColorThemePicker.qml
@@ -104,6 +105,10 @@ set(CPP_FILES
     src/backend/utils/NetworkSpeedTest.h
     src/backend/utils/MediaFormatConverter.cpp
     src/backend/utils/MediaFormatConverter.h
+    src/backend/utils/WatermarkProcessor.cpp
+    src/backend/utils/WatermarkProcessor.h
+    src/backend/utils/ImageCompressor.cpp
+    src/backend/utils/ImageCompressor.h
     src/backend/utils/Logger.cpp
     src/backend/utils/Logger.h
     src/backend/models/CacheCleanerModel.cpp
